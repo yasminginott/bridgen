@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+@font-face {
+    font-family: 'Heebo';
+    src: url('pucblic/Heebo/static/Heebo-Regular.ttf') format('woff2');
+    /* Add additional font formats for broader compatibility */
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    background-color: #EEE5DF;
+    --blue_primary: #648a8a;
+    --secondry_light: #756F92;
+    --secondry_dark: black;
+    --text_color: black;
+    --link: #B55700;
+    /* --primary-font: 'Arial'; */
+    --primary-font: 'Heebo', sans-serif;}
