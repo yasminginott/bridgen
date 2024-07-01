@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+:root {
+    background-color: #EEE5DF;
+    --blue_primary: #648a8a;
+    --secondry_light: #f8d7c5;
+    --secondry_dark: #c16d58;
+    --text_color: black;
+    --text_color_secondry: #6A6A6A;
+    --primary-font: 'Rubik', sans-serif;
+}
+
 html, body {
     width: 430px; 
     height: 932px;
@@ -10,6 +22,8 @@ text-align: right;}
 
 .Contact_button {
     align-items: center;
+    height: 70px;
+    width: 239px;
     background-color: var(--blue_primary);
     border-radius: 12px;
     box-shadow: 0 0 0 3px transparent, rgba(18, 18, 18, .1) 0 6px 20px;
@@ -46,39 +60,28 @@ text-align: right;}
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap'); */
 
-@font-face {
-    font-family: 'Heebo';
-    src: url('public/Heebo/Heebo-Regular.woff2') format('woff2'),
-         url('public/Heebo/Heebo-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
-@font-face {
+/* @font-face {
     font-family: 'Roboto';
-    src: url('public/Roboto/Roboto-Regular.woff2') format('woff2'),
-         url('public/Roboto/Roboto-Regular.woff') format('woff');
+    src: url('pubclic/Roboto/Roboto-Regular.woff2') format('woff2'),
+         url('pubclic/Roboto/Roboto-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-:root {
-    background-color: #EEE5DF;
-    --blue_primary: #648a8a;
-    --secondry_light: #f8d7c5;
-    --secondry_dark: #c16d58;
-    --text_color: black;
-    --text_color_secondry: #6A6A6A;
-    --primary-font: 'Roboto';
-}
+} */
+
 
 h1{
-    font-family: var(--primary-font),sans-serif;
-    text-align:right
+    font-family: var(--primary-font);
+    text-align:right;
+}
+h2{
+    font-family: var(--primary-font);
+    text-align:right;
 }
 p{
-    font-family: var(--primary-font),sans-serif;
+    font-family: var(--primary-font);
     color: var(--text_color_secondry);
     font-size: 14px;
     
@@ -122,7 +125,7 @@ p{
     cursor: pointer;
     display: inline-flex;
     fill: currentcolor;
-    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 14px;
     font-weight: 500;
     height: 48px;
