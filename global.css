@@ -1,19 +1,146 @@
+html, body {
+    width: 430px; 
+    height: 932px;
+text-align: right;}
+
+.card{
+    width: 430px; 
+    height: 932px;
+}
+
+.Contact_button {
+    align-items: center;
+    background-color: var(--blue_primary);
+    border-radius: 12px;
+    box-shadow: 0 0 0 3px transparent, rgba(18, 18, 18, .1) 0 6px 20px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    flex: 1 1 auto;
+    font-size: 1.2rem;
+    font-family: var(--primary-font), sans-serif;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s, -webkit-box-shadow .2s;
+    white-space: nowrap;
+    border: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+}
+.right-aligned {
+    text-align: right;  }
+
+
+.profile-img {
+    width: 389;
+    height: 305;
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
 @font-face {
     font-family: 'Heebo';
-    src: url('pucblic/Heebo/static/Heebo-Regular.ttf') format('woff2');
-    /* Add additional font formats for broader compatibility */
+    src: url('public/Heebo/Heebo-Regular.woff2') format('woff2'),
+         url('public/Heebo/Heebo-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('public/Roboto/Roboto-Regular.woff2') format('woff2'),
+         url('public/Roboto/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
     background-color: #EEE5DF;
     --blue_primary: #648a8a;
     --secondry_light: #f8d7c5;
     --secondry_dark: #c16d58;
     --text_color: black;
-    --link: #B55700;
-    /* --primary-font: 'Heebo'; */
-    --primary-font: 'Heebo';}
+    --text_color_secondry: #6A6A6A;
+    --primary-font: 'Roboto';
+}
 
+h1{
+    font-family: var(--primary-font),sans-serif;
+    text-align:right
+}
+p{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color_secondry);
+    font-size: 14px;
+    
+    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* רווח בין הכפתורים */
+}
+
+
+
+.action-buttons img {
+    height: 50px;
+    cursor: pointer;
+}
+
+
+/* CSS */
+.skill_button{
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 100px;
+    border-style: none;
+    border-color: var(--secondry_dark);
+    box-sizing: border-box;
+    color: var(--secondry_dark);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+    border: 2px solid var(--secondry_dark); 
+}

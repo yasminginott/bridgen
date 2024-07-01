@@ -42,7 +42,7 @@ header {
 select, textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #CB6607;
+    border: 1px solid var(--secondry_dark);
     border-radius: 10px;
     font-size: 16px;
     color: #CB6607;
