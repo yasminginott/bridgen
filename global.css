@@ -68,13 +68,21 @@ text-align: right;}
     --blue_primary: #648a8a;
     --secondry_light: #f8d7c5;
     --secondry_dark: #c16d58;
-    --text_color: black;
+    --text_color: #3C2F2F;
     --text_color_secondry: #6A6A6A;
+    --background_color: #FFFFFF;
     --primary-font: 'Roboto';
 }
 
 h1{
     font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right
+}
+
+h2{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
     text-align:right
 }
 p{
@@ -88,11 +96,11 @@ p{
 .card {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    text-align: right;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: var(--background_color);
 }
 
 .action-buttons {
@@ -143,4 +151,60 @@ p{
     will-change: transform,opacity;
     z-index: 0;
     border: 2px solid var(--secondry_dark); 
+}
+
+.plus-button {
+    width: 26px;
+    height: 26px;
+    background-color: white; /* Button background color */
+    border: 2px solid black; /* Black border */
+    border-radius: 50%; /* Make it a circle */
+    color: black; /* Plus sign color */
+    font-size: 20px; /* Plus sign size */
+    text-align: center; /* Center the text */
+    line-height: 22px; /* Center the plus sign vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+    vertical-align: middle; /* Align vertically with h2 text */
+    margin-right: 15px; /* Optional: Add some space between h2 and button */    
+}
+
+.plus-button:hover {
+    background-color: #3C2F2F; /* Slightly darker on hover */
+    color: white;
+}
+
+.inline {
+    display: inline-flex; 
+    align-items: center; /* Align vertically with button */
+}
+
+.inline-icon {
+    display: inline-flex;
+    align-items: center; /* Align vertically with text */
+}
+
+.inline-icon img {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    margin-right: 10px; /* Add space between the text and the icon */
+    vertical-align: top; 
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    cursor: pointer;
+}
+
+.menu-item img {
+    width: 30px;
+    height: 30px;
 }
