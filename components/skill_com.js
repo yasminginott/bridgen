@@ -45,7 +45,7 @@ class SkillButton extends HTMLElement {
             display: none;
             position: fixed;
             top: 50%;
-            left: 60%;
+            left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
             padding: 10px;

@@ -11,11 +11,19 @@
 }
 
 html, body {
-    width: 430px; 
-    height: 932px;
-text-align: right;}
+    margin: 0;
+    padding: 0;
+    width: 100vw; /* Viewport width */
+    height: 100vh; /* Viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: left; /* Default text alignment */
+}
+
 
 .card{
+    text-align: right; 
     width: 430px; 
     height: 932px;
 }
@@ -63,12 +71,12 @@ text-align: right;}
 
 h1{
     font-family: var(--primary-font),sans-serif;
-    color: var(--text_color)
+    color: var(--text_color);
     text-align:right
 }
 h2{
     font-family: var(--primary-font),sans-serif;
-    color: var(--text_color)
+    color: var(--text_color);
     text-align:right
 }
 p{
