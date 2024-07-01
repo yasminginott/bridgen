@@ -10,9 +10,10 @@
 :root {
     background-color: #EEE5DF;
     --blue_primary: #648a8a;
-    --secondry_light: #756F92;
-    --secondry_dark: black;
+    --secondry_light: #f8d7c5;
+    --secondry_dark: #c16d58;
     --text_color: black;
     --link: #B55700;
-    /* --primary-font: 'Arial'; */
-    --primary-font: 'Heebo', sans-serif;}
+    /* --primary-font: 'Heebo'; */
+    --primary-font: 'Heebo';}
+
