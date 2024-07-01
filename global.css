@@ -63,13 +63,13 @@ text-align: right;}
 
 h1{
     font-family: var(--primary-font),sans-serif;
-    color: var(--text_color)
-    text-align:right
+    color: var(--text_color);
+    text-align:right;
 }
 h2{
     font-family: var(--primary-font),sans-serif;
-    color: var(--text_color)
-    text-align:right
+    color: var(--text_color);
+    text-align:right;
 }
 p{
     font-family: var(--primary-font);
@@ -177,16 +177,23 @@ p{
 
 .menu-bar {
     display: flex;
+    justify-content: flex-end; 
     justify-content: space-around;
     align-items: center;
-    background-color: #f0f0f0;
-    padding: 10px;
+    background-color: var(--background-color);
+    padding: 5px 10px;
     width: 100%;
     margin-bottom: 20px;
+    max-width: 150px; /* Or whatever maximum width you want */
 }
 
 .menu-item {
     cursor: pointer;
+    margin-right: 3px;
+}
+
+.menu-item:last-child {
+    margin-right: 0; /* For RTL layout, removes margin from the last icon */
 }
 
 .menu-item img {
