@@ -18,7 +18,7 @@ class SkillButton extends HTMLElement {
             display: inline-flex;
             fill: currentcolor;
             font-family: "Google Sans",Roboto,Arial,sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
             height: 48px;
             justify-content: center;
@@ -55,7 +55,7 @@ class SkillButton extends HTMLElement {
             max-width: 400px;
             text-align: right;
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 20px;
             color: #333;
             z-index: 1000;
             direction: rtl;
@@ -90,9 +90,10 @@ class IconMenuBar {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.icons = [
+            { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg' },
             { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg' },
-            { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg' },
-            { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg' }
+            { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg' }
+            
         ];
         this.activeIcon = 'profile';
         this.render();
