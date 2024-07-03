@@ -1,18 +1,260 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
-@font-face {
-    font-family: 'Heebo';
-    src: url('pucblic/Heebo/static/Heebo-Regular.ttf') format('woff2');
-    /* Add additional font formats for broader compatibility */
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
 :root {
-    background-color: #EEE5DF;
+    --background-color: #ffffff;
     --blue_primary: #648a8a;
-    --secondry_light: #756F92;
-    --secondry_dark: black;
-    --text_color: black;
-    --link: #B55700;
-    /* --primary-font: 'Arial'; */
-    --primary-font: 'Heebo', sans-serif;}
+    --secondry_light: #f8d7c5;
+    --secondry_dark: #c16d58;
+    --text_color: #3c2f2f;
+    --text_color_secondry: #6A6A6A;
+    --primary-font: 'Rubik', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw; /* Viewport width */
+    height: 100vh; /* Viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: left; /* Default text alignment */
+}
+
+
+.card{
+    text-align: right; 
+    width: 430px; 
+    height: 932px;
+}
+
+.Contact_button {
+    align-items: center;
+    height: 70px;
+    width: 239px;
+    background-color: var(--blue_primary);
+    border-radius: 12px;
+    box-shadow: 0 0 0 3px transparent, rgba(18, 18, 18, .1) 0 6px 20px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    flex: 1 1 auto;
+    font-size: 1.2rem;
+    font-family: var(--primary-font), sans-serif;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s, -webkit-box-shadow .2s;
+    white-space: nowrap;
+    border: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+}
+.right-aligned {
+    text-align: right;  }
+
+
+.profile-img {
+    width: 389;
+    height: 305;
+}
+
+.h1a{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right;
+    font-size: 50px;
+}
+
+h1{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right
+}
+h2{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right
+}
+h3{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right
+}
+h4{
+    margin-top: 0;
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    font-size: 50px;
+    text-align:right;
+    margin-bottom: 0
+}
+p{
+    font-family: var(--primary-font);
+    color: var(--text_color_secondry);
+    font-size: 20px;
+    text-align:right
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--background_color);
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* רווח בין הכפתורים */
+}
+
+
+
+.action-buttons img {
+    height: 50px;
+    cursor: pointer;
+}
+
+
+/* CSS */
+.skill_button{
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 100px;
+    border-style: none;
+    border-color: var(--secondry_dark);
+    box-sizing: border-box;
+    color: var(--secondry_dark);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+    border: 2px solid var(--secondry_dark); 
+}
+
+.plus-button {
+    width: 26px;
+    height: 26px;
+    background-color: white; /* Button background color */
+    border: 2px solid black; /* Black border */
+    border-radius: 50%; /* Make it a circle */
+    color: black; /* Plus sign color */
+    font-size: 20px; /* Plus sign size */
+    text-align: center; /* Center the text */
+    line-height: 22px; /* Center the plus sign vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+    vertical-align: middle; /* Align vertically with h2 text */
+    margin-right: 15px; /* Optional: Add some space between h2 and button */    
+}
+
+.plus-button:hover {
+    background-color: #3C2F2F; /* Slightly darker on hover */
+    color: white;
+}
+
+.inline {
+    display: inline-flex; 
+    align-items: center; /* Align vertically with button */
+}
+
+.inline-icon {
+    display: inline-flex;
+    align-items: center; /* Align vertically with text */
+}
+
+.inline-icon img {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    margin-right: 10px; /* Add space between the text and the icon */
+    vertical-align: top; 
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: flex-end; 
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 5px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 150px; /* Or whatever maximum width you want */
+}
+
+.menu-item {
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.menu-item:last-child {
+    margin-right: 0; /* For RTL layout, removes margin from the last icon */
+}
+
+.menu-item img {
+    width: 30px;
+    height: 30px;
+}
+
+.editable {
+    border: 1px solid #ccc;
+    padding: 2px;
+    background-color: #f0f0f0;
+  }
+  
+  .edit-icon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .edit-icon.editing {
+    opacity: 0.5;
+  }
+  
+  #save-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  #save-button:hover {
+    background-color: #45a049;
+  }

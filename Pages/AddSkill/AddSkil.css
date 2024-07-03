@@ -1,15 +1,4 @@
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F8F9FA;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 .container {
     max-width: 360px;
     width: 100%;
@@ -44,10 +33,7 @@ header {
     color: gray;
 }
 
-h2 {
-    font-size: 28px;
-    margin: 20px 0;
-}
+
 
 .input-group {
     margin-bottom: 15px;
@@ -56,7 +42,7 @@ h2 {
 select, textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #CB6607;
+    border: 1px solid var(--secondry_dark);
     border-radius: 10px;
     font-size: 16px;
     color: #CB6607;
