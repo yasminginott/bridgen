@@ -22,13 +22,6 @@ html, body {
 }
 
 
-.card{
-    text-align: right; 
-    width: 430px; 
-    height: 932px;
-    position: relative;
-}
-
 .Contact_button {
     align-items: center;
     height: 70px;
@@ -120,6 +113,9 @@ p{
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: var(--background_color);
+    width: 430px; 
+    height: 932px;
+    position: relative;
 }
 
 .action-buttons {
