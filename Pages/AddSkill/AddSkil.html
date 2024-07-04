@@ -13,96 +13,89 @@
 </head>   
 
 <body>
-    <div class="card">
-        
-        <header>
-            <div id="menuBar" class="menu-bar"></div>
-            
-            <div class="header-text">
-          
-            </div>
-        </header>
-        <main>
-            <h4>הוספת מיומנות</h4>
-            <br><br>
-            <div class="input-group">
-                <select id="firstSelect">
-                    <option value="" disabled selected>בחירת קטגוריה</option>
-                    <option value="language">שפה</option>
-                    <option value="home">בית</option>
-                    <option value="games">משחקים</option>
-                    <option value="profession">מקצוע</option>
-                </select>
-            <br><br><br>
-                <select id="secondSelect">
-                    <option value="" disabled selected>בחירת נושא</option>
-                </select>
-                <br>
-    
-                <script>
-                    document.getElementById('firstSelect').addEventListener('change', function() {
-                        var firstSelectValue = this.value;
-                        var secondSelect = document.getElementById('secondSelect');
-                        secondSelect.innerHTML = ''; // ניקוי אפשרויות קודמות
-            
-                        var options = [];
-            
-                        if (firstSelectValue === 'language') {
-                            options = [
-                                { value: 'english', text: 'אנגלית' },
-                                { value: 'spanish', text: 'ספרדית' },
-                                { value: 'italian', text: 'איטלקית' },
-                                { value: 'french', text: 'צרפתית' },
-                                { value: 'russian', text: 'רוסית' },
-                                { value: 'arabic', text: 'ערבית' }
-                            ];
-                        } else if (firstSelectValue === 'home') {
-                            options = [
-                                { value: 'knitting', text: 'סריגה' },
-                                { value: 'sewing', text: 'תפירה' },
-                                { value: 'cooking', text: 'בישול' },
-                                { value: 'carpentry', text: 'נגרות' }
-                            ];
-                        } else if (firstSelectValue === 'games') {
-                            options = [
-                                { value: 'chess', text: 'שחמט' },
-                                { value: 'bridge', text: 'ברידג\'' }
-                            ];
-                        } else if (firstSelectValue === 'profession') {
-                            options = [
-                                { value: 'psychology', text: 'פסיכולוגיה' },
-                                { value: 'medicine', text: 'רפואה' },
-                                { value: 'social_work', text: 'עבודה סוציאלית' },
-                                { value: 'education', text: 'חינוך' }
-                            ];
-                        }
-            
-                        options.forEach(function(option) {
-                            var newOption = document.createElement('option');
-                            newOption.value = option.value;
-                            newOption.text = option.text;
-                            secondSelect.appendChild(newOption);
-                        });
-            
-                        // הוספת אופציה ראשונית
-                        var defaultOption = document.createElement('option');
-                        defaultOption.value = '';
-                        defaultOption.text = 'בחירת נושא';
-                        defaultOption.disabled = true;
-                        defaultOption.selected = true;
-                        secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
-                    });
-                </script>
-            <br><br> <br>
-            <div class="input-group">
-                <textarea placeholder="הסבר קצר על הרקע והניסיון שלך"></textarea>
-            </div>
-            <button class="add-button">סיים</button>
-            <br>
-            <br>
+<div class="card">
+<div id="MenuBarOld" class="menu-bar"></div>
 
-            <button class="add-button">הוספת מיומנות נוספת</button>
-        </main>
+    <h4>הוספת מיומנות</h4>
+    <br><br>
+    <div class="input-group">
+        <select id="firstSelect">
+            <option value="" disabled selected>בחירת קטגוריה</option>
+            <option value="language">שפה</option>
+            <option value="home">בית</option>
+            <option value="games">משחקים</option>
+            <option value="profession">מקצוע</option>
+        </select>
+    <br><br><br>
+        <select id="secondSelect">
+            <option value="" disabled selected>בחירת נושא</option>
+        </select>
+        <br>
+
+        <script>
+            document.getElementById('firstSelect').addEventListener('change', function() {
+                var firstSelectValue = this.value;
+                var secondSelect = document.getElementById('secondSelect');
+                secondSelect.innerHTML = ''; // ניקוי אפשרויות קודמות
+    
+                var options = [];
+    
+                if (firstSelectValue === 'language') {
+                    options = [
+                        { value: 'english', text: 'אנגלית' },
+                        { value: 'spanish', text: 'ספרדית' },
+                        { value: 'italian', text: 'איטלקית' },
+                        { value: 'french', text: 'צרפתית' },
+                        { value: 'russian', text: 'רוסית' },
+                        { value: 'arabic', text: 'ערבית' }
+                    ];
+                } else if (firstSelectValue === 'home') {
+                    options = [
+                        { value: 'knitting', text: 'סריגה' },
+                        { value: 'sewing', text: 'תפירה' },
+                        { value: 'cooking', text: 'בישול' },
+                        { value: 'carpentry', text: 'נגרות' }
+                    ];
+                } else if (firstSelectValue === 'games') {
+                    options = [
+                        { value: 'chess', text: 'שחמט' },
+                        { value: 'bridge', text: 'ברידג\'' }
+                    ];
+                } else if (firstSelectValue === 'profession') {
+                    options = [
+                        { value: 'psychology', text: 'פסיכולוגיה' },
+                        { value: 'medicine', text: 'רפואה' },
+                        { value: 'social_work', text: 'עבודה סוציאלית' },
+                        { value: 'education', text: 'חינוך' }
+                    ];
+                }
+    
+                options.forEach(function(option) {
+                    var newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    secondSelect.appendChild(newOption);
+                });
+    
+                // הוספת אופציה ראשונית
+                var defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.text = 'בחירת נושא';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
+            });
+        </script>
+    <br><br> <br>
+    <div class="input-group">
+        <textarea placeholder="הסבר קצר על הרקע והניסיון שלך"></textarea>
     </div>
+    <button class="add-button">סיים</button>
+    <br>
+    <br>
+
+    <button class="add-button">הוספת מיומנות נוספת</button>
+
+</div>
 </body>
 </html>
