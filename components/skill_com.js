@@ -91,51 +91,71 @@ constructor() {
 customElements.define('skill-button', SkillButton);
 
 
-// checking 
+// Menu Icons bar 
 class IconMenuBar {
-constructor(containerId) {
-    this.container = document.getElementById(containerId);
-    this.icons = [
-        { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg' },
-        { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg' },
-        { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg' }
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
         
-    ];
-    this.activeIcon = 'profile';
-    this.render();
-}
+        // Set icons based on the containerId
+        if (containerId === 'MenuBarOld') {
+            this.icons = [
+                { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/ElderProfile/ElderProfile.html' },
+                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/ElderHeart/ElderHeart.html' },
+                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/ElderMarketplace/ElderMarketplace.html' }
+            ];
+        } else if (containerId === 'MenuBarYoung') {
+            this.icons = [
+                { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/YoungProfile/YoungProfile.html' },
+                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/YoungHeart/YoungHeart.html' },
+                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/YoungMarketplace/YoungMarketplace.html' }
+            ];
+        }
 
-render() {
-    this.icons.forEach(icon => {
-        const menuItem = document.createElement('div');
-        menuItem.className = 'menu-item';
-        const iconSrc = icon.name === this.activeIcon ? icon.fullIcon : icon.emptyIcon;
-        menuItem.innerHTML = `<img src="${iconSrc}" alt="${icon.name}">`;
-        menuItem.addEventListener('click', () => this.setActiveIcon(icon.name));
-        this.container.appendChild(menuItem);
-    });
-}
-
-setActiveIcon(iconName) {
-    if (this.activeIcon) {
-        const oldActiveItem = this.container.querySelector(`[alt="${this.activeIcon}"]`);
-        const oldActiveIcon = this.icons.find(icon => icon.name === this.activeIcon);
-        oldActiveItem.src = oldActiveIcon.emptyIcon;
+        this.activeIcon = 'profile';
+        this.render();
     }
 
-    const newActiveItem = this.container.querySelector(`[alt="${iconName}"]`);
-    const newActiveIcon = this.icons.find(icon => icon.name === iconName);
-    newActiveItem.src = newActiveIcon.fullIcon;
-    this.activeIcon = iconName;
+    render() {
+        this.icons.forEach(icon => {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            const iconSrc = icon.name === this.activeIcon ? icon.fullIcon : icon.emptyIcon;
+            menuItem.innerHTML = `<img src="${iconSrc}" alt="${icon.name}">`;
+            menuItem.addEventListener('click', () => this.setActiveIcon(icon.name));
+            this.container.appendChild(menuItem);
+        });
+    }
 
-    console.log(`Active icon changed to: ${iconName}`);
-}
+    setActiveIcon(iconName) {
+        if (this.activeIcon) {
+            const oldActiveItem = this.container.querySelector(`[alt="${this.activeIcon}"]`);
+            const oldActiveIcon = this.icons.find(icon => icon.name === this.activeIcon);
+            oldActiveItem.src = oldActiveIcon.emptyIcon;
+        }
+
+        const newActiveItem = this.container.querySelector(`[alt="${iconName}"]`);
+        const newActiveIcon = this.icons.find(icon => icon.name === iconName);
+        newActiveItem.src = newActiveIcon.fullIcon;
+        this.activeIcon = iconName;
+
+        console.log(`Active icon changed to: ${iconName}`);
+        
+        // Switch to the specified HTML page
+        window.location.href = newActiveIcon.page;
+    }
 }
 
 // Initialize the menu bar
 document.addEventListener('DOMContentLoaded', () => {
-const menuBar = new IconMenuBar('menuBar');
+    const menuBars = ['MenuBarOld', 'MenuBarYoung'];
+    menuBars.forEach(id => {
+        if (document.getElementById(id)) {
+            new IconMenuBar(id);
+        }
+    });
 });
+
+
 
 //כפתור ווטסאפ
 document.getElementById('whatsappButton').addEventListener('click', function() {
