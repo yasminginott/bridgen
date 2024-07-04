@@ -163,7 +163,11 @@ p{
     z-index: 0;
     border: 2px solid var(--secondry_dark); 
 }
+.skill_button:hover{
+    background-color: var(--secondry_dark);
+    color: #fff;
 
+}
 .plus-button {
     width: 26px;
     height: 26px;
@@ -247,7 +251,7 @@ p{
   #save-button {
     margin-right: 10px;
     padding: 5px 10px;
-    background-color: #4CAF50;
+    background-color: var(--blue_primary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -255,6 +259,76 @@ p{
     font-size: 14px;
   }
   
-  #save-button:hover {
-    background-color: #45a049;
-  }
+
+
+  .container {
+    max-width: 360px;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+    margin-right: 10px;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header-text p {
+    margin: 0;
+    font-size: 14px;
+    color: gray;
+}
+
+
+
+.input-group {
+    margin-bottom: 40px;
+    font-family: var(--primary-font);
+    text-align: right;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--secondry_dark);
+    border-radius: 10px;
+    font-size: 16px;
+    color: #CB6607;
+    background: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+.add-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--blue_primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: var(--text_color_secondry);
+}

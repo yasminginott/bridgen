@@ -27,16 +27,24 @@ header {
     font-size: 24px;
 }
 
-.header-text p {
+
+
+
+html, body {
     margin: 0;
-    font-size: 14px;
-    color: gray;
+    padding: 0;
+    width: 100vw; /* Viewport width */
+    height: 100vh; /* Viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: left; /* Default text alignment */
 }
 
-
-
-.input-group {
-    margin-bottom: 15px;
+/* Assuming .card is the class for your card element */
+.card {
+    text-align: right; /* Text align right for the card */
+    /* Add other styles for your card here */
 }
 
 select, textarea {
@@ -45,7 +53,7 @@ select, textarea {
     border: 1px solid var(--secondry_dark);
     border-radius: 10px;
     font-size: 16px;
-    color: #CB6607;
+    color: var(--secondry_dark);
     background: none;
 }
 
