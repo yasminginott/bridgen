@@ -141,7 +141,7 @@ const menuBar = new IconMenuBar('menuBar');
 document.getElementById('whatsappButton').addEventListener('click', function() {
 // הכניסי כאן את המספר ווטסאפ שלך בפורמט בינלאומי ללא רווחים
 var phoneNumber = '972509113005';
-var message = 'היי! הגעתי מהאפליקציה bridGen, אשמח שנקבע להיפגש!'
+var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!'
 // יצירת הקישור לווטסאפ
 var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=' + encodeURIComponent(message);
 
