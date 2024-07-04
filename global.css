@@ -26,6 +26,7 @@ html, body {
     text-align: right; 
     width: 430px; 
     height: 932px;
+    position: relative;
 }
 
 .Contact_button {
@@ -63,8 +64,15 @@ html, body {
 
 
 .profile-img {
-    width: 389;
-    height: 305;
+    width: 388px;
+    height: 305px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
 }
 
 .h1a{
