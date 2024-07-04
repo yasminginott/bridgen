@@ -6,34 +6,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BridGen - Add Skill</title>
-    <link rel="stylesheet" href="add_skill.css">
-</head>
+    <link rel="stylesheet" href="/global.css">
+    <script src="/components/skill_com.js" defer></script>
+    <script src="/AddSkill.js" defer></script>
+
+</head>   
+ <script src="AddSkil.js"></script>
+
 <body>
     <div class="container">
         <header>
             <a href="#" class="back-arrow">←</a>
             <div class="header-text">
-                <h1>BridGen</h1>
-                <p>Bridge between generations</p>
+          
             </div>
         </header>
         <main>
-            <h2>הוספת כישרון</h2>
+            <h1>הוספת מיומנות</h1>
             <div class="input-group">
-                <select>
+                <select id="firstSelect">
                     <option value="" disabled selected>בחירת קטגוריה</option>
+                    <option value="language">שפה</option>
+                    <option value="home">מיומנות בית</option>
+                    <option value="games">משחקים</option>
+                    <option value="profession">מקצוע</option>
                 </select>
-            </div>
-            <div class="input-group">
-                <select>
-                    <option value="" disabled selected>בחירת כישרון</option>
+
+            <br>
+            <br>
+                <select id="secondSelect">
+                    <option value="" disabled selected>בחירת מיומנות</option>
                 </select>
-            </div>
+
+            <br>
+            <br>
+
+
             <div class="input-group">
                 <textarea placeholder="הסבר קצר על הרקע והניסיון שלך"></textarea>
             </div>
             <button class="add-button">הוסף</button>
         </main>
+        <script src="AddSkil.js"></script>
+
     </div>
 </body>
 </html>
