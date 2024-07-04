@@ -93,9 +93,15 @@
     <br><br> <br>
 
 
-    <button class="add-button">סיים</button>
+    <button class="add-button" id="end_form_button">סיים</button>
     <br>
     <br>
+    <script >document.addEventListener('DOMContentLoaded', function() {
+        var button = document.getElementById('end_form_button');
+        button.addEventListener('click', function() {
+            window.location.href = "/Pages/YoungProfile/YoungProfile.html"; // Navigate to the target HTML file
+        });
+    });</script>
 
     <button class="add-button">הוספת מיומנות נוספת</button>
 </div>

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/global.css">
     <script src="/components/skill_com.js" defer></script>
     
-
 </head>   
 
 <body class="add-skill-page">
@@ -84,6 +83,8 @@
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
+
+                
             });
         </script>
     <br><br> <br>
@@ -91,6 +92,13 @@
         <textarea placeholder="הסבר קצר על הרקע והניסיון שלך"></textarea>
     </div>
     <button id="end_form_button" class="add-button">סיים</button>
+    
+    <script >document.addEventListener('DOMContentLoaded', function() {
+        var button = document.getElementById('end_form_button');
+        button.addEventListener('click', function() {
+            window.location.href = '/Pages/ElderProfile/ElderProfile.html'; // Navigate to the target HTML file
+        });
+    });</script>
     <br>
     <br>
 
