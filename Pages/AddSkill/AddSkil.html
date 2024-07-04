@@ -4,25 +4,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=430, height=932, initial-scale=1.0">
     <title>BridGen - Add Skill</title>
     <link rel="stylesheet" href="/global.css">
     <script src="/components/skill_com.js" defer></script>
     <script src="/AddSkill.js" defer></script>
 
 </head>   
- <script src="AddSkil.js"></script>
 
 <body>
+    
     <div class="container">
+        
         <header>
-            <a href="#" class="back-arrow">←</a>
+            <div id="menuBar" class="menu-bar"></div>
+            
             <div class="header-text">
           
             </div>
         </header>
         <main>
-            <h1>הוספת מיומנות</h1>
+            <h4>הוספת מיומנות</h4>
+            <br>
             <div class="input-group">
                 <select id="firstSelect">
                     <option value="" disabled selected>בחירת קטגוריה</option>
@@ -40,15 +43,29 @@
 
             <br>
             <br>
+            <br>
 
 
             <div class="input-group">
                 <textarea placeholder="הסבר קצר על הרקע והניסיון שלך"></textarea>
             </div>
-            <button class="add-button">הוסף</button>
+            <button class="add-button">סיים</button>
+            <br>
+            <br>
+
+            <button class="add-button">הוספת מיומנות נוספת</button>
+
         </main>
-        <script src="AddSkil.js"></script>
 
     </div>
 </body>
 </html>
+<style>
+@media (max-width: 430px) {
+    body {
+        width: 430px;
+        height: 932px;
+        margin: 0 auto;
+    }
+}
+</style>
