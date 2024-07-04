@@ -101,13 +101,13 @@ class IconMenuBar {
             this.icons = [
                 { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/ElderProfile/ElderProfile.html' },
                 { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/ElderHeart/ElderHeart.html' },
-                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/ElderMarketplace/ElderMarketplace.html' }
+                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/Contacts/Contacts.html' }
             ];
         } else if (containerId === 'MenuBarYoung') {
             this.icons = [
                 { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/YoungProfile/YoungProfile.html' },
                 { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/YoungHeart/YoungHeart.html' },
-                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/YoungMarketplace/YoungMarketplace.html' }
+                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/Marketplace/Marketplace.html' }
             ];
         }
 
