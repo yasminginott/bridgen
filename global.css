@@ -97,12 +97,13 @@ h3{
     color: var(--text_color);
     text-align:right
 }
+/*ומיושר למרכז גדול יותר משאר הפונטים */
 h4{
     margin-top: 0;
     font-family: var(--primary-font),sans-serif;
     color: var(--text_color);
     font-size: 50px;
-    text-align:right;
+    text-align:center;
     margin-bottom: 0
 }
 p{
@@ -306,24 +307,32 @@ header {
 
 
 .input-group {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     font-family: var(--primary-font);
     text-align: right;
+}
+textarea {
+    height: 300px;
+
 }
 
 select, textarea {
     width: 100%;
     padding: 10px;
+    text-align: right;
+    box-sizing: border-box;
     border: 1px solid var(--secondry_dark);
-    border-radius: 10px;
-    font-size: 16px;
-    color: #CB6607;
+    border-radius: 20px;
+    font-size: 26px;
+    font-family: var(--primary-font);
+    color: var(--secondry_dark);
     background: none;
+    resize: vertical;
+    
+
 }
 
-textarea {
-    height: 100px;
-}
+
 
 .add-button {
     width: 100%;
@@ -332,7 +341,7 @@ textarea {
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
