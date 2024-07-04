@@ -44,3 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       saveButton.style.display = "none";
     });
   });
+
+  document.getElementById('add_search_button').addEventListener('click', function() {
+    window.location.href = '/Pages/AddSearch/AddSearch.html'; // Replace with your target HTML file name
+});

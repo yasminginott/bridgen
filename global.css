@@ -22,16 +22,6 @@ html, body {
     text-align: right; /* Default text alignment */
 }
 
-<<<<<<< HEAD
-.card{
-    text-align: right; 
-    width: 430px; 
-    height: 932px;
-    position: relative;
-}
-=======
->>>>>>> aeb3f18d8e619baf5b2f82a972f915fb092177b7
-
 .Contact_button {
     align-items: center;
     height: 70px;
