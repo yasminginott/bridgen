@@ -9,24 +9,19 @@
     --text_color_secondry: #6A6A6A;
     --primary-font: 'Rubik', sans-serif;
 }
-
 html, body {
     margin: 0;
     padding: 0;
+    width: 430px;
+    height: 932px;
     width: 100vw; /* Viewport width */
     height: 100vh; /* Viewport height */
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    text-align: left; /* Default text alignment */
+    text-align: right; /* Default text alignment */
 }
 
-
-.card{
-    text-align: right; 
-    width: 430px; 
-    height: 932px;
-}
 
 .Contact_button {
     align-items: center;
@@ -63,8 +58,15 @@ html, body {
 
 
 .profile-img {
-    width: 389;
-    height: 305;
+    width: 388px;
+    height: 305px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
 }
 
 .h1a{
@@ -89,12 +91,13 @@ h3{
     color: var(--text_color);
     text-align:right
 }
+/*ומיושר למרכז גדול יותר משאר הפונטים */
 h4{
     margin-top: 0;
     font-family: var(--primary-font),sans-serif;
     color: var(--text_color);
     font-size: 50px;
-    text-align:right;
+    text-align:center;
     margin-bottom: 0
 }
 p{
@@ -112,6 +115,9 @@ p{
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: var(--background_color);
+    width: 430px; 
+    height: 932px;
+    position: relative;
 }
 
 .action-buttons {
@@ -163,7 +169,11 @@ p{
     z-index: 0;
     border: 2px solid var(--secondry_dark); 
 }
+.skill_button:hover{
+    background-color: var(--secondry_dark);
+    color: #fff;
 
+}
 .plus-button {
     width: 26px;
     height: 26px;
@@ -247,7 +257,7 @@ p{
   #save-button {
     margin-right: 10px;
     padding: 5px 10px;
-    background-color: #4CAF50;
+    background-color: var(--blue_primary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -255,20 +265,88 @@ p{
     font-size: 14px;
   }
   
-  #save-button:hover {
-    background-color: #45a049;
-  }
-
-  /***** Marketplace *****/
 
 
-  .search-bar {
+  .container {
+    max-width: 360px;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+    margin-right: 10px;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header-text p {
+    margin: 0;
+    font-size: 14px;
+    color: gray;
+}
+
+
+
+.input-group {
+    margin-bottom: 60px;
+    font-family: var(--primary-font);
+    text-align: right;
+}
+textarea {
+    height: 300px;
+
+}
+
+select, textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    text-align: right;
+    box-sizing: border-box;
+    border: 1px solid var(--secondry_dark);
+    border-radius: 20px;
+    font-size: 26px;
+    font-family: var(--primary-font);
+    color: var(--secondry_dark);
+    background: none;
+    resize: vertical;
+    
+
 }
+
+
+
+.add-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--blue_primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: var(--primary-font);
+}
+
+
+
+/***** Marketplace *****/
 
 .filters {
     display: flex;
@@ -333,7 +411,75 @@ p{
 }
 
 .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the content horizontally */
     text-align: left; /* Align text to the left */
     margin-bottom: 20px; /* Add some space below the title */
     padding-left: 10px; /* Added padding to align title properly */
+}
+
+.title-container h1, .title-container p {
+    text-align: left; /* Ensure text alignment is left */
+}
+
+.search-bar {
+    width: 80%; /* Adjust width as necessary */
+    padding: 10px;
+    margin: 0 auto 20px auto; /* Center the search bar */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/***** Contacts *****/
+
+.contacts-title-container {
+    text-align: left; /* Align text to the left */
+    margin-bottom: 20px; /* Add some space below the title */
+    padding-left: 10px; /* Added padding to align title properly */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the content horizontally */
+}
+
+.contacts-title-container h1, .contacts-title-container p {
+    text-align: left; /* Ensure text alignment is left */
+}
+
+.contacts-page-title {
+    text-align: center; /* Center the new title */
+    margin-top: 10px;
+    font-size: 24px;
+    color: var(--text_color);
+}
+
+.contacts-profile-cards {
+    display: flex;
+    justify-content: center; /* Center the single profile card */
+    margin-top: 20px; /* Space above the profile cards section */
+}
+
+.contacts-profile-card {
+    background-color: white; /* Card background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
+    width: 200px; /* Smaller width for the profile card */
+}
+
+.contacts-profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.contacts-profile-card h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.contacts-profile-card p {
+    font-size: 14px;
+    color: var(--text_color_secondry);
 }
