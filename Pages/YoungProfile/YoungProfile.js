@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('add_search_button').addEventListener('click', function() {
-    window.location.href = '/Pages/AddSearch/AddSearch.html'; // Replace with your target HTML file name
+    window.location.href = '/Pages/SearchSkill/SearchSkill.html'; // Replace with your target HTML file name
 });
