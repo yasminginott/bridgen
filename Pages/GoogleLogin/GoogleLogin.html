@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="GoogleLogin.css"> <!-- Use your existing CSS file -->
+    <script src="GoogleLogin.js" defer></script>
+
 </head>
 <body>
     <div class="container">
         <div class="card">
             <img src="logo.png" alt="BridGen Logo" class="logo-img">
             <h1 class="signup-title">התחברות</h1>
-            <form>
+            <form id="login-form">
                 <div class="input-group">
                     <input type="email" placeholder="כתובת דוא״ל" required>
                 </div>
@@ -19,12 +21,11 @@
                     <input type="password" placeholder="סיסמא" required>
                 </div>
                 <div class="action-buttons">
-                    <button id="login_button1" type="submit" class="signup_button">התחבר &#10140;</button>
+                    <button id="login_button1" class="signup_button">התחבר &#10140;</button>
                 </div>
             </form>
             <p class="forgot-password">שכחתי סיסמא</p>
         </div>
     </div>
-    <script src="GoogleLogin.js" defer></script> 
 </body>
 </html>

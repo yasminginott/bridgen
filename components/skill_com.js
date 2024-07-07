@@ -168,3 +168,4 @@ var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=
 // הפניית המשתמש לקישור
 window.location.href = whatsappUrl;
 });
+
