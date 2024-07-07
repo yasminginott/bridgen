@@ -26,7 +26,7 @@
             <option value="profession">מקצוע</option>
         </select>
     <br><br><br>
-        <select id="secondSelect">
+        <select id="secondSelect" disabled>
             <option value="" disabled selected>בחירת נושא</option>
         </select>
         <br>
@@ -83,6 +83,9 @@
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
+                
+                // Enable the second select when a category is chosen
+                secondSelect.disabled = false;
             });
         </script>
     <br><br> <br>
