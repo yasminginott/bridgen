@@ -460,8 +460,7 @@ select, textarea {
 }
 
 
-
-/***** Contacts *****/
+/***** CONTACTS *****/
 
 .contacts-title-container {
     text-align: left; /* Align text to the left */
@@ -481,11 +480,13 @@ select, textarea {
     margin-top: 10px;
     font-size: 24px;
     color: var(--text_color);
+    display: flex;
+    justify-content: center; /* Center horizontally */
 }
 
 .contacts-profile-cards {
     display: flex;
-    justify-content: center; /* Center the single profile card */
+    justify-content: flex-start; /* Align the single profile card to the left */
     margin-top: 20px; /* Space above the profile cards section */
 }
 
@@ -499,7 +500,7 @@ select, textarea {
 }
 
 .contacts-profile-img {
-    width: 100%;
+    width: 150px; /* Smaller width for the image */
     height: auto;
     border-radius: 5px;
 }
@@ -514,6 +515,8 @@ select, textarea {
     color: var(--text_color_secondry);
 }
 
+
+/***** END OF CONTACTS CSS ******/
 
 .add-skill-page .card {
     align-items: stretch;
