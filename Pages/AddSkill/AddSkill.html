@@ -104,7 +104,14 @@
     <br>
     <br>
 
-    <button class="add-button">הוספת מיומנות נוספת</button>
+    <button id="add_another_skill" class="add-button">הוספת מיומנות נוספת</button>
+
+    <script >document.addEventListener('DOMContentLoaded', function() {
+        var button = document.getElementById('add_another_skill');
+        button.addEventListener('click', function() {
+            window.location.href = 'AddSkill.html'; // Navigate to the target HTML file
+        });
+    });</script>
 
 </div>
 <script src="/AddSkill.js" defer></script>
