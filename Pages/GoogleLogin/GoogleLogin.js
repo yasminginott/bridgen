@@ -27,3 +27,5 @@ document.getElementById('signup-btn').addEventListener('click', function() {
     // You can add actual signup logic here, such as sending a request to a server
   });
   
+  document.getElementById('login_button1').addEventListener('click', function() {
+    window.location.href = '/Pages/Marketplace/Marketplace.html'; });
