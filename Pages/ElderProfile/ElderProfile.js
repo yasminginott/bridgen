@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById('add_skill_button').addEventListener('click', function() {
-    window.location.href = '/Pages/AddSkill/AddSkil.html'; // Replace with your target HTML file name
+    window.location.href = '/Pages/AddSkill/AddSkill.html'; // Replace with your target HTML file name
 });
