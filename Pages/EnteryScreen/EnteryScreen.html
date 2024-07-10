@@ -15,8 +15,8 @@
             <h2 class="subtitle-primary">Bridge Between Generations</h2>
             <div class="action-buttons">
                 <button class="login_button" id="signInButton">התחברות</button>
-                <button class="signup_button" id="signup-btn">הרשמה</button>
-                <button id="signOutButton">Sign Out</button>
+                <button class="signup_button" id="signUpButton">הרשמה</button>
+                <button class="signout_button" id="signOutButton">התנתק</button>
                 <div id="message">
                     <p>You have signed in as <span id="userName"></span> with the email <span id="userEmail"></span> </p>
                 </div>
@@ -48,6 +48,9 @@
       
         const signInButton = document.getElementById("signInButton");
         const signOutButton = document.getElementById("signOutButton");
+        const signUpButton = document.getElementById("signUpButton");
+
+
         const message = document.getElementById("message");
         const userName = document.getElementById("userName");
         const userEmail = document.getElementById("userEmail");
@@ -60,6 +63,21 @@
           .then((result) => {
               const user = result.user
               console.log(user);
+              window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+
+          }).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message
+          })
+        }
+
+        const userSignUp = async() => {
+          signInWithPopup(auth, provider)
+          .then((result) => {
+              const user = result.user
+              console.log(user);
+              window.location.href = '/Pages/SignupElder/SignupElder.html';
+
           }).catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message
@@ -86,6 +104,8 @@
       
         signInButton.addEventListener('click', userSignIn);
         signOutButton.addEventListener('click', userSignOut);
+        signUpButton.addEventListener('click', userSignUp);
+
       
       </script>
 </body>
