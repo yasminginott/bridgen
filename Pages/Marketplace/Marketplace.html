@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/global.css">
     <title>Marketplace</title> <!-- Updated title -->
     <script src="/components/skill_com.js" defer></script>
+    <script src="Marketplace.js" defer></script> <!-- Added script source -->
 </head>
 <body>
     <div class="card">
@@ -17,32 +18,32 @@
         <input type="text" placeholder="חיפוש" class="search-bar">
 
         <div class="filters">
-            <button class="filter-button active">הכל</button>
-            <button class="filter-button">בישול</button>
-            <button class="filter-button">סריגה</button>
-            <button class="filter-button">שחמט</button>
+            <button class="filter-button active" data-filter="all">הכל</button> <!-- Added data-filter attribute -->
+            <button class="filter-button" data-filter="בישול">בישול</button> <!-- Added data-filter attribute -->
+            <button class="filter-button" data-filter="סריגה">סריגה</button> <!-- Added data-filter attribute -->
+            <button class="filter-button" data-filter="שחמט">שחמט</button> <!-- Added data-filter attribute -->
         </div>
 
-        <div class="profile-cards">
-            <a href="/Pages/ElderCard/ElderCard.html" class="profile-card no-underline">
+        <div class="profile-cards" >
+            <a href="/Pages/ElderCard/ElderCard.html" class="profile-card no-underline" data-category="תפירה">
                 <img src="clara.png" alt="profile1" class="profile-img">
                 <h2>קלרה אדלשטיין, 84</h2>
                 <p>קטמון, ירושלים</p>
                 <p>ספרדית, תפירה</p>
             </a>
-            <div class="profile-card">
+            <div class="profile-card" data-category="שחמט">
                 <img src="sabba.jpeg" alt="profile2" class="profile-img">
                 <h2>אליעזר הולה, 78</h2>
                 <p>רחביה, ירושלים</p>
                 <p>נגרות, שחמט</p>
             </div>
-            <div class="profile-card">
+            <div class="profile-card" data-category="שחמט">
                 <img src="sabba2.jpeg" alt="profile3" class="profile-img">
                 <h2>חורחה פלדמן, 84</h2>
                 <p>בית הכרם, ירושלים</p>
                 <p>ספרדית, שחמט</p>
             </div>
-            <div class="profile-card">
+            <div class="profile-card" data-category="בישול">
                 <img src="sabta.jpg" alt="profile4" class="profile-img">
                 <h2>חנה דוד, 80</h2>
                 <p>רחביה , ירושלים</p>
