@@ -112,6 +112,40 @@ html, body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
+.signout_button {
+    align-items: center;
+    appearance: none;
+    background-color: #fff; /* White fill */
+    border-radius: 100px; /* Adjusted border radius */
+    border: none; /* No border */
+    border-bottom: 4px solid var(--secondry_dark); /* Secondary dark border at the bottom */
+    box-sizing: border-box;
+    color: var(--blue_primary); /* Text color */
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px; /* Reduced font size from 18px to 12px */
+    font-weight: 550;
+    height: 32px; /* Reduced height from 48px to 32px */
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    padding: 6px 16px; /* Reduced padding from 10px 24px to 6px 16px */
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1), opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 150px; /* Set a specific width */
+    will-change: transform, opacity;
+    z-index: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 .input-group {
     margin: var(--input-margin);
