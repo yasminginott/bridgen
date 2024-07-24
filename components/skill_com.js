@@ -105,7 +105,7 @@ class IconMenuBar {
         } else if (containerId === 'MenuBarYoung') {
             this.icons = [
                 { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/YoungProfile/YoungProfile.html' },
-                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/YoungHeart/YoungHeart.html' },
+                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/ContactsYoung/ContactsYoung.html' },
                 { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/Marketplace/Marketplace.html' }
             ];
         }
