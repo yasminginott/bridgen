@@ -100,8 +100,7 @@ class IconMenuBar {
         if (containerId === 'MenuBarOld') {
             this.icons = [
                 { name: 'profile', emptyIcon: '/public/icons/profile_icon_empty.svg', fullIcon: '/public/icons/profile_icon_full.svg', page: '/Pages/ElderProfile/ElderProfile.html' },
-                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/ElderHeart/ElderHeart.html' },
-                { name: 'marketplace', emptyIcon: '/public/icons/marketplace_icon_empty.svg', fullIcon: '/public/icons/marketplace_icon_full.svg', page: '/Pages/Contacts/Contacts.html' }
+                { name: 'heart', emptyIcon: '/public/icons/heart_icon_empty.svg', fullIcon: '/public/icons/heart_icon_full.svg', page: '/Pages/Contacts/Contacts.html' }
             ];
         } else if (containerId === 'MenuBarYoung') {
             this.icons = [
@@ -111,11 +110,19 @@ class IconMenuBar {
             ];
         }
 
-        this.activeIcon = 'profile';
+        // Check localStorage for active icon
+        const savedActiveIcon = localStorage.getItem('activeIcon');
+        if (savedActiveIcon && this.icons.some(icon => icon.name === savedActiveIcon)) {
+            this.activeIcon = savedActiveIcon;
+        } else {
+            this.activeIcon = 'profile'; // Default
+        }
+        
         this.render();
     }
 
     render() {
+        this.container.innerHTML = ''; // Clear existing content
         this.icons.forEach(icon => {
             const menuItem = document.createElement('div');
             menuItem.className = 'menu-item';
@@ -140,7 +147,11 @@ class IconMenuBar {
 
         console.log(`Active icon changed to: ${iconName}`);
         
-        // Switch to the specified HTML page
+
+        // Save the active icon name to localStorage
+        localStorage.setItem('activeIcon', iconName);
+
+        // Redirect
         window.location.href = newActiveIcon.page;
     }
 }
@@ -154,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 

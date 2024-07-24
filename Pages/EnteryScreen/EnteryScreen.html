@@ -14,11 +14,99 @@
             <h1 class="h1-blue">BridGen</h1>
             <h2 class="subtitle-primary">Bridge Between Generations</h2>
             <div class="action-buttons">
-                <button class="login_button" id="login-btn">התחברות</button>
-                <button class="signup_button" id="signup-btn">הרשמה</button>
+                <button class="login_button" id="signInButton">התחברות</button>
+                <button class="signup_button" id="signUpButton">הרשמה</button>
+                <button class="signout_button" id="signOutButton">התנתק</button>
+                <div id="message">
+                    <p>You have signed in as <span id="userName"></span> with the email <span id="userEmail"></span> </p>
+                </div>
             </div>
         </div>
     </div>
-    <script src="EnteryScreen.js" defer></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        // Your web app's Firebase configuration
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+          authDomain: "bridgen-988cb.firebaseapp.com",
+          databaseURL: "https://bridgen-988cb-default-rtdb.firebaseio.com",
+          projectId: "bridgen-988cb",
+          storageBucket: "bridgen-988cb.appspot.com",
+          messagingSenderId: "1092821735169",
+          appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider()
+      
+        const signInButton = document.getElementById("signInButton");
+        const signOutButton = document.getElementById("signOutButton");
+        const signUpButton = document.getElementById("signUpButton");
+
+
+        const message = document.getElementById("message");
+        const userName = document.getElementById("userName");
+        const userEmail = document.getElementById("userEmail");
+      
+        signOutButton.style.display = "none";
+        message.style.display = "none";
+      
+        const userSignIn = async() => {
+          signInWithPopup(auth, provider)
+          .then((result) => {
+              const user = result.user
+              console.log(user);
+              window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+
+          }).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message
+          })
+        }
+
+        const userSignUp = async() => {
+          signInWithPopup(auth, provider)
+          .then((result) => {
+              const user = result.user
+              console.log(user);
+              window.location.href = '/Pages/SignupElder/SignupElder.html';
+
+          }).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message
+          })
+        }
+      
+        const userSignOut = async() => {
+          signOut(auth).then(() => {
+              alert("You have signed out successfully!");
+          }).catch((error) => {})
+        }
+      
+        onAuthStateChanged(auth, (user) => {
+          if(user) {
+            signOutButton.style.display = "block";
+            message.style.display = "block";
+            userName.innerHTML = user.displayName;
+            userEmail.innerHTML = user.email
+          } else {
+            signOutButton.style.display = "none";
+            message.style.display = "none";
+          }
+        })
+      
+        signInButton.addEventListener('click', userSignIn);
+        signOutButton.addEventListener('click', userSignOut);
+        signUpButton.addEventListener('click', userSignUp);
+
+      
+      </script>
 </body>
 </html>
