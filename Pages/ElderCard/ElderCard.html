@@ -5,38 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/global.css">
     <title>Profile Page</title>
+    <script>
+        function switchToPending(button) {
+            button.textContent = "מחכה לאישור";
+            button.disabled = true;
+            button.classList.add("pending");
+
+            // סימולציה של אישור מהצד השני לאחר 3 שניות
+            setTimeout(function() {
+                switchToWhatsApp(button);
+            }, 3000);
+        }
+
+        function switchToWhatsApp(button) {
+            button.innerHTML = '<img src="/Pages/YoungCard/whatsapp-svgrepo-com.svg" alt="WhatsApp" style="width: 40px; height: 24px; margin-right: 8px;"> צור קשר';
+            button.disabled = false;
+            button.classList.remove("pending");
+            button.onclick = function() {
+                var phoneNumber = '972509113005'; // הכניסי כאן את מספר הטלפון הרצוי
+                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                var whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(message);
+
+                // הפניית המשתמש לקישור
+                window.location.href = whatsappUrl;
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var addButton = document.getElementById('addButton');
+            addButton.addEventListener('click', function() {
+                switchToPending(this);
+            });
+        });
+    </script>
+    <style>
+        .pending {
+            background-color: grey;
+        }
+    </style>
 </head>
 <body>
     <div class="card">
         <div id="MenuBarYoung" class="menu-bar"></div>
         <div class="img-container">
-        <img src="clara.png" class="profile-img" alt="Profile">
+            <img src="clara.png" class="profile-img" alt="Profile">
         </div>
         <h1 class="right-aligned">קלרה אדלשטיין</h1> 
         <div class="inline">
-        <img style="margin-left: 5px;" src="/public/icons/location_icon.svg"> 
-        <p>קטמון, ירושלים</p>
-    </div>
-    <p>נולדתי בבואנוס איירס, ארגנטינה. ועליתי לארץ לפני 40 שנה.  אשמח ללמד אתכם ספרדית או תפירה.</p>
-    <h2>בואו לתרגל איתי</h2>
-    <br>
-    <div class="button-container">
-        <skill-button data-text="ספרדית" data-popup-text="אני דוברת ספרדית שפת אם, ובעבר הייתי גם מורה לספרדית"></skill-button>
-        <skill-button data-text="תפירה" data-popup-text="    .אני אוהבת לתפור במכונת תפירה, בעיקר תחפושות ושמלות לנכדות שלי"></skill-button>
-    </div>
-    <br>
-    <br>
-    <div class="action-buttons">
-        <button id="whatsappButton" class="Contact_button">
-            <img src="/Pages/YoungCard/whatsapp-svgrepo-com.svg" alt="WhatsApp" style="width: 40px; height: 24px; margin-right: 8px;">
-            צור קשר
-        </button>
-            <!-- Assuming the button code in components/skill_com.html is as follows -->
-            <img src="/Pages/ElderCard/heart.svg" alt="Heart SVG" style="width: 104px; height: 70px;">
-
+            <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
+            <p>קטמון, ירושלים</p>
+        </div>
+        <p>נולדתי בבואנוס איירס, ארגנטינה. ועליתי לארץ לפני 40 שנה. אשמח ללמד אתכם ספרדית או תפירה.</p>
+        <h2>בואו לתרגל איתי</h2>
+        <br>
+        <div class="button-container">
+            <skill-button data-text="ספרדית" data-popup-text="אני דוברת ספרדית שפת אם, ובעבר הייתי גם מורה לספרדית"></skill-button>
+            <skill-button data-text="תפירה" data-popup-text="אני אוהבת לתפור במכונת תפירה, בעיקר תחפושות ושמלות לנכדות שלי"></skill-button>
+        </div>
+        <br>
+        <br>
+        <div class="action-buttons">
+            <button id="addButton" class="Contact_button">
+                אני רוצה ללמוד ממך!
+            </button>
             <script src="/components/skill_com.js"></script>
         </div>
     </div>
-    
 </body>
 </html>
