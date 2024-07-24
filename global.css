@@ -213,19 +213,21 @@ p{
 
 .menu-bar {
     display: flex;
-    justify-content: flex-end; 
-    justify-content: space-around;
+    justify-content: flex-start; /* Aligns items to the start (left) */
     align-items: center;
     background-color: var(--background-color);
     padding: 5px 10px;
-    width: 100%;
+    width: auto;
     margin-bottom: 20px;
-    max-width: 150px; /* Or whatever maximum width you want */
+    max-width: 250px; /* For old menu */
+    position: static;
+    align-self: flex-start;
 }
 
 .menu-item {
     cursor: pointer;
     margin-right: 3px;
+    margin-left: 15px;
 }
 
 .menu-item:last-child {
@@ -541,7 +543,7 @@ select, textarea {
     padding: 5px 10px;
     width: 100%;
     margin-bottom: 20px;
-    max-width: 200px; /* Or whatever maximum width you want */
+    max-width: 250px; /* Or whatever maximum width you want */
 }
 
 .menu-bar.old .menu-item img {
@@ -552,4 +554,33 @@ select, textarea {
 .menu-bar.young .menu-item img {
     width: 30px;
     height: 30px;
+}
+
+/* Logout button styles */
+.logout-button {
+    margin-right: 0; /* Pushes other items to the right */
+    font-family: var(--primary-font), sans-serif;
+    font-size: 20px;
+    color: var(--text_color);
+    cursor: pointer;
+    order: -1; /* Ensures it's the first item */
+    position: absolute; /* Add this */
+    left: 30px; /* Add this */
+    top: 35px; /* Add this */
+    z-index: 10;
+    
+}
+
+Copy.menu-bar > :not(.logout-button) {
+    margin-left: 3px;
+    margin-right: 0;
+}
+
+/* Add this if you want a larger font for the old menu */
+.menu-bar-old .logout-button {
+    font-size: 18px;
+}
+
+.menu-item:first-of-type {
+    margin-left: 15px; /* Pushes first icon to the right, after logout */
 }

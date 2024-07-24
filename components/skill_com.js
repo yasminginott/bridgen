@@ -119,6 +119,7 @@ class IconMenuBar {
         }
         
         this.render();
+        this.addLogoutButton();
     }
 
     render() {
@@ -153,6 +154,13 @@ class IconMenuBar {
 
         // Redirect
         window.location.href = newActiveIcon.page;
+    }
+    addLogoutButton() {
+        const logoutButton = document.createElement('div');
+        logoutButton.className = 'menu-item logout-button';
+        logoutButton.textContent = 'התנתקות';
+        logoutButton.id = 'logout-button';
+        this.container.insertBefore(logoutButton, this.container.firstChild);
     }
 }
 
