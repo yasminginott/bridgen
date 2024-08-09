@@ -48,3 +48,24 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('add_skill_button').addEventListener('click', function() {
     window.location.href = '/Pages/AddSkill/AddSkill.html'; // Replace with your target HTML file name
 });
+
+// To retrieve user data later (e.g., for profile page):
+
+// import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+// const database = getDatabase();
+// const user = auth.currentUser;
+
+// if (user) {
+//     const userRef = ref(database, 'users/' + user.uid);
+//     get(userRef).then((snapshot) => {
+//         if (snapshot.exists()) {
+//             const userData = snapshot.val();
+//             // Use userData to populate profile page
+//         } else {
+//             console.log("No data available");
+//         }
+//     }).catch((error) => {
+//         console.error(error);
+//     });
+// }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Screen - BridGen</title>
+    <link rel="stylesheet" href="/Pages/GoogleLogin/GoogleLogin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img src="logo.png" alt="BridGen Logo" class="logo-img">
+            <h1 class="h1-blue">BridGen</h1>
+            <h2 class="subtitle-primary">Bridge Between Generations</h2>
+            <!-- <p class="welcome-text">ברוכים הבאים לברידג'ן!<br>המקום בו כל אדם בעל ניסיון חיים יכול לתת מהידע והכישרונות שלו למתלמד סקרן.<br></p> -->
+            <p class="welcome-text"><br>אם את/ה בעלי ניסיון חיים ואת/ה מעוניינים לתת מהידע והכישרונות שלכם אתם מוזמנים להירשם כ"מנוסה".<br><br>
+            אם את/ה צעירים בעלי רצון ללמוד דברים חדשים אתם מוזמנים להירשם כ"מתלמד/ת".<br></p>
+            <div class="button-container">
+                <button class="icon-button" id="experiencedButton">
+                    <i class="fas fa-glasses"></i>
+                    <span>מנוסה</span>
+                </button>
+                <button class="icon-button" id="noviceButton">
+                  <i class="fas fa-book"></i>
+                  <span>מתלמד/ת</span>
+              </button>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+          authDomain: "bridgen-988cb.firebaseapp.com",
+          databaseURL: "https://bridgen-988cb-default-rtdb.firebaseio.com",
+          projectId: "bridgen-988cb",
+          storageBucket: "bridgen-988cb.appspot.com",
+          messagingSenderId: "1092821735169",
+          appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider()
+      
+        const noviceButton = document.getElementById("noviceButton");
+        const experiencedButton = document.getElementById("experiencedButton");
+
+        const handleUserType = (userType) => {
+            localStorage.setItem('userType', userType); 
+            signInWithPopup(auth, provider)
+            .then((result) => {
+              const user = result.user;
+              console.log(user);
+              if (userType === 'novice') {
+                    window.location.href = '/Pages/SignupElder/SignupElder.html';
+                } else {
+                    window.location.href = '/Pages/SignupElder/SignupElder.html';
+                }            }).catch((error) => {
+              console.error(error.code, error.message);
+            });
+        };
+
+        noviceButton.addEventListener('click', () => handleUserType('novice'));
+        experiencedButton.addEventListener('click', () => handleUserType('experienced'));
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,54 +10,32 @@
     <div class="container">
         <div class="card">
             <h1 class="signup-title">הרשמה</h1>
-            <div class="icon-row">
-                <div class="icon-option">
-                    <input type="radio" id="young" name="age-group" value="young">
-                    <label for="young">
-                        <img src="young.svg" alt="Young Male">
-                    </label>
-                    <input type="radio" id="younga" name="age-group" value="younga">
-                    <label for="younga">
-                        <img src="younga.svg" alt="Young Female">
-                    </label>
-                </div>
-                <div class="icon-option">
-                    <input type="radio" id="old" name="age-group" value="old">
-                    <label for="old">
-                        <img src="old.svg" alt="Old Male">
-                    </label>
-                    <input type="radio" id="olda" name="age-group" value="olda">
-                    <label for="olda">
-                        <img src="olda.svg" alt="Old Female">
-                    </label>
-                </div>
-            </div>
-            <form>
+            <form id="signupForm">
                 <div class="input-group">
-                    <input type="text" placeholder="שם מלא" required>
+                    <input type="text" id="fullName" placeholder="שם מלא" required>
                 </div>
                 <div class="input-group">
-                    <input type="number" placeholder="גיל" required>
+                    <input type="number" id="age" placeholder="גיל" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" placeholder="שכונה" required>
+                    <input type="text" id="neighborhood" placeholder="שכונה" required>
                 </div>
                 <div class="input-group">
-                    <input type="tel" placeholder="מספר טלפון" required>
+                    <input type="tel" id="phoneNumber" placeholder="מספר טלפון" required>
                 </div>
                 <p>תמונת פרופיל</p>
                 <div class="input-group">
-                    <input type="file" accept="image/*" required>
+                    <input type="file" id="profilePicture" accept="image/*" required>
                 </div>
                 <div class="input-group">
-                    <textarea placeholder="הסבר קצר על עצמי" required></textarea>
+                    <textarea id="aboutMe" placeholder="הסבר קצר על עצמי" required></textarea>
                 </div>
                 <div class="action-buttons">
-                    <button id="continue_register" class="signup_button">המשך &#10140;</button>
+                    <button type="submit" id="continue_register" class="signup_button">המשך &#10140;</button>
                 </div>
-            </form>
+            </form>            
         </div>
     </div>
-    <script src="SignupElder.js" defer></script>
+    <script type="module" src="path/to/your/SignupElder.js"></script>
 </body>
 </html>
