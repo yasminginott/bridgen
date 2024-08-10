@@ -7,6 +7,7 @@
     --text_color_secondry: #6A6A6A;
 
     --primary-font: 'Rubik', sans-serif;
+    --hebrew-font:
     --font-size-small: 0.875rem;
     --font-size-medium: 1rem;
     --font-size-large: 1.25rem;
@@ -74,11 +75,11 @@ html, body {
     margin: var(--spacing-xsmall) 0;
 }
 
-.signup-title {
+/* .signup-title {
     color: var(--blue_primary);
     font-size: var(--font-size-xxlarge);
     margin: var(--spacing-xlarge) 0 var(--spacing-large) 0; 
-}
+} */
 
 /* .login_button {
     align-items: center;
@@ -300,7 +301,7 @@ p {
     font-size: 24px;
     /* font-weight: bold; */
     text-align: center;
-    margin: 2px 0 64px 0;
+    /* margin: 2px 0 64px 0; */
 }
 
 /* Buttons */
@@ -438,7 +439,7 @@ p {
 }
 
 .icon-button:hover {
-    background-color: var(--secondry_dark);
+    background-color:  rgba(200, 125, 93, 0.15);
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
@@ -494,7 +495,7 @@ textarea {
     border: 1px solid var(--secondry_dark);
     border-radius: var(--border-radius);
     font-family: var(--primary-font);
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-xlarge);
     text-align: right;
     background-color: #f9f9f9;
 }
