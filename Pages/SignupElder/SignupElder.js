@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
       // Save user data to Firestore
-      alert("קורה")
+      alert(email)
       await setDoc(doc(db, "users", user.uid), userData);
       console.log('User data saved successfully');
 
