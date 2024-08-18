@@ -350,7 +350,7 @@ textarea {
 .action-buttons {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-medium);
+    gap: var(--spacing-small);
     margin-top: var(--spacing-xlarge);
 }
 
