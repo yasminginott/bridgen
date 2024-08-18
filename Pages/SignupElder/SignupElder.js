@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         neighborhood,
         phoneNumber,
         aboutMe,
-        // email: "ror",
+        email: user.email,
         // experienced:  "true",
         //profilePictureUrl,
       };
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("קורה")
       await setDoc(doc(db, "users", user.uid), userData);
       console.log('User data saved successfully');
-      alert("קורהלא ")
 
       // Redirect to profile page
       window.location.href = `/Pages/ElderProfile/ElderProfile.html`;
