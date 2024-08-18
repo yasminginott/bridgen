@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
    
     try {
-      // Sign in with Google
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+    //   // Sign in with Google
+    //   const result = await signInWithPopup(auth, provider);
+    //   const user = result.user;
 
       // Get form data
       const fullName = document.getElementById('fullName').value || user.displayName;
