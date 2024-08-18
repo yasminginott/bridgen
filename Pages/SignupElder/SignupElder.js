@@ -49,10 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         neighborhood,
         phoneNumber,
         aboutMe,
-        // email: user.email,
-        experienced: localStorage.getItem('userType') === 'experienced' ? "true" : "false"
+        email: "ror",
+        experienced:  "true",
         //profilePictureUrl,
       };
+      console.log(experienced, email, aboutMe, phoneNumber, neighborhood, age, fullName)
 
       // Save user data to Firestore
       alert("קורה")
