@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('User data saved successfully');
      
       // Redirect to profile page
-      window.location.href = `/Pages/ElderProfile/ElderProfile.html?uid=${user.uid}`;
+      window.location.href = `/Pages/ElderProfile/ElderProfile.html`;
+      // window.location.href = `/Pages/ElderProfile/ElderProfile.html?uid=${user.uid}`;
     } catch (error) {
       console.error("Error during signup:", error.message, error.stack);
       alert("An error occurred during signup. Please try again.");
