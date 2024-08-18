@@ -25,25 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    try {
-      const user = auth.currentUser;
-    
-      if (!user) {
-        alert("No user is currently signed in.");
-        return;
-      }
-
-      if (!user.uid) {
-        alert("User is signed in, but user.uid is undefined or null.");
-        return;
-      }
-    
-      alert("User UID: " + user.uid);
-
-    } catch (error) {
-      alert("Error occurred: " + error.message);}
-    
-        
+    const user = auth.currentUser;
     
     try {
       // Get form data
