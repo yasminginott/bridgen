@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
         phoneNumber,
         aboutMe,
         email: user.email,
-        // experienced:  "true",
-        //profilePictureUrl,
+        experienced: localStorage.getItem('userType') === 'experienced' ? "true" : "false"
+        // profilePictureUrl,
       };
 
 
       // Save user data to Firestore
-      console.log(userData.email);
-      
+      console.log(userType);
+
       await setDoc(doc(db, "users", user.uid), userData);
       console.log('User data saved successfully');
 
