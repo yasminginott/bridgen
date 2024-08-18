@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         experienced:  "true",
         //profilePictureUrl,
       };
-      console.log(experienced, email, aboutMe, phoneNumber, neighborhood, age, fullName)
+      console.log({experienced, email, aboutMe, phoneNumber, neighborhood, age, fullName})
 
       // Save user data to Firestore
       alert("קורה")
