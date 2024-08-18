@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Save user data to Firestore
       await setDoc(doc(db, "users", user.uid), userData);
       console.log('User data saved successfully');
+      alert("לא קטרה")
      
       // Redirect to profile page
       window.location.href = `/Pages/ElderProfile/ElderProfile.html`;
