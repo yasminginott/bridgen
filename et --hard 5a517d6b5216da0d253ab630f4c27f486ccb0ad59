@@ -1,0 +1,247 @@
+[33mcommit c9c8c75f7d14e1227ff3a246e3e33357a129fd77[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/save-before-changes[m[33m)[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Sun Aug 18 18:43:32 2024 +0300
+
+    Save current version before changes
+
+[33mcommit 5a517d6b5216da0d253ab630f4c27f486ccbad59[m[33m ([m[1;32mmain[m[33m)[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Sun Aug 18 18:30:23 2024 +0300
+
+    ב
+
+[33mcommit 4172463ab037ae8a371e0642d5686a31699cc049[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Sun Aug 18 18:02:57 2024 +0300
+
+    e
+
+[33mcommit 1b55df25692cf56cce2d043ab3629f5e3cff6bd9[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Sun Aug 18 17:36:48 2024 +0300
+
+    c
+
+[33mcommit 5e0501bfe558ab1cf2abe4777438bd37ce0018f1[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sun Aug 18 17:12:17 2024 +0300
+
+    rotem
+
+[33mcommit ef9ee9c4248353db9377146b461ae9c8d1d0da96[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sun Aug 18 17:01:25 2024 +0300
+
+    rotem
+
+[33mcommit b6f13cdbfa8abe64a083d9f7daa8ebcfd1530922[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sun Aug 18 16:48:49 2024 +0300
+
+    rotem
+
+[33mcommit 3cd9ffde0f386d0ebfedd8040ec16ca30aff4882[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sat Aug 10 16:08:57 2024 +0300
+
+    rotem last
+
+[33mcommit b4029670d979a390c46b70500f9882469c75ff2f[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sat Aug 10 12:37:40 2024 +0300
+
+    rotem
+
+[33mcommit 9755c7cd7348142b7756e0fc8d12b82e04349d1a[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Sat Aug 10 01:36:09 2024 +0300
+
+    rotem
+
+[33mcommit b1929115959726cd063db20f5d723036d8159da7[m
+Merge: af3f006 156f55c
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 22:05:16 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit af3f0067973af4d7fbdb83b984242a7760e467bc[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 22:04:57 2024 +0300
+
+    last changes
+
+[33mcommit 156f55cf70716595faaa29fa2330f688492b9cf1[m
+Merge: 509b858 1ea21f8
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Wed Jul 24 16:35:14 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit 509b85800089f33799a691174585f9a8ee47dfb1[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Wed Jul 24 16:35:13 2024 +0300
+
+    change cards
+
+[33mcommit 1ea21f848326abfc862e655309132d0eaddf3c32[m
+Merge: bf00431 030ed97
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 15:26:18 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit bf00431dad59d9316f3c19d5960e69f7ca9d78f7[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 15:26:03 2024 +0300
+
+    add heart for young
+
+[33mcommit 030ed977b99440d5b595b960bc7b60755febb8a7[m
+Merge: 3edeb6b bf6e656
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Wed Jul 24 14:56:54 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit bf6e65601f34db3a797a353ed467155e36ac09af[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 14:56:43 2024 +0300
+
+    new elder menu 2
+
+[33mcommit cbd2e9c8e27c76e2ebea05c4a19f217b65ad9eba[m
+Merge: df5492c 462bdaf
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 14:51:56 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit df5492ce8be88d02aafc47015c32ca8ad275fec3[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 24 14:51:33 2024 +0300
+
+    new elder menu
+
+[33mcommit 3edeb6b5ffe98a010966ec6117207ba6839f461b[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Wed Jul 24 14:49:11 2024 +0300
+
+    delete root
+
+[33mcommit 462bdafe6e2ff40bdac42b61b3d3dd4aee830ca1[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Wed Jul 24 14:30:00 2024 +0300
+
+    change folders
+
+[33mcommit a50d567805a668b9160cfc9739bed24943b768ec[m
+Merge: 7a03dbc 139171e
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Wed Jul 17 12:55:29 2024 +0300
+
+    Merge branch 'login' of https://github.com/yasminginott/bridgen
+
+[33mcommit 7a03dbc3f83f3e633c34b35a50c47205e66ade28[m
+Author: yardenross <yarden.ross@mail.huji.ac.il>
+Date:   Mon Jul 15 13:48:09 2024 +0300
+
+    Marketplace filter and search work
+
+[33mcommit 4f137d6adbc2202a04781f6ef85ef888a7b2b6d7[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 22:57:09 2024 +0300
+
+    index
+
+[33mcommit 139171eeea6ead3a99b2a9c4c438be6868254806[m[33m ([m[1;31morigin/login[m[33m)[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 22:01:43 2024 +0300
+
+    commit
+
+[33mcommit 5fdb50e32ecc16bf6f07ad6c1084bc3978a5fcbc[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 19:01:16 2024 +0300
+
+    rotem
+
+[33mcommit 96b0dbfe5fd11d31bb69f03c5677a73c727d5033[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 18:26:24 2024 +0300
+
+    rotem deleted unnessecery css docs
+
+[33mcommit 6819bc5cd180c4cf7352d7cb202acecbe738a7ea[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 18:17:37 2024 +0300
+
+    rotem
+
+[33mcommit 0e9a384d3b1eab4cd3e01f95687c7526724b9f01[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Wed Jul 10 16:26:44 2024 +0300
+
+    rotem moving pages
+
+[33mcommit 61370cfb38df8b20af182f562ecbeac1ba094667[m
+Author: YBARSHAIN <yonah.barshain@mail.huji.ac.il>
+Date:   Mon Jul 8 10:02:11 2024 +0300
+
+    rotem 3
+
+[33mcommit 3c1cf6641ef0ff54adcedd3f4825a3510ae70316[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Mon Jul 8 10:01:38 2024 +0300
+
+    Yona2
+
+[33mcommit 303ff788303e743772c720b06007cb1cc208e570[m
+Author: rotemmin <rotemminai@gmail.com>
+Date:   Mon Jul 8 09:58:13 2024 +0300
+
+    commit yona1
+
+[33mcommit 8b13f3625510f686aa0e6adb6694992d86e42d43[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Mon Jul 8 08:01:41 2024 +0300
+
+    f
+
+[33mcommit 48f5418efd9bd63d96fcae549a317841367731ed[m
+Author: yasminginott <yasmin.ginott@mail.huji.ac.il>
+Date:   Mon Jul 8 08:01:28 2024 +0300
+
+    finel changes
+
+[33mcommit 3b14a52b194aaa3c50c8ca6bdf2cb77c770feac3[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Sun Jul 7 15:22:38 2024 +0300
+
+    fixed login
+
+[33mcommit a4a97a210939126b2f510aba64bc9338fe826d5d[m
+Merge: e3ceb09 398c0b5
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Sun Jul 7 14:18:30 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit e3ceb094e734787b6e05728d446a84e56f552ec4[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Sun Jul 7 14:18:18 2024 +0300
+
+    14:18
+
+[33mcommit 398c0b59aca82e000b64be5f5e4dc6aa4ee4be70[m
+Merge: 36de8f5 d23a869
+Author: yardenross <yarden.ross@mail.huji.ac.il>
+Date:   Sun Jul 7 13:52:01 2024 +0300
+
+    Merge branch 'main' of https://github.com/yasminginott/bridgen
+
+[33mcommit d23a8694394f4971600b149bb0de547689ff94b7[m
+Author: shir.afek <shir.afek@mail.huji.ac.il>
+Date:   Sun Jul 7 13:46:09 2024 +0300
+
+    linked add skill pages
