@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const user = auth.currentUser;
     
     try {
       // Get form data
