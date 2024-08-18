@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         neighborhood,
         phoneNumber,
         aboutMe,
-        email: user.email,
+        // email: user.email,
         experienced: localStorage.getItem('userType') === 'experienced' ? "true" : "false"
         //profilePictureUrl,
       };
