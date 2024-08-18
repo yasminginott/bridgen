@@ -22,5 +22,8 @@ const handleUserType = (userType) => {
         });
 };
 
-noviceButton.addEventListener('click', () => handleUserType('novice'));
 experiencedButton.addEventListener('click', () => handleUserType('experienced'));
+noviceButton.addEventListener('click', () => handleUserType('novice'));
+
+// noviceButton.addEventListener('click', () => handleUserType('novice'));
+// experiencedButton.addEventListener('click', () => handleUserType('experienced'));

@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutMe,
         email: user.email,
         profilePictureUrl,
-        userType: localStorage.getItem('userType') || 'מנוסה' // Default to 'מנוסה' if not set
+        experienced: localStorage.getItem('userType') === 'experienced' ? "true" : "false"
       };
 
       // Save user data to Firestore
