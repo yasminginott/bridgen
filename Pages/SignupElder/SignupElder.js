@@ -47,15 +47,15 @@ function setupFormSubmission(user, userType) {
       const neighborhood = document.getElementById('neighborhood').value;
       const phoneNumber = document.getElementById('phoneNumber').value;
       const aboutMe = document.getElementById('aboutMe').value;
-      // const profilePicture = document.getElementById('profilePicture').files[0];
+      const profilePicture = document.getElementById('profilePicture').files[0];
 
       // Upload profile picture if provided
-      // let profilePictureUrl = user.photoURL;
-      // if (profilePicture) {
-      //   const storageRef = ref(storage, `profile_pictures/${user.uid}`);
-      //   await uploadBytes(storageRef, profilePicture);
-      //   profilePictureUrl = await getDownloadURL(storageRef);
-      // }
+      let profilePictureUrl = user.photoURL;
+      if (profilePicture) {
+        const storageRef = ref(storage, `profile_pictures/${user.uid}`);
+        await uploadBytes(storageRef, profilePicture);
+        profilePictureUrl = await getDownloadURL(storageRef);
+      }
 
       // Prepare user data
       const userData = {
