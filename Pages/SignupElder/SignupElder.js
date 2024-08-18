@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Redirect to profile page
       window.location.href = `/Pages/ElderProfile/ElderProfile.html?uid=${user.uid}`;
     } catch (error) {
-      console.error("Error during signup:", error);
+      console.error("Error during signup:", error.message, error.stack);
       alert("An error occurred during signup. Please try again.");
     }
   });
