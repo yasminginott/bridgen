@@ -55,10 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // Save user data to Firestore
+      alert("קורה")
       await setDoc(doc(db, "users", user.uid), userData);
       console.log('User data saved successfully');
-      alert("לא קטרה")
-     
+      alert("קורהלא ")
+
       // Redirect to profile page
       window.location.href = `/Pages/ElderProfile/ElderProfile.html`;
       // window.location.href = `/Pages/ElderProfile/ElderProfile.html?uid=${user.uid}`;
