@@ -24,7 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-   
+
+    try {
+      const user = auth.currentUser;
+    
+      if (!user) {
+        alert("No user is currently signed in.");
+        return;
+      }
+
+      if (!user.uid) {
+        alert("User is signed in, but user.uid is undefined or null.");
+        return;
+      }
+    
+      alert("User UID: " + user.uid);
+
+    } catch (error) {
+      alert("Error occurred: " + error.message);}
+    
+        
+    
     try {
       // Get form data
       const fullName = document.getElementById('fullName').value || user.displayName;
@@ -49,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         neighborhood,
         phoneNumber,
         aboutMe,
-        // email: user.email,
+        email: user.email,
         // experienced:  "true",
         //profilePictureUrl,
       };
