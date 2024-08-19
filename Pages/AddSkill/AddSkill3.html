@@ -1,4 +1,4 @@
-<!--I think the main difference between this and AddSkill4 is that this one uses "authentication" and pulls the user id from the Firestore user -->
+<!--Add Skill3 (new one as of 23:00 19/08) now saves the skills in Hebrew as opposed to in English -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,24 +109,28 @@
 
             document.getElementById('add_another_skill').addEventListener('click', async (e) => {
                 e.preventDefault();
-                await saveSkill(user.uid, "field"); // Use "subcollection" to save as a sub-collection
+                await saveSkill(user.uid, "field"); 
                 window.location.href = 'AddSkill.html';
             });
         }
 
         async function saveSkill(userId, method) {
-            const category = document.getElementById('firstSelect').value;
-            const subCategory = document.getElementById('secondSelect').value;
+            const firstSelect = document.getElementById('firstSelect');
+            const secondSelect = document.getElementById('secondSelect');
             const skillDescription = document.getElementById('skillDescription').value;
 
-            if (!category || !subCategory || !skillDescription) {
+            // Get the selected text (Hebrew) for category and subCategory
+            const categoryText = firstSelect.options[firstSelect.selectedIndex].text;
+            const subCategoryText = secondSelect.options[secondSelect.selectedIndex].text;
+
+            if (!categoryText || !subCategoryText || !skillDescription) {
                 alert("Please fill out all fields.");
                 return;
             }
 
             const skillData = {
-                category: category,
-                subCategory: subCategory,
+                category: categoryText,   // Use the Hebrew text
+                subCategory: subCategoryText, // Use the Hebrew text
                 description: skillDescription
             };
 
@@ -148,6 +152,7 @@
                 alert("An error occurred while saving the skill. Please try again.");
             }
         }
+
     </script>
 </head>   
 
