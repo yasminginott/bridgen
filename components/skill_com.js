@@ -1,3 +1,18 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+    authDomain: "bridgen-988cb.firebaseapp.com",
+    projectId: "bridgen-988cb",
+    storageBucket: "bridgen-988cb.appspot.com",
+    messagingSenderId: "1092821735169",
+    appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 class SkillButton extends HTMLElement {
 constructor() {
     super();
@@ -161,6 +176,16 @@ class IconMenuBar {
         logoutButton.textContent = 'התנתקות';
         logoutButton.id = 'logout-button';
         this.container.insertBefore(logoutButton, this.container.firstChild);
+    
+        // Add event listener for logout
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                console.log('User signed out');
+                window.location.href = '/Pages/EnteryScreen/EnteryScreen.html'; // Redirect to entry page
+            }).catch((error) => {
+                console.error('Error signing out:', error);
+            });
+        });
     }
 }
 
