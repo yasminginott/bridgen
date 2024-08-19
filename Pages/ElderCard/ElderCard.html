@@ -39,7 +39,7 @@
                 // הצגת מספר טלפון ב-WhatsApp
                 const addButton = document.getElementById('addButton');
                 addButton.onclick = function() {
-                    var whatsappUrl = 'https://wa.me/' + userData.phoneNumber + '?text=' + encodeURIComponent('היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!');
+                    var whatsappUrl = 'https://wa.me/' +972+ userData.phoneNumber + '?text=' + encodeURIComponent('היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!');
                     window.location.href = whatsappUrl;
                 };
 
@@ -58,9 +58,19 @@
             }
         }
 
+        function getUIDFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('uid');
+        }
+
         // בדיקת קוד משתמש והצגת הנתונים
-        const userUID = "oevTb2VrOXYxhh50Mau1nkKYatx2";
-        fetchUserData(userUID);
+        const userUID = getUIDFromURL();
+        if (userUID) {
+            fetchUserData(userUID);
+        } else {
+            console.error("UID not provided in URL");
+            document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
+        }
     </script>
     <style>
         .pending {
@@ -97,9 +107,6 @@
     </div>
 </body>
 </html>
-
-
-
 
 <!-- <!DOCTYPE html>
 <html lang="he" dir="rtl">
