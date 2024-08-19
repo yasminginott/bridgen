@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('add_skill_button').addEventListener('click', function() {
-        window.location.href = '/Pages/AddSkill/AddSkill.html';
+        window.location.href = '/Pages/AddSkill/AddSkill3.html';
     });
 
     fetchAndDisplayUserData(currentUserId)
