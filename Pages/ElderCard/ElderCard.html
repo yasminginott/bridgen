@@ -3,6 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <div id="userData">
+        <!-- הפרטים של המשתמש יוצגו כאן -->
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+            authDomain: "bridgen-988cb.firebaseapp.com",
+            projectId: "bridgen-988cb",
+            storageBucket: "bridgen-988cb.appspot.com",
+            messagingSenderId: "1092821735169",
+            appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchUserData(uid) {
+            const docRef = doc(db, "users", uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                console.log('User data:', userData); // בדיקת נתונים בקונסול
+                document.getElementById('userData').innerHTML = `
+                    <p><strong>Full Name:</strong> ${userData.fullName}</p>
+                    <p><strong>Age:</strong> ${userData.age}</p>
+                    <p><strong>Neighborhood:</strong> ${userData.neighborhood}</p>
+                    <p><strong>Email:</strong> ${userData.email}</p>
+                    <p><strong>About Me:</strong> ${userData.aboutMe}</p>
+                `;
+            } else {
+                console.log('No such document!'); // בדיקת הודעות בקונסול
+                document.getElementById('userData').innerHTML = "No such document!";
+            }
+        }
+
+        // הכניסי את ה-UID של המשתמש שאת רוצה לבדוק כאן
+        const userUID = "3TXzA4Ae1edBlgc1QNoMkHCwsxH2";
+        fetchUserData(userUID);
+    </script>
+</body>
+</html>
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/global.css">
     <title>Profile Page</title>
     <script>
@@ -72,4 +132,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> -->
