@@ -9,6 +9,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
         import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -23,6 +24,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const storage = getStorage(app);
+        const auth = getAuth(app);
 
         async function fetchUserData(uid) {
             const docRef = doc(db, "users", uid);
@@ -58,19 +60,16 @@
             }
         }
 
-        function getUIDFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('uid');
-        }
-
-        // בדיקת קוד משתמש והצגת הנתונים
-        const userUID = getUIDFromURL();
-        if (userUID) {
-            fetchUserData(userUID);
-        } else {
-            console.error("UID not provided in URL");
-            document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
-        }
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // משתמש מחובר, השתמש ב-UID שלו כדי לאחזר את נתוני הפרופיל
+                const userUID = user.uid;
+                fetchUserData(userUID);
+            } else {
+                // משתמש לא מחובר, נווט אותו לעמוד התחברות או הצג הודעה
+                document.querySelector('.card').innerHTML = "<p>משתמש לא מחובר. אנא התחבר כדי להציג את הנתונים.</p>";
+            }
+        });
     </script>
     <style>
         .pending {
@@ -107,6 +106,7 @@
     </div>
 </body>
 </html>
+
 
 <!-- <!DOCTYPE html>
 <html lang="he" dir="rtl">
