@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+    <script type="module" src="/components/skill_com.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/global.css">
@@ -8,6 +9,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -21,10 +23,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
         async function fetchUserData(uid) {
             try {
-                const docRef = doc(db, "youngUsers", uid); // בדקי שהאוסף הוא הנכון
+                const docRef = doc(db, "users", uid); // עכשיו החיפוש מתבצע באוסף "users"
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
@@ -42,6 +45,17 @@
                         var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
                         window.location.href = whatsappUrl;
                     };
+
+                    // הצגת תמונת פרופיל מה-Firebase Storage בהתבסס על ה-UID
+                    const profilePicRef = ref(storage, `profile_pictures/${uid}`);
+                    getDownloadURL(profilePicRef)
+                        .then((url) => {
+                            document.getElementById('profileImage').src = url;
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching profile picture: ", error);
+                        });
+
                 } else {
                     console.error("No such document!");
                     document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
@@ -52,14 +66,18 @@
             }
         }
 
-        // כאן את מכניסה את ה-UID של המשתמש שאת רוצה להציג
-        const otherUserUID = "WCM9HdRbCFPFM0fdvgHhWnMTH263"; // ה-UID של המשתמש הרצוי
+        function getUIDFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('uid');
+        }
 
-        if (otherUserUID) {
-            fetchUserData(otherUserUID);
+        const userUID = getUIDFromURL();
+
+        if (userUID) {
+            fetchUserData(userUID);
         } else {
-            console.error("UID not found or provided");
-            document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-UID תקין.</p>";
+            console.error("UID not provided in URL");
+            document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
         }
     </script>
     <style>
@@ -72,7 +90,7 @@
     <div class="card">
         <div id="MenuBarOld" class="menu-bar old"></div>
         <div class="img-container">
-            <img src="/Pages/YoungCard/ofriimage.png" class="profile-img" alt="Profile">
+            <img id="profileImage" class="profile-img" alt="Profile">
         </div>
         <h1 class="right-aligned"></h1> 
         <div class="inline">
@@ -92,7 +110,7 @@
             <button id="addButton" class="Contact_button">
                 אשר
             </button>
-            <script src="/components/skill_com.js"></script>
+            <!-- <script src="/components/skill_com.js"></script> -->
         </div>
     </div>
 </body>
