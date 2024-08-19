@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch((error) => {
                         console.error("Error getting profile picture:", error);
                         // Set a default image if there's an error
-                        document.querySelector('.profile-img').src = '/Pages/Marketplace/sabta.jpg';
+                        document.querySelector('.profile-img').src = '/public/icons/default_profile_pic.jpg';
                     });
             } else {
                 console.log("No such document!");
