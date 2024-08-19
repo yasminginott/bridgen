@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/global.css">
     <title>Profile Page</title>
-    <style>
-        .pending {
-            background-color: grey;
-        }
-    </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -26,6 +23,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getStorage(app);
+        const auth = getAuth(app);
 
         async function fetchUserData(uid) {
             const docRef = doc(db, "users", uid);
@@ -34,67 +33,62 @@
             if (docSnap.exists()) {
                 const userData = docSnap.data();
 
-                // עדכון ה-HTML עם הנתונים שנשלפו
-                document.querySelector('.profile-img').src = userData.profilePictureUrl || "default-profile.png";
-                document.querySelector('h1.right-aligned').textContent = userData.fullName;
-                document.querySelector('.inline p').textContent = userData.neighborhood;
-                document.querySelector('.description').textContent = userData.aboutMe;
+                // הצגת שם המשתמש ושאר הפרטים
+                document.querySelector("h1.right-aligned").textContent = userData.fullName;
+                document.querySelector(".inline p").textContent = userData.neighborhood;
+                document.querySelector(".description").textContent = userData.aboutMe;
 
-                // עדכון הכפתור של WhatsApp עם מספר הטלפון הנכון
-                var addButton = document.getElementById('addButton');
+                // הצגת מספר טלפון ב-WhatsApp
+                const addButton = document.getElementById('addButton');
                 addButton.onclick = function() {
-                    switchToWhatsApp(this, userData.phoneNumber);
+                    var whatsappUrl = 'https://wa.me/' +972+ userData.phoneNumber + '?text=' + encodeURIComponent('היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!');
+                    window.location.href = whatsappUrl;
                 };
+
+                // הצגת תמונת פרופיל מה-Firebase Storage
+                const profilePicRef = ref(storage, `profile_pictures/${uid}`);
+                getDownloadURL(profilePicRef)
+                    .then((url) => {
+                        document.getElementById('profileImage').src = url;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching profile picture: ", error);
+                    });
+
             } else {
-                console.error("No such document!");
+                document.getElementById('userData').innerHTML = "<p>User not found.</p>";
             }
         }
 
-        // קריאה לפונקציה עם UID של משתמש
-        const userUID = "3TXzA4Ae1edBlgc1QNoMkHCwsxH2";
-        fetchUserData(userUID);
-
-        function switchToPending(button) {
-            button.textContent = "מחכה לאישור";
-            button.disabled = true;
-            button.classList.add("pending");
-
-            setTimeout(function() {
-                switchToWhatsApp(button);
-            }, 3000);
-        }
-
-        function switchToWhatsApp(button, phoneNumber) {
-            button.innerHTML = '<img src="/Pages/YoungCard/whatsapp-svgrepo-com.svg" alt="WhatsApp" style="width: 40px; height: 24px; margin-right: 8px;"> צור קשר';
-            button.disabled = false;
-            button.classList.remove("pending");
-            button.onclick = function() {
-                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                var whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(message);
-                window.location.href = whatsappUrl;
-            };
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var addButton = document.getElementById('addButton');
-            addButton.addEventListener('click', function() {
-                switchToPending(this);
-            });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // משתמש מחובר, השתמש ב-UID שלו כדי לאחזר את נתוני הפרופיל
+                const userUID = user.uid;
+                fetchUserData(userUID);
+            } else {
+                // משתמש לא מחובר, נווט אותו לעמוד התחברות או הצג הודעה
+                document.querySelector('.card').innerHTML = "<p>משתמש לא מחובר. אנא התחבר כדי להציג את הנתונים.</p>";
+            }
         });
     </script>
+    <style>
+        .pending {
+            background-color: grey;
+        }
+    </style>
 </head>
 <body>
     <div class="card">
         <div id="MenuBarYoung" class="menu-bar"></div>
         <div class="img-container">
-            <img src="clara.png" class="profile-img" alt="Profile">
+            <img id="profileImage" class="profile-img" alt="Profile">
         </div>
-        <h1 class="right-aligned"></h1> <!-- כאן יופיע fullName -->
+        <h1 class="right-aligned"></h1> 
         <div class="inline">
             <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
-            <p></p> <!-- כאן יופיע neighborhood -->
+            <p></p>
         </div>
-        <p class="description"></p> <!-- כאן יופיע aboutMe -->
+        <p class="description"></p>
         <h2>בואו לתרגל איתי</h2>
         <br>
         <div class="button-container">
@@ -112,9 +106,6 @@
     </div>
 </body>
 </html>
-
-
-
 
 
 <!-- <!DOCTYPE html>

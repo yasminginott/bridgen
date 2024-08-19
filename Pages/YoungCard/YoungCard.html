@@ -5,28 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/global.css">
     <title>Profile Page</title>
-    <script>
-        // פונקציה לשינוי הכפתור לכפתור WhatsApp
-        function switchToWhatsApp(button, phoneNumber) {
-            button.innerHTML = '<img src="/Pages/YoungCard/whatsapp-svgrepo-com.svg" alt="WhatsApp" style="width: 40px; height: 24px; margin-right: 8px;"> צור קשר';
-            button.disabled = false;
-            button.classList.remove("pending");
-            button.onclick = function() {
-                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=' + encodeURIComponent(message);
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-                // הפניית המשתמש לקישור
-                window.location.href = whatsappUrl;
-            };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+            authDomain: "bridgen-988cb.firebaseapp.com",
+            databaseURL: "https://bridgen-988cb-default-rtdb.firebaseio.com",
+            projectId: "bridgen-988cb",
+            storageBucket: "bridgen-988cb.appspot.com",
+            messagingSenderId: "1092821735169",
+            appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        async function fetchYoungData(uid) {
+            const docRef = doc(db, "youngUsers", uid); // assuming the collection for young users is named "youngUsers"
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+
+                // הצגת שם המשתמש ושאר הפרטים
+                document.querySelector("h1.right-aligned").textContent = userData.fullName;
+                document.querySelector(".inline p").textContent = userData.neighborhood;
+                document.querySelector("p").textContent = userData.aboutMe;
+
+                // הצגת מספר טלפון ב-WhatsApp עם קוד מדינה
+                const addButton = document.getElementById('addButton');
+                addButton.onclick = function() {
+                    var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                    var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                    window.location.href = whatsappUrl;
+                };
+            } else {
+                document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
+            }
         }
 
-        // הפונקציה נטענת בעת טעינת העמוד
-        document.addEventListener('DOMContentLoaded', function() {
-            var phoneNumber = '972509113005'; // הכניסי כאן את מספר הטלפון הרצוי
-            var addButton = document.getElementById('addButton');
-            addButton.addEventListener('click', function() {
-                switchToWhatsApp(this, phoneNumber);
-            });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // משתמש מחובר, השתמש ב-UID שלו כדי לאחזר את נתוני הפרופיל
+                const userUID = user.uid;
+                fetchYoungData(userUID);
+            } else {
+                // משתמש לא מחובר, נווט אותו לעמוד התחברות או הצג הודעה
+                document.querySelector('.card').innerHTML = "<p>משתמש לא מחובר. אנא התחבר כדי להציג את הנתונים.</p>";
+            }
         });
     </script>
     <style>
@@ -41,12 +71,12 @@
         <div class="img-container">
             <img src="/Pages/YoungCard/ofriimage.png" class="profile-img" alt="Profile">
         </div>
-        <h1 class="right-aligned">עפרי דוד</h1> 
+        <h1 class="right-aligned"></h1> 
         <div class="inline">
             <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
-            <p>רחביה, ירושלים</p>
+            <p></p>
         </div>
-        <p>שלום לכולם! קוראים לי עפרי ואני בת 21, השתחחרתי לא מזמן מצה"ל וכבר שנים שאני חולמת ללמוד ספרדית, למדתי קצת בדואלינגו אבל אשמח לתרגל את הספרדית שלי בשיחה! אני גם אשמח ללמוד לבשל! ❤️</p>
+        <p></p>
         <h2>אשמח ללמוד מכם</h2>
         <br>
         <div class="button-container">
