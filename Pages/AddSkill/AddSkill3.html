@@ -1,0 +1,189 @@
+<!--I think the main difference between this and AddSkill4 is that this one uses "authentication" and pulls the user id from the Firestore user -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=430, height=932, initial-scale=1.0">
+    <title>BridGen - Add Skill</title>
+    <link rel="stylesheet" href="/global.css">
+    <script src="/components/skill_com.js" defer></script>
+    <!-- Firebase SDK imports -->
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        import { getFirestore, doc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+        // Firebase configuration (replace with your own Firebase config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
+            authDomain: "bridgen-988cb.firebaseapp.com",
+            databaseURL: "https://bridgen-988cb-default-rtdb.firebaseio.com",
+            projectId: "bridgen-988cb",
+            storageBucket: "bridgen-988cb.appspot.com",
+            messagingSenderId: "1092821735169",
+            appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    setupFormSubmission(user);
+                } else {
+                    window.location.href = '/Pages/EnteryScreen/EnteryScreen.html';
+                }
+            });
+
+            const firstSelect = document.getElementById('firstSelect');
+            const secondSelect = document.getElementById('secondSelect');
+
+            firstSelect.addEventListener('change', function() {
+                var firstSelectValue = this.value;
+                secondSelect.innerHTML = ''; // Clear previous options
+
+                var options = [];
+
+                if (firstSelectValue === 'language') {
+                    options = [
+                        { value: 'english', text: 'אנגלית' },
+                        { value: 'spanish', text: 'ספרדית' },
+                        { value: 'italian', text: 'איטלקית' },
+                        { value: 'french', text: 'צרפתית' },
+                        { value: 'russian', text: 'רוסית' },
+                        { value: 'arabic', text: 'ערבית' }
+                    ];
+                } else if (firstSelectValue === 'home') {
+                    options = [
+                        { value: 'knitting', text: 'סריגה' },
+                        { value: 'sewing', text: 'תפירה' },
+                        { value: 'cooking', text: 'בישול' },
+                        { value: 'carpentry', text: 'נגרות' }
+                    ];
+                } else if (firstSelectValue === 'games') {
+                    options = [
+                        { value: 'chess', text: 'שחמט' },
+                        { value: 'bridge', text: 'ברידג\'' }
+                    ];
+                } else if (firstSelectValue === 'profession') {
+                    options = [
+                        { value: 'psychology', text: 'פסיכולוגיה' },
+                        { value: 'medicine', text: 'רפואה' },
+                        { value: 'social_work', text: 'עבודה סוציאלית' },
+                        { value: 'education', text: 'חינוך' }
+                    ];
+                }
+
+                options.forEach(function(option) {
+                    var newOption = document.createElement('option');
+                    newOption.value = option.value;
+                    newOption.text = option.text;
+                    secondSelect.appendChild(newOption);
+                });
+
+                // Add a default option
+                var defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.text = 'בחירת נושא';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
+
+                // Enable the second select when a category is chosen
+                secondSelect.disabled = false;
+            });
+        });
+
+
+            // The function below checks which submit button was pressed and saves the skill data accordingly
+        // For now, if pressed שמור וסיים, it will save the skill in the user document as a new field in the skills array
+        // if pressed שמור + הוסף חדש, it will save the skill in the same user document, but under a new a sub-collection called skills, which has its own documents
+        function setupFormSubmission(user) {
+            document.getElementById('end_form_button').addEventListener('click', async (e) => {
+                e.preventDefault();
+                await saveSkill(user.uid, "field"); // Use "field" to save as a field in the user document
+                window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+            });
+
+            document.getElementById('add_another_skill').addEventListener('click', async (e) => {
+                e.preventDefault();
+                await saveSkill(user.uid, "subcollection"); // Use "subcollection" to save as a sub-collection
+                window.location.href = 'AddSkill.html';
+            });
+        }
+
+        async function saveSkill(userId, method) {
+            const category = document.getElementById('firstSelect').value;
+            const subCategory = document.getElementById('secondSelect').value;
+            const skillDescription = document.getElementById('skillDescription').value;
+
+            if (!category || !subCategory || !skillDescription) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            const skillData = {
+                category: category,
+                subCategory: subCategory,
+                description: skillDescription
+            };
+
+            console.log("Skill Data to be saved:", skillData);
+
+            try {
+                const userRef = doc(db, "users", userId);
+
+                if (method === "field") {
+                    // Add the skill to the skills array field in the user document
+                    await updateDoc(userRef, {
+                        skills: arrayUnion(skillData)
+                    });
+                } else if (method === "subcollection") {
+                    // Add the skill as a new document in a sub-collection
+                    const skillRef = doc(userRef, "skills", `${category}-${subCategory}`);
+                    await setDoc(skillRef, skillData);
+                }
+
+                console.log('Skill data saved successfully');
+            } catch (error) {
+                console.error("Error saving skill data:", error.message, error.stack);
+                alert("An error occurred while saving the skill. Please try again.");
+            }
+        }
+    </script>
+</head>   
+
+<body class="add-skill-page">
+    <div class="card">
+        <div id="MenuBarOld" class="menu-bar old"></div>
+
+        <h4>הוספת מיומנות</h4>
+        <br><br>
+        <div class="input-group">
+            <select id="firstSelect">
+                <option value="" disabled selected>בחירת קטגוריה</option>
+                <option value="language">שפה</option>
+                <option value="home">בית</option>
+                <option value="games">משחקים</option>
+                <option value="profession">מקצוע</option>
+            </select>
+            <br><br><br>
+            <select id="secondSelect" disabled> 
+                <option value="" disabled selected>בחירת נושא</option>
+            </select>
+            <br>
+        </div>
+        <div class="input-group">
+            <textarea id="skillDescription" placeholder="הסבר קצר על הרקע והניסיון שלך" required></textarea>
+        </div>
+        <button id="end_form_button" class="add-button">שמור וסיים</button>
+        <br><br>
+        <button id="add_another_skill" class="add-button">שמור + הוסף חדש</button>
+    </div>
+</body>
+</html>
