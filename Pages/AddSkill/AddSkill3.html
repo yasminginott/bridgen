@@ -100,9 +100,6 @@
         });
 
 
-            // The function below checks which submit button was pressed and saves the skill data accordingly
-        // For now, if pressed שמור וסיים, it will save the skill in the user document as a new field in the skills array
-        // if pressed שמור + הוסף חדש, it will save the skill in the same user document, but under a new a sub-collection called skills, which has its own documents
         function setupFormSubmission(user) {
             document.getElementById('end_form_button').addEventListener('click', async (e) => {
                 e.preventDefault();
@@ -112,7 +109,7 @@
 
             document.getElementById('add_another_skill').addEventListener('click', async (e) => {
                 e.preventDefault();
-                await saveSkill(user.uid, "subcollection"); // Use "subcollection" to save as a sub-collection
+                await saveSkill(user.uid, "field"); // Use "subcollection" to save as a sub-collection
                 window.location.href = 'AddSkill.html';
             });
         }
@@ -143,11 +140,7 @@
                     await updateDoc(userRef, {
                         skills: arrayUnion(skillData)
                     });
-                } else if (method === "subcollection") {
-                    // Add the skill as a new document in a sub-collection
-                    const skillRef = doc(userRef, "skills", `${category}-${subCategory}`);
-                    await setDoc(skillRef, skillData);
-                }
+                } 
 
                 console.log('Skill data saved successfully');
             } catch (error) {
