@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const storage = getStorage(app);
 
     const editIcon = document.getElementById("edit-button");
-    const editableElements = ["elder_name", "elder_location", "elder_description"];
+    const editableElements = ["young_name", "young_location", "young_description"];
     let isEditing = false;
     let currentUserData = null;
     let currentUserId = null;
