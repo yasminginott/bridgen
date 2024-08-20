@@ -62,6 +62,7 @@ html, body {
     height: 305px;
     border-radius: 20px;
     text-align: center;
+    object-fit: cover;
 }
 
 .img-container {

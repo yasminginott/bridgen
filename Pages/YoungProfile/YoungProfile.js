@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Set a default image if there's an error
                         document.querySelector('.profile-img').src = '/public/icons/default_profile_pic.jpg';
                     });
+                    displaySkills(userData.skills);
             } else {
                 console.log("No such document!");
             }
@@ -63,6 +64,57 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error fetching user data:", error);
         });
     }
+
+    function displaySkills(skills) {
+      const buttonContainer = document.querySelector('.button-container');
+      buttonContainer.innerHTML = ''; // Clear existing buttons
+  
+      if (skills && skills.length > 0) {
+          skills.forEach(skill => {
+              const button = document.createElement('button');
+              button.className = 'skill_button';
+              button.textContent = skill.subCategory;
+              button.setAttribute('data-category', skill.category);
+              button.setAttribute('data-description', skill.description);
+              button.addEventListener('click', showSkillPopup);
+              buttonContainer.appendChild(button);
+          });
+      } else {
+          console.log("No skills found");
+      }
+  }
+
+  function showSkillPopup(event) {
+      const button = event.currentTarget;
+      const subCategory = button.textContent;
+      const description = button.getAttribute('data-description');
+  
+      // Create popup element
+      const popup = document.createElement('div');
+      popup.className = 'skill-popup';
+      popup.innerHTML = `
+          <div class="popup-content">
+              <h3>${subCategory}</h3>
+              <p>${description}</p>
+              <button class="close-popup">סגור</button>
+          </div>
+      `;
+  
+      // Add popup to the body
+      document.body.appendChild(popup);
+  
+      // Add event listener to close button
+      popup.querySelector('.close-popup').addEventListener('click', () => {
+          document.body.removeChild(popup);
+      });
+  
+      // Close popup when clicking outside
+      popup.addEventListener('click', (e) => {
+          if (e.target === popup) {
+              document.body.removeChild(popup);
+          }
+      });
+  }
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
