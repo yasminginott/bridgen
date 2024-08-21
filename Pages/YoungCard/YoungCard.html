@@ -41,7 +41,7 @@
                     const currentUserData = currentUserSnap.data();
 
                     // בדיקה אם המשתמש הנוכחי הוא צעיר (experienced = "false")
-                    if (currentUserData.experienced === "true") {
+                    if (currentUserData.experienced === "false") {
                         alert("אין לך גישה לעמוד זה.");
                         window.location.href = "ProfilesList.html"; // ניתוב מחדש לדף אחר
                         return;
