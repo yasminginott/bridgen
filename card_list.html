@@ -41,10 +41,10 @@
                 profileLink.style.margin = '10px 0';
 
                 if (userData.experienced==="true") {
-                    profileLink.href = `ElderCard.html?uid=${userUID}`;
+                    profileLink.href = `Pages/ElderCard/ElderCard.html?uid=${userUID}`;
                     profileLink.textContent = `זקן: ${userData.fullName} - ${userData.email}`;
                 } if (userData.experienced==="false") {
-                    profileLink.href = `YoungCard.html?uid=${userUID}`;
+                    profileLink.href = `Pages/YoungCard/YoungCard.html?uid=${userUID}`;
                     profileLink.textContent = `צעיר: ${userData.fullName} - ${userData.email}`;
                 }
 
