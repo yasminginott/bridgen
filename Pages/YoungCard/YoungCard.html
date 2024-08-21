@@ -51,22 +51,19 @@
 
                     const addButton = document.getElementById('addButton');
 
-                    // אם הצעיר הציע חברות וה-UID שלו מופיע ב-FriendRequests של הזקן המחובר
                     if (currentUserData.FriendRequests && currentUserData.FriendRequests.includes(youngUID)) {
                         addButton.textContent = 'אשר';
                         addButton.onclick = function() {
                             approveFriendRequest(youngUID, currentUserUID);
                         };
                     } else if (currentUserData.Friends && currentUserData.Friends.includes(youngUID)) {
-                        // אם הצעיר כבר אושר וה-UID שלו מופיע ברשימת החברים
                         addButton.textContent = 'שלח הודעה ב-WhatsApp';
                         addButton.onclick = function() {
                             var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + youngData.phoneNumber + '&text=' + encodeURIComponent(message);
-                            window.location.href = whatsappUrl;
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + youngData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            showWarningPopup(whatsappUrl);  // קריאה לפונקציה שמציגה את הפופ-אפ
                         };
                     } else {
-                        // אם אין חברויות או בקשות, הכפתור מוסתר
                         addButton.style.display = 'none';
                     }
 
@@ -110,12 +107,28 @@
                 document.getElementById('addButton').textContent = 'שלח הודעה ב-WhatsApp';
                 document.getElementById('addButton').onclick = function() {
                     var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                    var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + youngUID + '&text=' + encodeURIComponent(message);
-                    window.location.href = whatsappUrl;
+                    var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + youngUID + '&text=' + encodeURIComponent(message);
+                    showWarningPopup(whatsappUrl);  // קריאה לפונקציה שמציגה את הפופ-אפ
                 };
             }).catch((error) => {
                 console.error("Error approving friend request: ", error);
             });
+        }
+
+        function showWarningPopup(whatsappUrl) {
+            const popup = document.getElementById('warningPopup');
+            popup.style.display = 'flex';
+
+            const confirmButton = document.getElementById('confirmButton');
+            confirmButton.onclick = function() {
+                popup.style.display = 'none';
+                window.location.href = whatsappUrl;
+            };
+
+            const cancelButton = document.getElementById('cancelButton');
+            cancelButton.onclick = function() {
+                popup.style.display = 'none';
+            };
         }
 
         function getUIDFromURL() {
@@ -172,6 +185,16 @@
                 אשר
             </button>
             <script type="module" src="/components/skill_com.js"></script>
+        </div>
+    </div>
+
+    <!-- פופ-אפ אזהרה לפני מעבר ל-WhatsApp -->
+    <div id="warningPopup" class="skill-popup" style="display: none;">
+        <div class="popup-content">
+            <h3>אזהרה</h3>
+            <p>לפני שנפגשים עם הצעיר, מומלץ לבצע שיחת טלפון או שיחת זום.</p>
+            <button id="confirmButton" class="close-popup">המשך ל-WhatsApp</button>
+            <button id="cancelButton" class="close-popup">ביטול</button>
         </div>
     </div>
 </body>
