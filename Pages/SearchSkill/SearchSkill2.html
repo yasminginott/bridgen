@@ -1,20 +1,18 @@
-<!--Add Skill3 (new one as of 23:00 19/08) now saves the skills in Hebrew as opposed to in English -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=430, height=932, initial-scale=1.0">
-    <title>BridGen - Add Skill</title>
+    <title>BridGen - Search Skill</title>
     <link rel="stylesheet" href="/global.css">
-    <script src="/components/skill_com.js" defer></script>
+    <!-- <script src="/components/skill_com.js" defer></script> not used in this file for some reason? -->
+
     <!-- Firebase SDK imports -->
     <script type="module">
         // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
         import { getFirestore, doc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
-
         // Firebase configuration (replace with your own Firebase config)
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -25,12 +23,10 @@
             messagingSenderId: "1092821735169",
             appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
         };
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
         document.addEventListener('DOMContentLoaded', () => {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -46,9 +42,7 @@
             firstSelect.addEventListener('change', function() {
                 var firstSelectValue = this.value;
                 secondSelect.innerHTML = ''; // Clear previous options
-
                 var options = [];
-
                 if (firstSelectValue === 'language') {
                     options = [
                         { value: 'english', text: 'אנגלית' },
@@ -78,7 +72,6 @@
                         { value: 'education', text: 'חינוך' }
                     ];
                 }
-
                 options.forEach(function(option) {
                     var newOption = document.createElement('option');
                     newOption.value = option.value;
@@ -86,31 +79,30 @@
                     secondSelect.appendChild(newOption);
                 });
 
-                // Add a default option
+                // Add default option at the beginning
                 var defaultOption = document.createElement('option');
                 defaultOption.value = '';
                 defaultOption.text = 'בחירת נושא';
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 secondSelect.insertBefore(defaultOption, secondSelect.firstChild);
-
+                
                 // Enable the second select when a category is chosen
                 secondSelect.disabled = false;
             });
         });
 
-
         function setupFormSubmission(user) {
             document.getElementById('end_form_button').addEventListener('click', async (e) => {
                 e.preventDefault();
                 await saveSkill(user.uid, "field"); // Use "field" to save as a field in the user document
-                window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+                window.location.href = '/Pages/YoungProfile/YoungProfile.html';
             });
 
             document.getElementById('add_another_skill').addEventListener('click', async (e) => {
                 e.preventDefault();
                 await saveSkill(user.uid, "field"); 
-                window.location.href = 'AddSkill3.html';
+                window.location.href = 'SearchSkill2.html';
             });
         }
 
@@ -142,7 +134,8 @@
                 if (method === "field") {
                     // Add the skill to the skills array field in the user document
                     await updateDoc(userRef, {
-                        skills: arrayUnion(skillData)
+                        // if we want this to be the same array as with elders, we can rename to just "skills"
+                        skills_to_learn: arrayUnion(skillData)
                     });
                 } 
 
@@ -150,17 +143,16 @@
             } catch (error) {
                 console.error("Error saving skill data:", error.message, error.stack);
                 alert("An error occurred while saving the skill. Please try again.");
-            }
+            }    // Implement form submission logic here
         }
 
     </script>
-</head>   
+</head>
 
 <body class="add-skill-page">
     <div class="card">
-        <div id="MenuBarOld" class="menu-bar old"></div>
-
-        <h4>הוספת מיומנות</h4>
+        <div id="MenuBarYoung" class="menu-bar"></div>
+        <h4>הוספת מיומנות לרכישה</h4>
         <br><br>
         <div class="input-group">
             <select id="firstSelect">
@@ -171,7 +163,7 @@
                 <option value="profession">מקצוע</option>
             </select>
             <br><br><br>
-            <select id="secondSelect" disabled> 
+            <select id="secondSelect" disabled>
                 <option value="" disabled selected>בחירת נושא</option>
             </select>
             <br>
@@ -185,3 +177,11 @@
     </div>
 </body>
 </html>
+<!-- <br><br><br>
+            <button class="add-button" id="end_form_button">סיים</button>
+            <br><br>
+            <button class="add-button">הוספת מיומנות נוספת</button>
+        </div>
+    </div>
+</body>
+</html> -->
