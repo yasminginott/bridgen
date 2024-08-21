@@ -50,28 +50,32 @@
 
                     const addButton = document.getElementById('addButton');
 
-                    if (currentUserData.experienced) {
-                        addButton.textContent = 'אשר';
+                if (currentUserData.experienced) {
+                    // אם המשתמש הנוכחי הוא זקן
+                    addButton.textContent = 'אשר';
+                    addButton.onclick = function() {
+                        approveFriendRequest(uid, userUID);
+                    };
+                } else {
+                    // אם המשתמש הנוכחי הוא צעיר
+                    if (userData.Friends && userData.Friends.includes(userUID)) {
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
                         addButton.onclick = function() {
-                            approveFriendRequest(uid, userUID);
+                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            window.location.href = whatsappUrl;
                         };
+                    } else if (userData.FriendRequests && userData.FriendRequests.includes(userUID)) {
+                        addButton.textContent = 'בקשת חברות נשלחה';
+                        addButton.disabled = true;
                     } else {
-                        if (userData.Friends && userData.Friends.includes(userUID)) {
-                            addButton.textContent = 'שלח הודעה ב-WhatsApp';
-                            addButton.onclick = function() {
-                                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                                window.location.href = whatsappUrl;
-                            };
-                        } else if (userData.FriendRequests && userData.FriendRequests.includes(userUID)) {
-                            addButton.textContent = 'בקשת חברות נשלחה';
-                            addButton.disabled = true;
-                        } else {
-                            addButton.textContent = 'הצע חברות';
-                            addButton.onclick = function() {
-                                sendFriendRequest(uid, userUID);
-                            };
-                        }
+                        addButton.textContent = 'הצע חברות';
+                        addButton.onclick = function() {
+                            sendFriendRequest(uid, userUID);
+                        };
+                    }
+                }
+
                     }
 
                     const profilePicRef = ref(storage, `profile_pictures/${uid}`);
