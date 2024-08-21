@@ -101,11 +101,50 @@
                     const button = document.createElement('button');
                     button.className = 'skill_button';
                     button.textContent = skill.name;
+                    button.setAttribute('data-category', skill.category);
+                    button.setAttribute('data-description', skill.description);
+                    button.addEventListener('click', showSkillPopup);
                     buttonContainer.appendChild(button);
                 });
             } else {
                 buttonContainer.innerHTML = '<p>לא נמצאו מיומנויות להצגה.</p>';
             }
+        }
+
+        function showSkillPopup(event) {
+            const skill = event.target.textContent;
+            const category = event.target.getAttribute('data-category');
+            const description = event.target.getAttribute('data-description');
+
+            // יצירת ה-popup
+            const popup = document.createElement('div');
+            popup.className = 'skill-popup';
+
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+
+            const skillTitle = document.createElement('h3');
+            skillTitle.textContent = skill;  // מציג רק את שם ה-skill
+            popupContent.appendChild(skillTitle);
+
+            const skillCategory = document.createElement('p');
+            skillCategory.textContent = category;  // מציג רק את הקטגוריה
+            popupContent.appendChild(skillCategory);
+
+            const skillDescription = document.createElement('p');
+            skillDescription.textContent = description;  // מציג רק את התיאור
+            popupContent.appendChild(skillDescription);
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'close-popup';
+            closeButton.textContent = 'סגור';
+            closeButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+            popupContent.appendChild(closeButton);
+
+            popup.appendChild(popupContent);
+            document.body.appendChild(popup);
         }
 
         function sendFriendRequest(elderUID, youngUID) {
