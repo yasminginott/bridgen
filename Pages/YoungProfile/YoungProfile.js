@@ -167,8 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
         saveButton.style.display = "none";
     });
 
-    document.getElementById('add_skill_button').addEventListener('click', function() {
-        window.location.href = '/Pages/AddSkill/AddSkill.html';
+    // changed this from "add_skill_button" to "add_search_button
+    document.getElementById('add_search_button').addEventListener('click', function() {
+        // window.location.href = '/Pages/AddSkill/AddSkill.html';  old version
+        window.location.href = '/Pages/SearchSkill/SearchSkill2.html';  // new version
     });
 
     fetchAndDisplayUserData(currentUserId)
