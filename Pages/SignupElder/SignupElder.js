@@ -76,7 +76,13 @@ function setupFormSubmission(user, userType) {
       console.log('User data saved successfully');
      
       // Redirect to profile page
-      window.location.href = `/Pages/ElderProfile/ElderProfile.html`;
+      if (userData.experienced === 'true') {
+        // in reality, since we get here from the signup הרשמה page, we should redirect to addskill3, and not directly to the profile page
+        window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+    } else if (userData.experienced === 'false') {
+        // in reality, since we get here from the signup הרשמה page, we should redirect to search, and not directly to the profile page
+        window.location.href = '/Pages/YoungProfile/YoungProfile.html';
+    }
     } catch (error) {
       console.error("Error during signup:", error.message, error.stack);
       alert("An error occurred during signup. Please try again.");
