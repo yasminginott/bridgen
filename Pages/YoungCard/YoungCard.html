@@ -50,25 +50,20 @@
 
                     const addButton = document.getElementById('addButton');
 
-                    if (currentUserData.experienced) {
-                        // If the current user is an elder
-                        if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
-                            addButton.textContent = 'אשר';
-                            addButton.onclick = function() {
-                                approveFriendRequest(uid, currentUserUID);
-                            };
-                        } else if (userData.Friends && userData.Friends.includes(currentUserUID)) {
-                            addButton.textContent = 'שלח הודעה ב-WhatsApp';
-                            addButton.onclick = function() {
-                                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                                window.location.href = whatsappUrl;
-                            };
-                        } else {
-                            addButton.style.display = 'none';
-                        }
+                    // אנחנו מניחים שהמשתמש הנוכחי הוא זקן ולכן הוא יכול לאשר או לשלוח הודעה
+                    if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
+                        addButton.textContent = 'אשר';
+                        addButton.onclick = function() {
+                            approveFriendRequest(uid, currentUserUID);
+                        };
+                    } else if (userData.Friends && userData.Friends.includes(currentUserUID)) {
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                        addButton.onclick = function() {
+                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            window.location.href = whatsappUrl;
+                        };
                     } else {
-                        // For young users, no specific action required here based on your description
                         addButton.style.display = 'none';
                     }
 
