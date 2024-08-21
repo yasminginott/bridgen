@@ -33,7 +33,7 @@
 
         async function fetchUserData(uid) {
             try {
-                const currentUserUID = "ה-UID של המשתמש הנוכחי"; // עדכני בהתאם ל-UID הנוכחי
+                const currentUserUID = user.uid; // הנח שאת משתמשת ב-Firebase Authentication כדי להשיג את ה-UID של המשתמש המחובר
                 const currentUserRef = doc(db, "users", currentUserUID);
                 const currentUserSnap = await getDoc(currentUserRef);
 
