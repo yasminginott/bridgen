@@ -76,6 +76,21 @@
                             console.error("Error fetching profile picture: ", error);
                         });
 
+                    const skillsContainer = document.querySelector(".button-container");
+                    skillsContainer.innerHTML = '';
+
+                    if (youngData.skills && Array.isArray(youngData.skills)) {
+                        youngData.skills.forEach(skill => {
+                            const skillButton = document.createElement('button');
+                            skillButton.classList.add('skill_button');
+                            skillButton.textContent = skill.subCategory; // הצגת ה-subCategory על הכפתור
+                            skillButton.setAttribute('data-description', skill.description);
+                            skillButton.setAttribute('data-subcategory', skill.subCategory); // הוספת ה-subCategory לפופ-אפ
+                            skillButton.addEventListener('click', showSkillPopup);
+                            skillsContainer.appendChild(skillButton);
+                        });
+                    }
+
                 } else {
                     console.error("No such document!");
                     document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
@@ -113,6 +128,36 @@
             }).catch((error) => {
                 console.error("Error approving friend request: ", error);
             });
+        }
+
+        function showSkillPopup(event) {
+            const skill = event.target.getAttribute('data-subcategory'); // הצגת ה-subCategory בפופ-אפ
+            const description = event.target.getAttribute('data-description');
+
+            const popup = document.createElement('div');
+            popup.className = 'skill-popup';
+
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+
+            const skillTitle = document.createElement('h3');
+            skillTitle.textContent = skill; // הצגת ה-subCategory בפופ-אפ
+            popupContent.appendChild(skillTitle);
+
+            const skillDescription = document.createElement('p');
+            skillDescription.textContent = description;
+            popupContent.appendChild(skillDescription);
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'close-popup';
+            closeButton.textContent = 'סגור';
+            closeButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+            popupContent.appendChild(closeButton);
+
+            popup.appendChild(popupContent);
+            document.body.appendChild(popup);
         }
 
         function showWarningPopup(whatsappUrl) {
