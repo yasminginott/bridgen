@@ -43,11 +43,27 @@
                     document.querySelector(".inline p").textContent = userData.neighborhood;
                     document.querySelector("p").textContent = userData.aboutMe;
 
-                    const addButton = document.getElementById('addButton');
-                    addButton.onclick = function() {
-                        var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                        var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                        window.location.href = whatsappUrl;
+                    
+                    // אם המשתמש הנוכחי כבר חבר של הזקן
+                    if (userData.Friends && userData.Friends.includes(currentUserUID)) {
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                        addButton.onclick = function() {
+                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            showStandardPopup(whatsappUrl);  // קריאה לפונקציה שמציגה את הפופ-אפ
+                        };
+                    } else if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
+                        // אם כבר נשלחה בקשת חברות ועדיין ממתינים לאישור
+                        addButton.textContent = 'מחכה לאישור';
+                        addButton.disabled = true;
+                    } else {
+                        // אם אין חברויות או בקשות - הצע חברות
+                        addButton.textContent = 'הצע חברות';
+                        addButton.onclick = function() {
+                            sendFriendRequest(uid, currentUserUID);
+                        };
+                    }
+
                     };
 
                     const profilePicRef = ref(storage, `profile_pictures/${uid}`);
