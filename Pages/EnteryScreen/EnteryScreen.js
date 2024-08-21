@@ -5,8 +5,41 @@ import {
     signOut, 
     onAuthStateChanged 
 } from '/FirebaseConfig.js';
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 const provider = new GoogleAuthProvider();
+const db = getFirestore();
+
+function signInWithGoogle() {
+    signInWithPopup(auth, provider)
+        .then(async (result) => {
+            const user = result.user;
+            console.log(user);
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                if (userData.experienced === "true") {
+                    window.location.href = '/Pages/ElderProfile/ElderProfile.html';
+                } else if (userData.experienced === "false") {
+                    window.location.href = '/Pages/YoungProfile/YoungProfile.html';
+                } else {
+                    console.error("Unexpected value for 'experienced' field");
+                }
+            } else {
+                console.error("No such document!");
+            }
+        }).catch((error) => {
+            console.error(error.code, error.message);
+        });
+}
+
+function signOutUser() {
+    signOut(auth).then(() => {
+        alert("You have signed out successfully!");
+    }).catch((error) => {
+        console.error(error);
+    });
+}
 
 const signInButton = document.getElementById("signInButton");
 const signOutButton = document.getElementById("signOutButton");
@@ -27,25 +60,6 @@ signUpButton.addEventListener('click', () => {
     window.location.href = '/Pages/EnteryScreen/BeforeRegister.html';
 });
 
-function signInWithGoogle() {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            const user = result.user;
-            console.log(user);
-            window.location.href = '/Pages/ElderProfile/ElderProfile.html';
-        }).catch((error) => {
-            console.error(error.code, error.message);
-        });
-}
-
-function signOutUser() {
-    signOut(auth).then(() => {
-        alert("You have signed out successfully!");
-    }).catch((error) => {
-        console.error(error);
-    });
-}
-
 onAuthStateChanged(auth, (user) => {
     if(user) {
         signOutButton.style.display = "block";
@@ -57,11 +71,3 @@ onAuthStateChanged(auth, (user) => {
         message.style.display = "none";
     }
 });
-
-// document.getElementById('login-btn').addEventListener('click', function() {
-//     window.location.href = '/Pages/GoogleLogin/GoogleLogin.html'; });
-
-//     document.getElementById('signup-btn').addEventListener('click', function() {
-//         window.location.href = '/Pages/SignupElder/SignupElder.html'; });
-
-

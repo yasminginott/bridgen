@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Set a default image if there's an error
                         document.querySelector('.profile-img').src = '/public/icons/default_profile_pic.jpg';
                     });
-                    displaySkills(userData.skills);
+                    displaySkills(userData.skills_to_learn);
             } else {
                 console.log("No such document!");
             }
