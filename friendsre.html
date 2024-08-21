@@ -7,6 +7,7 @@
     <script type="module">
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -26,9 +27,9 @@
         }
 
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        async function loadFriendRequests() {
-            const currentUserUID = "ה-UID של המשתמש הנוכחי"; // עדכני בהתאם ל-UID הנוכחי
+        async function loadFriendRequests(currentUserUID) {
             const currentUserRef = doc(db, "users", currentUserUID);
             const currentUserSnap = await getDoc(currentUserRef);
 
@@ -66,7 +67,18 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", loadFriendRequests);
+        document.addEventListener("DOMContentLoaded", function() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // המשתמש מחובר, נמשיך לטעון את בקשות החברות
+                    const currentUserUID = user.uid;
+                    loadFriendRequests(currentUserUID);
+                } else {
+                    console.error("No user is signed in");
+                    document.querySelector('.content').innerHTML = "<p>לא נמצא משתמש מחובר.</p>";
+                }
+            });
+        });
     </script>
 </head>
 <body>
