@@ -10,6 +10,7 @@
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc, updateDoc, runTransaction, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
         import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -30,10 +31,10 @@
 
         const db = getFirestore(app);
         const storage = getStorage(app);
+        const auth = getAuth(app);
 
-        async function fetchUserData(uid) {
+        async function fetchUserData(currentUserUID, uid) {
             try {
-                const currentUserUID = user.uid; // הנח שאת משתמשת ב-Firebase Authentication כדי להשיג את ה-UID של המשתמש המחובר
                 const currentUserRef = doc(db, "users", currentUserUID);
                 const currentUserSnap = await getDoc(currentUserRef);
 
@@ -108,14 +109,22 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const userUID = getUIDFromURL();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const currentUserUID = user.uid;
+                    const userUID = getUIDFromURL();
 
-            if (userUID) {
-                fetchUserData(userUID);
-            } else {
-                console.error("UID not provided in URL");
-                document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
-            }
+                    if (userUID) {
+                        fetchUserData(currentUserUID, userUID);
+                    } else {
+                        console.error("UID not provided in URL");
+                        document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
+                    }
+                } else {
+                    console.error("No user is signed in");
+                    document.querySelector('.card').innerHTML = "<p>לא נמצא משתמש מחובר.</p>";
+                }
+            });
         });
     </script>
     <style>
@@ -126,7 +135,7 @@
 </head>
 <body>
     <div class="card">
-        <div id="MenuBarYoung" class="menu-bar"></div>
+        <div id="MenuBarOld" class="menu-bar old"></div>
         <div class="img-container">
             <img id="profileImage" class="profile-img" alt="Profile">
         </div>
@@ -136,7 +145,7 @@
             <p></p>
         </div>
         <p></p>
-        <h2>בואו לתרגל איתי</h2>
+        <h2>אשמח ללמוד מכם</h2>
         <br>
         <div class="button-container">
             <!-- כפתורי ה-skills יופיעו כאן -->
