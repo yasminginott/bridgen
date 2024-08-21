@@ -37,59 +37,45 @@
                 const currentUserRef = doc(db, "users", currentUserUID);
                 const currentUserSnap = await getDoc(currentUserRef);
 
-                if (currentUserSnap.exists()) {
+                const docRef = doc(db, "users", uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const userData = docSnap.data();
                     const currentUserData = currentUserSnap.data();
 
-                    // בדיקה אם המשתמש הנוכחי הוא צעיר (experienced = "false")
-                    if (currentUserData.experienced === "false") {
-                        alert("אין לך גישה לעמוד זה.");
-                        window.location.href = "ProfilesList.html"; // ניתוב מחדש לדף אחר
-                        return;
-                    }
+                    document.querySelector("h1.right-aligned").textContent = userData.fullName;
+                    document.querySelector(".inline p").textContent = userData.neighborhood;
+                    document.querySelector("p").textContent = userData.aboutMe;
 
-                    // המשך הטעינה של עמוד הזקן
-                    const docRef = doc(db, "users", uid);
-                    const docSnap = await getDoc(docRef);
+                    const addButton = document.getElementById('addButton');
 
-                    if (docSnap.exists()) {
-                        const userData = docSnap.data();
-
-                        document.querySelector("h1.right-aligned").textContent = userData.fullName;
-                        document.querySelector(".inline p").textContent = userData.neighborhood;
-                        document.querySelector("p").textContent = userData.aboutMe;
-
-                        const addButton = document.getElementById('addButton');
-
-                        if (userData.Friends && userData.Friends.includes(currentUserUID)) {
-                            addButton.textContent = 'שלח הודעה ב-WhatsApp';
-                            addButton.onclick = function() {
-                                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                                window.location.href = whatsappUrl;
-                            };
-                        } else if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
-                            addButton.textContent = 'מחכה לאישור';
-                            addButton.disabled = true;
-                        } else {
-                            addButton.textContent = 'הצע חברות';
-                            addButton.onclick = function() {
-                                sendFriendRequest(uid, currentUserUID);
-                            };
-                        }
-
-                        const profilePicRef = ref(storage, `profile_pictures/${uid}`);
-                        getDownloadURL(profilePicRef)
-                            .then((url) => {
-                                document.getElementById('profileImage').src = url;
-                            })
-                            .catch((error) => {
-                                console.error("Error fetching profile picture: ", error);
-                            });
-
+                    // אנחנו מניחים שהמשתמש הנוכחי הוא זקן ולכן הוא יכול לאשר או לשלוח הודעה
+                    if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
+                        addButton.textContent = 'אשר';
+                        addButton.onclick = function() {
+                            approveFriendRequest(uid, currentUserUID);
+                        };
+                    } else if (userData.Friends && userData.Friends.includes(currentUserUID)) {
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                        addButton.onclick = function() {
+                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            window.location.href = whatsappUrl;
+                        };
                     } else {
-                        console.error("No such document!");
-                        document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
+                        addButton.style.display = 'none';
                     }
+
+                    const profilePicRef = ref(storage, `profile_pictures/${uid}`);
+                    getDownloadURL(profilePicRef)
+                        .then((url) => {
+                            document.getElementById('profileImage').src = url;
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching profile picture: ", error);
+                        });
+
                 } else {
                     console.error("No such document!");
                     document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
@@ -100,16 +86,32 @@
             }
         }
 
-        function sendFriendRequest(elderUID, youngUID) {
+        function approveFriendRequest(youngUID, elderUID) {
             const elderRef = doc(db, "users", elderUID);
-            updateDoc(elderRef, {
-                FriendRequests: arrayUnion(youngUID)
+            runTransaction(db, async (transaction) => {
+                const elderDoc = await transaction.get(elderRef);
+                const newFriends = arrayUnion(youngUID);
+                const newRequests = elderDoc.data().FriendRequests.filter(id => id !== youngUID);
+
+                transaction.update(elderRef, {
+                    Friends: newFriends,
+                    FriendRequests: newRequests
+                });
+
+                const youngRef = doc(db, "users", youngUID);
+                transaction.update(youngRef, {
+                    Friends: arrayUnion(elderUID)
+                });
             }).then(() => {
-                alert('בקשת חברות נשלחה');
-                document.getElementById('addButton').textContent = 'מחכה לאישור';
-                document.getElementById('addButton').disabled = true;
+                alert('חברות אושרה');
+                document.getElementById('addButton').textContent = 'שלח הודעה ב-WhatsApp';
+                document.getElementById('addButton').onclick = function() {
+                    var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                    var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + youngUID + '&text=' + encodeURIComponent(message);
+                    window.location.href = whatsappUrl;
+                };
             }).catch((error) => {
-                console.error("Error sending friend request: ", error);
+                console.error("Error approving friend request: ", error);
             });
         }
 
@@ -137,7 +139,7 @@
 </head>
 <body>
     <div class="card">
-        <div id="MenuBarYoung" class="menu-bar"></div>
+        <div id="MenuBarOld" class="menu-bar old"></div>
         <div class="img-container">
             <img id="profileImage" class="profile-img" alt="Profile">
         </div>
@@ -147,7 +149,7 @@
             <p></p>
         </div>
         <p></p>
-        <h2>בואו לתרגל איתי</h2>
+        <h2>אשמח ללמוד מכם</h2>
         <br>
         <div class="button-container">
             <!-- כפתורי ה-skills יופיעו כאן -->
@@ -156,7 +158,7 @@
         <br>
         <div class="action-buttons">
             <button id="addButton" class="Contact_button">
-                הצע חברות
+                אשר
             </button>
             <script type="module" src="/components/skill_com.js"></script>
         </div>
