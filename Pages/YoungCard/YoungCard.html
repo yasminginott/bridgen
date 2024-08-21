@@ -8,7 +8,7 @@
     <title>Profile Page</title>
     <script type="module">
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, runTransaction, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
         import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
 
         const firebaseConfig = {
@@ -21,12 +21,11 @@
             appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
         };
 
-        // בדיקה אם Firebase כבר מאותחל
         let app;
         if (!getApps().length) {
             app = initializeApp(firebaseConfig);
         } else {
-            app = getApp(); // השתמש באפליקציה הקיימת
+            app = getApp();
         }
 
         const db = getFirestore(app);
@@ -34,43 +33,45 @@
 
         async function fetchUserData(uid) {
             try {
-                const docRef = doc(db, "users", uid); 
+                const currentUserUID = "ה-UID של המשתמש הנוכחי"; // עדכני בהתאם ל-UID הנוכחי
+                const currentUserRef = doc(db, "users", currentUserUID);
+                const currentUserSnap = await getDoc(currentUserRef);
+
+                const docRef = doc(db, "users", uid);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
+                    const currentUserData = currentUserSnap.data();
 
-                    // הצגת שם המשתמש ושאר הפרטים
                     document.querySelector("h1.right-aligned").textContent = userData.fullName;
                     document.querySelector(".inline p").textContent = userData.neighborhood;
                     document.querySelector("p").textContent = userData.aboutMe;
 
-                    const youngUID = "ה-UID של הצעיר הנוכחי"; // יש לעדכן בהתאם ל-UID הנוכחי
-
                     const addButton = document.getElementById('addButton');
 
-                    // בדיקה אם הצעיר כבר חבר או שלח בקשת חברות
-                    if (userData.Friends && userData.Friends.includes(youngUID)) {
-                        // אם הם חברים, הכפתור ישמש לשליחת הודעה ב-WhatsApp
-                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
-                        addButton.onclick = function() {
-                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                            window.location.href = whatsappUrl;
-                        };
-                    } else if (userData.FriendRequests && userData.FriendRequests.includes(youngUID)) {
-                        // אם כבר נשלחה בקשת חברות, הכפתור יישאר במצב "בקשת חברות נשלחה"
-                        addButton.textContent = 'בקשת חברות נשלחה';
-                        addButton.disabled = true;
+                    if (currentUserData.experienced) {
+                        // If the current user is an elder
+                        if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
+                            addButton.textContent = 'אשר';
+                            addButton.onclick = function() {
+                                approveFriendRequest(uid, currentUserUID);
+                            };
+                        } else if (userData.Friends && userData.Friends.includes(currentUserUID)) {
+                            addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                            addButton.onclick = function() {
+                                var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                                var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                                window.location.href = whatsappUrl;
+                            };
+                        } else {
+                            addButton.style.display = 'none';
+                        }
                     } else {
-                        // אם הם לא חברים ולא נשלחה בקשה, הכפתור ישמש להצעת חברות
-                        addButton.textContent = 'הצע חברות';
-                        addButton.onclick = function() {
-                            sendFriendRequest(uid);
-                        };
+                        // For young users, no specific action required here based on your description
+                        addButton.style.display = 'none';
                     }
 
-                    // הצגת תמונת פרופיל מה-Firebase Storage בהתבסס על ה-UID
                     const profilePicRef = ref(storage, `profile_pictures/${uid}`);
                     getDownloadURL(profilePicRef)
                         .then((url) => {
@@ -90,18 +91,32 @@
             }
         }
 
-        function sendFriendRequest(elderUID) {
-            const youngUID = "ה-UID של הצעיר הנוכחי"; // יש לעדכן בהתאם ל-UID הנוכחי
-
+        function approveFriendRequest(youngUID, elderUID) {
             const elderRef = doc(db, "users", elderUID);
-            updateDoc(elderRef, {
-                FriendRequests: arrayUnion(youngUID)
+            runTransaction(db, async (transaction) => {
+                const elderDoc = await transaction.get(elderRef);
+                const newFriends = arrayUnion(youngUID);
+                const newRequests = elderDoc.data().FriendRequests.filter(id => id !== youngUID);
+
+                transaction.update(elderRef, {
+                    Friends: newFriends,
+                    FriendRequests: newRequests
+                });
+
+                const youngRef = doc(db, "users", youngUID);
+                transaction.update(youngRef, {
+                    Friends: arrayUnion(elderUID)
+                });
             }).then(() => {
-                alert('בקשת חברות נשלחה');
-                document.getElementById('addButton').textContent = 'בקשת חברות נשלחה';
-                document.getElementById('addButton').disabled = true;
+                alert('חברות אושרה');
+                document.getElementById('addButton').textContent = 'שלח הודעה ב-WhatsApp';
+                document.getElementById('addButton').onclick = function() {
+                    var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                    var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + youngUID + '&text=' + encodeURIComponent(message);
+                    window.location.href = whatsappUrl;
+                };
             }).catch((error) => {
-                console.error("Error sending friend request: ", error);
+                console.error("Error approving friend request: ", error);
             });
         }
 
