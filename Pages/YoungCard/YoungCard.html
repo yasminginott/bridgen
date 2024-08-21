@@ -10,6 +10,7 @@
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
         import { getFirestore, doc, getDoc, updateDoc, runTransaction, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
         import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
@@ -30,44 +31,46 @@
 
         const db = getFirestore(app);
         const storage = getStorage(app);
+        const auth = getAuth(app);
 
-        async function fetchUserData(uid) {
+        async function fetchUserData(currentUserUID, youngUID) {
             try {
-                const currentUserUID = "ה-UID של המשתמש הנוכחי"; // עדכני בהתאם ל-UID הנוכחי
                 const currentUserRef = doc(db, "users", currentUserUID);
                 const currentUserSnap = await getDoc(currentUserRef);
 
-                const docRef = doc(db, "users", uid);
+                const docRef = doc(db, "users", youngUID);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    const userData = docSnap.data();
+                    const youngData = docSnap.data();
                     const currentUserData = currentUserSnap.data();
 
-                    document.querySelector("h1.right-aligned").textContent = userData.fullName;
-                    document.querySelector(".inline p").textContent = userData.neighborhood;
-                    document.querySelector("p").textContent = userData.aboutMe;
+                    document.querySelector("h1.right-aligned").textContent = youngData.fullName;
+                    document.querySelector(".inline p").textContent = youngData.neighborhood;
+                    document.querySelector("p").textContent = youngData.aboutMe;
 
                     const addButton = document.getElementById('addButton');
 
-                    // אנחנו מניחים שהמשתמש הנוכחי הוא זקן ולכן הוא יכול לאשר או לשלוח הודעה
-                    if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
+                    // אם הצעיר הציע חברות וה-UID שלו מופיע ב-FriendRequests של הזקן המחובר
+                    if (currentUserData.FriendRequests && currentUserData.FriendRequests.includes(youngUID)) {
                         addButton.textContent = 'אשר';
                         addButton.onclick = function() {
-                            approveFriendRequest(uid, currentUserUID);
+                            approveFriendRequest(youngUID, currentUserUID);
                         };
-                    } else if (userData.Friends && userData.Friends.includes(currentUserUID)) {
+                    } else if (currentUserData.Friends && currentUserData.Friends.includes(youngUID)) {
+                        // אם הצעיר כבר אושר וה-UID שלו מופיע ברשימת החברים
                         addButton.textContent = 'שלח הודעה ב-WhatsApp';
                         addButton.onclick = function() {
                             var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + youngData.phoneNumber + '&text=' + encodeURIComponent(message);
                             window.location.href = whatsappUrl;
                         };
                     } else {
+                        // אם אין חברויות או בקשות, הכפתור מוסתר
                         addButton.style.display = 'none';
                     }
 
-                    const profilePicRef = ref(storage, `profile_pictures/${uid}`);
+                    const profilePicRef = ref(storage, `profile_pictures/${youngUID}`);
                     getDownloadURL(profilePicRef)
                         .then((url) => {
                             document.getElementById('profileImage').src = url;
@@ -121,14 +124,22 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const userUID = getUIDFromURL();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const currentUserUID = user.uid;
+                    const youngUID = getUIDFromURL();
 
-            if (userUID) {
-                fetchUserData(userUID);
-            } else {
-                console.error("UID not provided in URL");
-                document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
-            }
+                    if (youngUID) {
+                        fetchUserData(currentUserUID, youngUID);
+                    } else {
+                        console.error("UID not provided in URL");
+                        document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא. אנא ודא שה-URL מכיל מזהה משתמש תקין.</p>";
+                    }
+                } else {
+                    console.error("No user is signed in");
+                    document.querySelector('.card').innerHTML = "<p>לא נמצא משתמש מחובר.</p>";
+                }
+            });
         });
     </script>
     <style>
