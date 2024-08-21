@@ -105,12 +105,10 @@
             skillTitle.textContent = skill; // הצגת ה-subCategory בפופ-אפ
             popupContent.appendChild(skillTitle);
 
-            const skillCategory = document.createElement('p');
-            skillCategory.textContent = `Category: ${category}`;
-            popupContent.appendChild(skillCategory);
+
 
             const skillDescription = document.createElement('p');
-            skillDescription.textContent = `Description: ${description}`;
+            skillDescription.textContent = `${description}`;
             popupContent.appendChild(skillDescription);
 
             const closeButton = document.createElement('button');
