@@ -56,8 +56,8 @@
                         addButton.textContent = 'שלח הודעה ב-WhatsApp';
                         addButton.onclick = function() {
                             var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                            window.location.href = whatsappUrl;
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            showStandardPopup(whatsappUrl);  // קריאה לפונקציה שמציגה את הפופ-אפ
                         };
                     } else if (userData.FriendRequests && userData.FriendRequests.includes(currentUserUID)) {
                         // אם כבר נשלחה בקשת חברות ועדיין ממתינים לאישור
@@ -101,6 +101,22 @@
             }).catch((error) => {
                 console.error("Error sending friend request: ", error);
             });
+        }
+
+        function showStandardPopup(whatsappUrl) {
+            const popup = document.getElementById('standardPopup');
+            popup.style.display = 'flex';
+
+            const confirmButton = document.getElementById('confirmStandardButton');
+            confirmButton.onclick = function() {
+                popup.style.display = 'none';
+                window.location.href = whatsappUrl;
+            };
+
+            const cancelButton = document.getElementById('cancelStandardButton');
+            cancelButton.onclick = function() {
+                popup.style.display = 'none';
+            };
         }
 
         function getUIDFromURL() {
@@ -157,6 +173,16 @@
                 הצע חברות
             </button>
             <script type="module" src="/components/skill_com.js"></script>
+        </div>
+    </div>
+
+    <!-- פופ-אפ סטנדרטי לפני מעבר ל-WhatsApp -->
+    <div id="standardPopup" class="skill-popup" style="display: none;">
+        <div class="popup-content">
+            <h3>שימו לב</h3>
+            <p>לפני המפגש הראשון, כדאי שתכירו בשיחת טלפון או בזום כדי להרגיש בטוחים.</p>
+            <button id="confirmStandardButton" class="close-popup">המשך ל-WhatsApp</button>
+            <button id="cancelStandardButton" class="close-popup">ביטול</button>
         </div>
     </div>
 </body>
