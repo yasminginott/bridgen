@@ -8,7 +8,7 @@
     <title>Profile Page</title>
     <script type="module">
         import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
         import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
 
         const firebaseConfig = {
@@ -45,13 +45,25 @@
                     document.querySelector(".inline p").textContent = userData.neighborhood;
                     document.querySelector("p").textContent = userData.aboutMe;
 
-                    // הצגת מספר טלפון ב-WhatsApp עם קוד מדינה
+                    const youngUID = "ה-UID של הצעיר הנוכחי"; // יש לעדכן בהתאם ל-UID הנוכחי
+                    
                     const addButton = document.getElementById('addButton');
-                    addButton.onclick = function() {
-                        var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
-                        var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
-                        window.location.href = whatsappUrl;
-                    };
+
+                    if (userData.Friends && userData.Friends.includes(youngUID)) {
+                        // אם הם חברים, הכפתור ישמש לשליחת הודעה ב-WhatsApp
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                        addButton.onclick = function() {
+                            var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
+                            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + 972 + userData.phoneNumber + '&text=' + encodeURIComponent(message);
+                            window.location.href = whatsappUrl;
+                        };
+                    } else {
+                        // אם הם לא חברים, הכפתור ישמש להצעת חברות
+                        addButton.textContent = 'הצע חברות';
+                        addButton.onclick = function() {
+                            sendFriendRequest(uid);
+                        };
+                    }
 
                     // הצגת תמונת פרופיל מה-Firebase Storage בהתבסס על ה-UID
                     const profilePicRef = ref(storage, `profile_pictures/${uid}`);
@@ -63,6 +75,21 @@
                             console.error("Error fetching profile picture: ", error);
                         });
 
+                    // הצגת ה-skills
+                    const skillsContainer = document.querySelector(".button-container");
+                    skillsContainer.innerHTML = ''; // לנקות את הקונטיינר
+
+                    if (userData.skills && Array.isArray(userData.skills)) {
+                        userData.skills.forEach(skill => {
+                            const skillButton = document.createElement('button');
+                            skillButton.classList.add('skill_button');
+                            skillButton.textContent = skill.subCategory;
+                            skillButton.setAttribute('data-description', skill.description);
+                            skillButton.addEventListener('click', showSkillPopup);
+                            skillsContainer.appendChild(skillButton);
+                        });
+                    }
+
                 } else {
                     console.error("No such document!");
                     document.querySelector('.card').innerHTML = "<p>משתמש לא נמצא.</p>";
@@ -73,9 +100,54 @@
             }
         }
 
+        function sendFriendRequest(elderUID) {
+            const youngUID = "ה-UID של הצעיר הנוכחי"; // יש לעדכן בהתאם ל-UID הנוכחי
+
+            const elderRef = doc(db, "users", elderUID);
+            updateDoc(elderRef, {
+                FriendRequests: arrayUnion(youngUID)
+            }).then(() => {
+                alert('בקשת חברות נשלחה');
+                document.getElementById('addButton').textContent = 'בקשת חברות נשלחה';
+                document.getElementById('addButton').disabled = true;
+            }).catch((error) => {
+                console.error("Error sending friend request: ", error);
+            });
+        }
+
         function getUIDFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('uid');
+        }
+
+        function showSkillPopup(event) {
+            const skill = event.target.textContent;
+            const description = event.target.getAttribute('data-description');
+
+            const popup = document.createElement('div');
+            popup.className = 'skill-popup';
+
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+
+            const skillTitle = document.createElement('h3');
+            skillTitle.textContent = skill;  // מציג רק את שם ה-skill
+            popupContent.appendChild(skillTitle);
+
+            const skillDescription = document.createElement('p');
+            skillDescription.textContent = description;  // מציג רק את התיאור
+            popupContent.appendChild(skillDescription);
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'close-popup';
+            closeButton.textContent = 'סגור';
+            closeButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+            popupContent.appendChild(closeButton);
+
+            popup.appendChild(popupContent);
+            document.body.appendChild(popup);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -110,8 +182,7 @@
         <h2>אשמח ללמוד מכם</h2>
         <br>
         <div class="button-container">
-            <button class="skill_button">ספרדית</button>
-            <button class="skill_button">בישול</button>
+            <!-- כפתורי ה-skills יופיעו כאן -->
         </div>
         <br>
         <br>
