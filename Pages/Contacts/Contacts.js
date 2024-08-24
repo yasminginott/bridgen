@@ -1,8 +1,7 @@
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-// Assuming Firebase has been initialized in another script
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const auth = getAuth();
     const db = getFirestore();
     const profilesContainer = document.querySelector('.contacts-profile-cards');
@@ -17,18 +16,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
                     console.log(`User Data for ${user.uid}:`, userData); // Log user data
-                    const contactsIds = [...userData.FriendRequests, ...userData.Friends];
-                    contactsIds.forEach(contactId => {
+
+                    // Combine FriendRequests and Friends arrays safely
+                    const contactsIds = [
+                        ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
+                        ...(Array.isArray(userData.Friends) ? userData.Friends : [])
+                    ];
+
+                    // Remove duplicates if any
+                    const uniqueContactsIds = Array.from(new Set(contactsIds));
+
+                    // Fetch and display each contact's profile card
+                    uniqueContactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
                         getDoc(contactRef).then(contactSnap => {
                             if (contactSnap.exists()) {
                                 createProfileCard(contactSnap.data(), profilesContainer);
+                            } else {
+                                console.log(`No data found for contact ID: ${contactId}`);
                             }
+                        }).catch(error => {
+                            console.error(`Error fetching contact data for ID ${contactId}:`, error);
                         });
                     });
                 } else {
                     console.log("No user data available.");
                 }
+            }).catch(error => {
+                console.error("Error fetching user data:", error);
             });
         } else {
             console.log("No user is signed in.");
