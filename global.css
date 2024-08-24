@@ -526,6 +526,30 @@ select, textarea {
 }
 
 
+.contacts-profile-card {
+    text-decoration: none; /* Removes underline from link */
+    color: inherit; /* Ensures the link uses the inherited text color */
+}
+
+.contacts-profile-card:hover {
+    text-decoration: none; /* Ensures underline doesn't appear on hover */
+}
+
+/* Additional styling to make the entire card clickable without looking like a traditional link */
+.contacts-profile-card {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.contacts-profile-card:hover {
+    background-color: #f1f1f1;
+}
+
+
 /***** END OF CONTACTS CSS ******/
 
 .add-skill-page .card {
