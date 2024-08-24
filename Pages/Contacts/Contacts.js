@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const contactRef = doc(db, "users", contactId);
                         getDoc(contactRef).then(contactSnap => {
                             if (contactSnap.exists()) {
-                                createProfileCard(contactSnap.data(), profilesContainer);
+                                const contactData = contactSnap.data();
+                                contactData.uid = contactSnap.id; // Ensure UID is set correctly
+                                createProfileCard(contactData, profilesContainer);
                             }
                         });
                     });
@@ -36,22 +38,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProfileCard(userData, container) {
         const card = document.createElement('a');
         card.className = 'contacts-profile-card';
-        card.href = `/Pages/YoungCard/YoungCard.html?uid=${userData.uid}`; // Ensure this path is correct
+        card.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${userData.uid}`; // Correct link
 
         const img = document.createElement('img');
         img.className = 'contacts-profile-img';
         img.alt = 'Profile Image';
 
-        // Attempt to fetch the profile picture
-        const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
-        getDownloadURL(storageRef)
-            .then((url) => {
-                img.src = url;
-            })
-            .catch((error) => {
-                console.error("Error getting profile picture:", error);
-                img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
-            });
+        if (userData.uid) {
+            // Fetch and set profile picture
+            const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
+            getDownloadURL(storageRef)
+                .then((url) => {
+                    img.src = url;
+                })
+                .catch((error) => {
+                    console.error("Error getting profile picture:", error);
+                    img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
+                });
+        } else {
+            img.src = '/public/icons/default_profile_pic.jpg'; // Default image if UID is undefined
+            console.error("UID is undefined, cannot fetch profile picture");
+        }
 
         const name = document.createElement('h2');
         name.textContent = userData.fullName;
