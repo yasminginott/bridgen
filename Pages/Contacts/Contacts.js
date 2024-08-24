@@ -1,32 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
+// Assuming Firebase has been initialized in another script
 document.addEventListener('DOMContentLoaded', async () => {
-    const firebaseConfig = {
-        apiKey: "your_api_key",
-        authDomain: "your_project_id.firebaseapp.com",
-        projectId: "your_project_id",
-        storageBucket: "your_project_id.appspot.com",
-        messagingSenderId: "your_sender_id",
-        appId: "your_app_id"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    const auth = getAuth();
+    const db = getFirestore();
     const profilesContainer = document.querySelector('.contacts-profile-cards');
 
-    profilesContainer.innerHTML = ''; // Clear all static profile cards on load
+    profilesContainer.innerHTML = ''; // Clear any static content
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log("Logged-in user:", user.uid, user.displayName); // Log user ID and name
+            console.log("Logged-in user:", user.uid); // Log the logged-in user's ID
             const userRef = doc(db, "users", user.uid);
             getDoc(userRef).then((docSnap) => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
-                    console.log(`User Data for ${user.displayName}:`, userData); // Additional logging
+                    console.log(`User Data for ${user.uid}:`, userData); // Log user data
                     const contactsIds = [...userData.FriendRequests, ...userData.Friends];
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -42,15 +32,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         } else {
             console.log("No user is signed in.");
+            // Optionally handle unauthenticated state
         }
     });
 
     function createProfileCard(userData, container) {
         const card = document.createElement('div');
         card.className = 'contacts-profile-card';
-
-        const link = document.createElement('a');
-        link.href = "/Pages/YoungCard/YoungCard.html"; // Adjust as necessary
 
         const img = document.createElement('img');
         img.className = 'contacts-profile-img';
@@ -63,8 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const location = document.createElement('p');
         location.textContent = userData.neighborhood;
 
-        link.appendChild(img);
-        card.appendChild(link);
+        card.appendChild(img);
         card.appendChild(name);
         card.appendChild(location);
 
