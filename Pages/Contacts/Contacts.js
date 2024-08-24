@@ -21,10 +21,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            console.log("Logged-in user:", user.uid, user.displayName); // Log user ID and name
             const userRef = doc(db, "users", user.uid);
             getDoc(userRef).then((docSnap) => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
+                    console.log(`User Data for ${user.displayName}:`, userData); // Additional logging
                     const contactsIds = [...userData.FriendRequests, ...userData.Friends];
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -40,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         } else {
             console.log("No user is signed in.");
-            // Optionally handle unauthenticated state
         }
     });
 
