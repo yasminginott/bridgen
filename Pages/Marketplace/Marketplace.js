@@ -46,32 +46,38 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchBar.addEventListener('input', updateDisplay);
 
     function updateDisplay() {
-        const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-        const searchQuery = searchBar.value.toLowerCase();
-
+        const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter').trim().toLowerCase();
+        const searchQuery = searchBar.value.trim().toLowerCase();
+    
         const cards = document.querySelectorAll('.profile-card');
         cards.forEach(card => {
-            const skills = card.querySelector('p:last-of-type').textContent.toLowerCase();
-            const isVisible = 
-                (activeFilter === 'all' || skills.includes(activeFilter)) && 
-                (card.textContent.toLowerCase().includes(searchQuery));
+            const skills = card.querySelectorAll('.skill');
+            // Normalize text and compare categories
+            const categoryMatch = Array.from(skills).some(skill => {
+                const skillCategory = skill.getAttribute('data-category').trim().toLowerCase();
+                return skillCategory === activeFilter;
+            });
+    
+            let isVisible = (activeFilter === 'all' || categoryMatch) &&
+                            (card.textContent.toLowerCase().includes(searchQuery));
             card.style.display = isVisible ? '' : 'none';
         });
     }
+    
 
     function createProfileCard(userData, container, storage) {
         const link = document.createElement('a');
         link.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${userData.uid}`;
         link.className = 'profile-link';
-        link.setAttribute('target', '_blank');  // Optionally opens in a new tab
-    
+        link.setAttribute('target', '_blank');
+
         const card = document.createElement('div');
         card.className = 'profile-card';
-    
+
         const img = document.createElement('img');
         img.className = 'profile-img';
         img.alt = 'Profile Image';
-    
+
         // Fetch and set profile picture
         const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
         getDownloadURL(storageRef)
@@ -82,18 +88,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error("Error getting profile picture:", error);
                 img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
             });
-    
-        const skillsContent = userData.skills?.map(skill => skill.subCategory).join(', ') || 'No skills listed.';
-    
+
+        const skillsContent = userData.skills?.map(skill => {
+            return `<span class="skill" data-category="${skill.category}">${skill.subCategory}</span>`;
+        }).join(', ') || 'No skills listed.';
+
         card.innerHTML = `
             <h2>${userData.fullName}, ${userData.age}</h2>
             <p>${userData.neighborhood}</p>
-            <p>${skillsContent}</p>
+            <p><strong>יכול/ה ללמד אתכם:</strong></p>
+            <p class="skills-list">${skillsContent}</p>
         `;
-        card.prepend(img); // Add the image to the card
-        link.appendChild(card); // Wrap the card in the link
-        container.appendChild(link); // Add the linked card to the container
+        card.prepend(img);
+        link.appendChild(card);
+        container.appendChild(link);
     }
-    
-
 });
