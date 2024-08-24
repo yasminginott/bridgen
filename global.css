@@ -462,6 +462,13 @@ select, textarea {
     text-decoration: none; /* Ensure no underline on hover */
 }
 
+.profile-link {
+    text-decoration: none;  
+    color: inherit; 
+    display: block; 
+}
+
+
 
 /***** CONTACTS *****/
 
