@@ -19,14 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const contactsIds = [
                         ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
                         ...(Array.isArray(userData.Friends) ? userData.Friends : [])
-                    ];
+                    ].filter(id => id !== user.uid); // Exclude the user's own profile
+
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
                         getDoc(contactRef).then(contactSnap => {
                             if (contactSnap.exists()) {
                                 const contactData = contactSnap.data();
                                 contactData.uid = contactSnap.id; // Ensure UID is set correctly
-                                createProfileCard(contactData, profilesContainer);
+                                createProfileCard(contactData, userData, profilesContainer);
                             }
                         });
                     });
@@ -35,18 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function createProfileCard(userData, container) {
+    function createProfileCard(contactData, userData, container) {
         const card = document.createElement('a');
         card.className = 'contacts-profile-card';
-        card.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${userData.uid}`; // Correct link
+        card.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${contactData.uid}`; // Correct link
 
         const img = document.createElement('img');
         img.className = 'contacts-profile-img';
         img.alt = 'Profile Image';
 
-        if (userData.uid) {
-            // Fetch and set profile picture
-            const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
+        if (contactData.uid) {
+            const storageRef = ref(storage, `profile_pictures/${contactData.uid}`);
             getDownloadURL(storageRef)
                 .then((url) => {
                     img.src = url;
@@ -61,14 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const name = document.createElement('h2');
-        name.textContent = userData.fullName;
+        name.textContent = contactData.fullName;
 
         const location = document.createElement('p');
-        location.textContent = userData.neighborhood;
+        location.textContent = contactData.neighborhood;
+
+        const status = document.createElement('p');
+        if (userData.Friends.includes(contactData.uid)) {
+            status.textContent = 'חבר';
+        } else if (userData.FriendRequests.includes(contactData.uid)) {
+            status.textContent = 'ממתין לאישור';
+        }
+        status.className = 'contacts-profile-status';
 
         card.appendChild(img);
         card.appendChild(name);
         card.appendChild(location);
+        card.appendChild(status);
 
         container.appendChild(card);
     }
