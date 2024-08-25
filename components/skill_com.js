@@ -125,16 +125,15 @@ class IconMenuBar {
             ];
         }
 
-        // Check localStorage for active icon
-        const savedActiveIcon = localStorage.getItem('activeIcon');
-        if (savedActiveIcon && this.icons.some(icon => icon.name === savedActiveIcon)) {
-            this.activeIcon = savedActiveIcon;
-        } else {
-            this.activeIcon = 'profile'; // Default
-        }
-        
+        this.setActiveIconBasedOnCurrentPage();
         this.render();
         this.addLogoutButton();
+    }
+
+    setActiveIconBasedOnCurrentPage() {
+        const currentPath = window.location.pathname;
+        const activeIcon = this.icons.find(icon => currentPath.includes(icon.page));
+        this.activeIcon = activeIcon ? activeIcon.name : null;
     }
 
     render() {
@@ -144,32 +143,18 @@ class IconMenuBar {
             menuItem.className = 'menu-item';
             const iconSrc = icon.name === this.activeIcon ? icon.fullIcon : icon.emptyIcon;
             menuItem.innerHTML = `<img src="${iconSrc}" alt="${icon.name}">`;
-            menuItem.addEventListener('click', () => this.setActiveIcon(icon.name));
+            menuItem.addEventListener('click', () => this.navigateToPage(icon.name));
             this.container.appendChild(menuItem);
         });
     }
 
-    setActiveIcon(iconName) {
-        if (this.activeIcon) {
-            const oldActiveItem = this.container.querySelector(`[alt="${this.activeIcon}"]`);
-            const oldActiveIcon = this.icons.find(icon => icon.name === this.activeIcon);
-            oldActiveItem.src = oldActiveIcon.emptyIcon;
+    navigateToPage(iconName) {
+        const icon = this.icons.find(icon => icon.name === iconName);
+        if (icon) {
+            window.location.href = icon.page;
         }
-
-        const newActiveItem = this.container.querySelector(`[alt="${iconName}"]`);
-        const newActiveIcon = this.icons.find(icon => icon.name === iconName);
-        newActiveItem.src = newActiveIcon.fullIcon;
-        this.activeIcon = iconName;
-
-        console.log(`Active icon changed to: ${iconName}`);
-        
-
-        // Save the active icon name to localStorage
-        localStorage.setItem('activeIcon', iconName);
-
-        // Redirect
-        window.location.href = newActiveIcon.page;
     }
+
     addLogoutButton() {
         const logoutButton = document.createElement('div');
         logoutButton.className = 'menu-item logout-button';
