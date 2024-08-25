@@ -79,16 +79,18 @@
                     const skillsContainer = document.querySelector(".button-container");
                     skillsContainer.innerHTML = '';
 
-                    if (youngData.skills && Array.isArray(youngData.skills)) {
-                        youngData.skills.forEach(skill => {
-                            const skillButton = document.createElement('button');
-                            skillButton.classList.add('skill_button');
-                            skillButton.textContent = skill.subCategory; // הצגת ה-subCategory על הכפתור
-                            skillButton.setAttribute('data-description', skill.description);
-                            skillButton.setAttribute('data-subcategory', skill.subCategory); // הוספת ה-subCategory לפופ-אפ
-                            skillButton.addEventListener('click', showSkillPopup);
-                            skillsContainer.appendChild(skillButton);
-                        });
+                    if (youngData.skills_to_learn && Array.isArray(youngData.skills_to_learn)) {
+                        youngData.skills_to_learn.forEach(skill => {
+                        const skillButton = document.createElement('button');
+                        skillButton.classList.add('skill_button');
+                        skillButton.textContent = skill.subCategory; // הצגת ה-subCategory על הכפתור
+                        skillButton.setAttribute('data-description', skill.description);
+                        skillButton.setAttribute('data-subcategory', skill.subCategory); // הוספת ה-subCategory לפופ-אפ
+                        skillButton.addEventListener('click', showSkillPopup);
+                        skillsContainer.appendChild(skillButton);
+    });
+}
+
                     }
 
                 } else {
