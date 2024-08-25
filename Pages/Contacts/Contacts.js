@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const status = document.createElement('p');
         if (userData.Friends.includes(contactData.uid)) {
-            status.textContent = 'חבר';
+            status.textContent = 'חבר/ה';
         } else if (userData.FriendRequests.includes(contactData.uid)) {
             status.textContent = 'ממתין לאישור';
         }
