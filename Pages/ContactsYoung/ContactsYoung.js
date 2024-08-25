@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const contactsIds = [
                         ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
                         ...(Array.isArray(userData.Friends) ? userData.Friends : [])
-                    ].filter(id => id !== user.uid); // Exclude user's own profile
+                    ].filter(id => id !== user.uid); // Exclude the user's own profile
 
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProfileCard(contactData, userData, container) {
         const card = document.createElement('a');
         card.className = 'contacts-profile-card';
-        card.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${contactData.uid}`;
+        card.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${contactData.uid}`; // Correct link
 
         const img = document.createElement('img');
         img.className = 'contacts-profile-img';
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch((error) => {
                     console.error("Error getting profile picture:", error);
-                    img.src = '/public/icons/default_profile_pic.jpg';
+                    img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
                 });
         } else {
-            img.src = '/public/icons/default_profile_pic.jpg';
+            img.src = '/public/icons/default_profile_pic.jpg'; // Default image if UID is undefined
             console.error("UID is undefined, cannot fetch profile picture");
         }
 
