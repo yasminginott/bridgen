@@ -47,7 +47,8 @@
 
                     document.querySelector("h1.right-aligned").textContent = youngData.fullName;
                     document.querySelector(".inline p").textContent = youngData.neighborhood;
-                    document.querySelector("p").textContent = youngData.aboutMe;
+                    document.querySelector(".description").textContent = youngData.aboutMe;
+
 
                     const addButton = document.getElementById('addButton');
 
@@ -216,8 +217,9 @@
         <h1 class="right-aligned"></h1> 
         <div class="inline">
             <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
-            <p></p>
+            <p></p> <!-- כאן יופיע ה-location -->
         </div>
+        <p class="description"></p> <!-- כאן יופיע ה-aboutMe -->        
         <p></p>
         <h2>אשמח ללמוד מכם</h2>
         <br>
