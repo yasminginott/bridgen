@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const updatedData = {
             fullName: document.getElementById('elder_name').textContent,
-            age: document.getElementById('young_age').textContent || null, // Use null if age is empty
+            age: document.getElementById('elder_age').textContent || null, // Use null if age is empty
             neighborhood: document.getElementById('elder_location').textContent,
             aboutMe: document.getElementById('elder_description').textContent
         };
