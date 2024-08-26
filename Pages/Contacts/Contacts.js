@@ -16,10 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
             getDoc(userRef).then((docSnap) => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
+                    console.log("User Data:", userData); // Debug user data
+
                     const contactsIds = [
                         ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
                         ...(Array.isArray(userData.Friends) ? userData.Friends : [])
                     ].filter(id => id !== user.uid); // Exclude user's own profile
+
+                    console.log("Combined Contacts IDs:", contactsIds); // Debug combined IDs
 
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (contactSnap.exists()) {
                                 const contactData = contactSnap.data();
                                 contactData.uid = contactSnap.id; // Ensure UID is set correctly
+                                console.log("Contact Data:", contactData); // Debug contact data
                                 createProfileCard(contactData, userData, profilesContainer);
                             }
                         });
