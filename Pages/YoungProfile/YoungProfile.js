@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update HTML elements with data from Firebase
                 document.getElementById('young_name').textContent = userData.fullName || "No Name";
-                document.getElementById('young_age').textContent = userData.age || "N/A";
+                document.getElementById('young_age').textContent = userData.age ? `, ${userData.age}` : "";
                 document.getElementById('young_location').textContent = userData.neighborhood || "No Location";
                 document.getElementById('young_description').textContent = userData.aboutMe || "No Description";
     
