@@ -45,7 +45,7 @@
                     const youngData = docSnap.data();
                     const currentUserData = currentUserSnap.data();
 
-                    document.querySelector("h1.right-aligned").textContent = youngData.fullName;
+                    document.querySelector("h1.right-aligned").textContent = `${userData.fullName}, ${userData.age}`;
                     document.querySelector(".inline p").textContent = youngData.neighborhood;
                     document.querySelector(".description").textContent = youngData.aboutMe;
 

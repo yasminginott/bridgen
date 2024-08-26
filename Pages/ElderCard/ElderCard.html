@@ -41,7 +41,7 @@
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
 
-                    document.querySelector("h1.right-aligned").textContent = userData.fullName;
+                    document.querySelector("h1.right-aligned").textContent = `${userData.fullName}, ${userData.age}`;
                     document.querySelector(".inline p").textContent = userData.neighborhood;
                     document.querySelector("p").textContent = userData.aboutMe;
 
@@ -181,11 +181,11 @@
             });
         });
     </script>
-    <style>
+    <!-- <style>
         .pending {
             background-color: grey;
         }
-    </style>
+    </style> -->
 </head>
 <body>
     <div class="card">
@@ -193,7 +193,7 @@
         <div class="img-container">
             <img id="profileImage" class="profile-img" alt="Profile">
         </div>
-        <h1 class="right-aligned"></h1> 
+        <!-- <h1 class="right-aligned"></h1>  -->
         <div class="inline">
             <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
             <p></p>
