@@ -41,7 +41,7 @@
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
 
-                    document.querySelector("h1.right-aligned").textContent = `${userData.fullName}, ${userData.age}`;
+                    document.querySelector("h1.right-aligned").textContent = `${userData.fullName}`;
                     document.querySelector(".inline p").textContent = userData.neighborhood;
                     document.querySelector("p").textContent = userData.aboutMe;
 
