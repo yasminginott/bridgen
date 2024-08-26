@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const storage = getStorage(app);
 
     const editIcon = document.getElementById("edit-button");
-    const editableElements = ["young_name", "young_location", "young_description"];
+    const editableElements = ["young_name", "young_age", "young_location", "young_description"];
     let isEditing = false;
     let currentUserData = null;
     let currentUserId = null;
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update HTML elements with data from Firebase
                 document.getElementById('young_name').textContent = userData.fullName || "No Name";
+                document.getElementById('young_age').textContent = userData.age || "N/A";
                 document.getElementById('young_location').textContent = userData.neighborhood || "No Location";
                 document.getElementById('young_description').textContent = userData.aboutMe || "No Description";
     
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const updatedData = {
             fullName: document.getElementById('young_name').textContent,
+            age: document.getElementById('young_age').textContent,
             neighborhood: document.getElementById('young_location').textContent,
             aboutMe: document.getElementById('young_description').textContent
         };
