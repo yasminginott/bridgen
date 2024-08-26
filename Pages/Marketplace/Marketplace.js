@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 isVisible = cardText.includes({
                     'ספרדית': 'ספרדית',
                     'סריגה': 'סריגה',
-                    'ברידג\'': 'ברידג\'',
+                    'שמחט': 'שחמט',
                     'אנגלית': 'אנגלית'
                 }[activeFilter]);
             }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const link = document.createElement('a');
         link.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${userData.uid}`;
         link.className = 'profile-link';
-        link.setAttribute('target', '_blank');
+        //link.setAttribute('target', '_blank'); does not open profile card in new tab.
 
         const card = document.createElement('div');
         card.className = 'profile-card';

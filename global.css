@@ -382,27 +382,41 @@ select, textarea {
 
 .profile-cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px; /* Increased space between profile cards */
+    grid-template-columns: repeat(2, 1fr); /* Ensures two columns */
+    gap: 20px; /* Adjust gap if needed */
+    padding: 0 10px; /* Padding inside the grid */
 }
 
-/* Ensuring the clickable card inherits the correct styles */
 .profile-card {
-    background-color: white; /* Changed to white background */
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
-    text-align: right; /* Align text to the right */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
-    display: block; /* Ensure it takes up the full width */
-    color: inherit; /* Inherit color */
-    text-decoration: none; /* Remove underline from links */
+    text-align: right;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* This will make the card fill the column */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures no overflow */
 }
 
+
+
+
 .profile-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
+    width: 100%; /* Full width of the card */
+    height: auto; /* Height adjusts to maintain aspect ratio */
+    max-height: 200px; /* Maximum height for consistency */
+    object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
+    border-radius: 5px; /* Matches the card border radius */
 }
+
+/* Adjust image height dynamically to maintain aspect ratio */
+.profile-card img {
+    height: 200px; /* Fixed height */
+    object-fit: cover; /* Covers the fixed dimension without distorting */
+}
+
+
 
 .profile-card h2, .profile-card p {
     margin: 0; /* Ensure margins are consistent */
