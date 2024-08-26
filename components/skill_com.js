@@ -160,6 +160,14 @@ class IconMenuBar {
         logoutButton.className = 'menu-item logout-button';
         logoutButton.textContent = 'התנתקות';
         logoutButton.id = 'logout-button';
+    
+        // Apply the appropriate style class based on the containerId
+        if (this.container.id === 'MenuBarOld') {
+            logoutButton.classList.add('logout-button-old');
+        } else if (this.container.id === 'MenuBarYoung') {
+            logoutButton.classList.add('logout-button-young');
+        }
+    
         this.container.insertBefore(logoutButton, this.container.firstChild);
     
         // Add event listener for logout
@@ -172,6 +180,7 @@ class IconMenuBar {
             });
         });
     }
+    
 }
 
 // Initialize the menu bar
