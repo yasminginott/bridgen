@@ -58,7 +58,7 @@
                             approveFriendRequest(youngUID, currentUserUID);
                         };
                     } else if (currentUserData.Friends && currentUserData.Friends.includes(youngUID)) {
-                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
+                        addButton.textContent = 'שלח חודעה ב-WhatsApp';
                         addButton.onclick = function() {
                             var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
                             var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + youngData.phoneNumber + '&text=' + encodeURIComponent(message);
