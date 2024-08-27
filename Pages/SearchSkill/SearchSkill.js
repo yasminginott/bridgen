@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     var firstSelect = document.getElementById('firstSelect');
     var secondSelect = document.getElementById('secondSelect');
     if (firstSelect && secondSelect) {

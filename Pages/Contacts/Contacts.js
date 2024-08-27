@@ -16,10 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
             getDoc(userRef).then((docSnap) => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
+                    //console.log("User Data:", userData); // Debug user data
+
+                    // Ensure FriendRequests and Friends are arrays before using them
+                    const friendRequests = Array.isArray(userData.FriendRequests) ? userData.FriendRequests : [];
+                    const friends = Array.isArray(userData.Friends) ? userData.Friends : [];
+
                     const contactsIds = [
-                        ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
-                        ...(Array.isArray(userData.Friends) ? userData.Friends : [])
+                        ...friendRequests,
+                        ...friends
                     ].filter(id => id !== user.uid); // Exclude user's own profile
+
+                    //console.log("Combined Contacts IDs:", contactsIds); // Debug combined IDs
 
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -27,18 +35,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (contactSnap.exists()) {
                                 const contactData = contactSnap.data();
                                 contactData.uid = contactSnap.id; // Ensure UID is set correctly
-                                createProfileCard(contactData, userData, profilesContainer);
+                                //console.log("Contact Data:", contactData); // Debug contact data
+                                createProfileCard(contactData, friends, friendRequests, profilesContainer);
                             }
+                        }).catch(error => {
+                            console.error("Error fetching contact data:", error);
                         });
                     });
+                } else {
+                    console.log("No user data available.");
                 }
+            }).catch(error => {
+                console.error("Error fetching user data:", error);
             });
+        } else {
+            console.log("No user is signed in.");
         }
     });
 
-    function createProfileCard(contactData, userData, container) {
+    function createProfileCard(contactData, friends, friendRequests, container) {
         const card = document.createElement('a');
-        card.className = 'contacts-profile-card';
+        card.className = 'contacts-profile-card no-underline';
         card.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${contactData.uid}`;
 
         const img = document.createElement('img');
@@ -67,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         location.textContent = contactData.neighborhood;
 
         const status = document.createElement('p');
-        if (userData.Friends.includes(contactData.uid)) {
-            status.textContent = 'חבר';
-        } else if (userData.FriendRequests.includes(contactData.uid)) {
+        if (friends.includes(contactData.uid)) { // Use friends array passed earlier
+            status.textContent = 'חבר/ה';
+        } else if (friendRequests.includes(contactData.uid)) { // Use friendRequests array passed earlier
             status.textContent = 'ממתין לאישור';
         }
         status.className = 'contacts-profile-status';

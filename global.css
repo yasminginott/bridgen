@@ -9,19 +9,21 @@
     --text_color_secondry: #6A6A6A;
     --primary-font: 'Rubik', sans-serif;
 }
+
 html, body {
     margin: 0;
     padding: 0;
-    width: 430px;
-    height: 932px;
-    width: 100vw; /* Viewport width */
-    height: 100vh; /* Viewport height */
+    width: auto;
+    height: auto;
+    /* width: 100vw; 
+    height: 100vh;  */
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    align-items: flex-start; /* Aligns content to the top */
     text-align: right; /* Default text alignment */
+    overflow: auto; /* Allows scrolling if content exceeds viewport */
+    /* padding-bottom: 20px; */
 }
-
 
 .Contact_button {
     align-items: center;
@@ -55,7 +57,6 @@ html, body {
 }
 .right-aligned {
     text-align: right;  }
-
 
 .profile-img {
     width: 388px;
@@ -111,15 +112,20 @@ p{
 .card {
     display: flex;
     flex-direction: column;
-    text-align: right;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    text-align: right; /* Keep text aligned to the right */
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: 0.0625rem solid #ddd;
+    border-radius: 1.05rem;
     background-color: var(--background_color);
-    width: 430px; 
-    height: 932px;
+    width: calc(100% - 2rem);
+     /* Adjust width to account for padding */
+    margin: 0 auto; /* Center the card horizontally */
+    height: auto;
+    min-height: 100vh;
     position: relative;
 }
+
 
 .action-buttons {
     display: flex;
@@ -128,12 +134,10 @@ p{
 }
 
 
-
 .action-buttons img {
     height: 50px;
     cursor: pointer;
 }
-
 
 /* CSS */
 .skill_button{
@@ -218,6 +222,7 @@ p{
     align-items: center;
     background-color: var(--background-color);
     padding: 5px 10px;
+    padding-top: 5%;
     width: auto;
     margin-bottom: 20px;
     max-width: 250px; /* For old menu */
@@ -269,7 +274,6 @@ p{
   }
   
 
-
   .container {
     max-width: 360px;
     width: 100%;
@@ -305,7 +309,6 @@ header {
 }
 
 
-
 .input-group {
     margin-bottom: 60px;
     font-family: var(--primary-font);
@@ -331,7 +334,6 @@ select, textarea {
     
 
 }
-
 
 
 .add-button {
@@ -382,27 +384,39 @@ select, textarea {
 
 .profile-cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px; /* Increased space between profile cards */
+    grid-template-columns: repeat(2, 1fr); /* Ensures two columns */
+    gap: 20px; /* Adjust gap if needed */
+    padding: 0 10px; /* Padding inside the grid */
 }
 
-/* Ensuring the clickable card inherits the correct styles */
 .profile-card {
-    background-color: white; /* Changed to white background */
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
-    text-align: right; /* Align text to the right */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
-    display: block; /* Ensure it takes up the full width */
-    color: inherit; /* Inherit color */
-    text-decoration: none; /* Remove underline from links */
+    text-align: right;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* This will make the card fill the column */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures no overflow */
 }
 
+
+
 .profile-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
+    width: 100%; /* Full width of the card */
+    height: auto; /* Height adjusts to maintain aspect ratio */
+    max-height: 200px; /* Maximum height for consistency */
+    object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
+    border-radius: 5px; /* Matches the card border radius */
 }
+
+/* Adjust image height dynamically to maintain aspect ratio */
+.profile-card img {
+    height: 200px; /* Fixed height */
+    object-fit: cover; /* Covers the fixed dimension without distorting */
+}
+
 
 .profile-card h2, .profile-card p {
     margin: 0; /* Ensure margins are consistent */
@@ -469,7 +483,6 @@ select, textarea {
 }
 
 
-
 /***** CONTACTS *****/
 
 .contacts-title-container {
@@ -495,45 +508,77 @@ select, textarea {
 }
 
 .contacts-profile-cards {
-    display: flex;
-    justify-content: flex-start; /* Align the single profile card to the left */
-    margin-top: 20px; /* Space above the profile cards section */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Ensures two columns */
+    gap: 20px; /* Adjust gap if needed */
+    padding: 0 10px; /* Padding inside the grid */
 }
 
 .contacts-profile-card {
-    background-color: white; /* Card background color */
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
-    width: 200px; /* Smaller width for the profile card */
+    text-align: right;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* This will make the card fill the column */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures no overflow */
 }
 
-.contacts-profile-img {
-    width: 150px; /* Smaller width for the image */
-    height: auto;
-    border-radius: 5px;
+.contacts-profile-card img {
+    width: 100%; /* Full width of the card */
+    height: auto; /* Height adjusts to maintain aspect ratio */
+    max-height: 200px; /* Maximum height for consistency */
+    object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
+    border-radius: 5px; /* Matches the card border radius */
+}
+
+.contacts-profile-card h2, .contacts-profile-card p {
+    margin: 0; /* Ensure margins are consistent */
+    text-align: right; /* Ensure text is aligned right */
+    color: var(--text_color); /* Ensure text uses the correct color */
+    text-decoration: none; /* Remove any underline */
 }
 
 .contacts-profile-card h2 {
-    margin: 10px 0;
+    margin-top: 10px;
     font-size: 18px;
 }
 
 .contacts-profile-card p {
+    margin-top: 5px;
     font-size: 14px;
-    color: var(--text_color_secondry);
+    color: var(--text_color_secondry); /* Ensure the secondary text color */
+}
+
+/* Remove link behavior from profile cards */
+.contacts-profile-card a {
+    text-decoration: none !important;
+    color: inherit !important; /* Forcefully inherit the color */
+    cursor: default; /* Change cursor to default to avoid link cursor */
+    display: block;
+}
+
+.contacts-profile-card a:hover {
+    text-decoration: none !important; /* Ensure no underline on hover */
+}
+
+/* Specifically target the text within the link to prevent any underline or color change */
+.contacts-profile-card a h2, 
+.contacts-profile-card a p {
+    text-decoration: none !important;
+    color: var(--text_color) !important; /* Ensure it matches the rest of the text */
+}
+
+/* Additionally, apply styles to all nested elements to remove underlines */
+.contacts-profile-card a *,
+.contacts-profile-card a *:hover {
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 
-.contacts-profile-card {
-    text-decoration: none; /* Removes underline from link */
-    color: inherit; /* Ensures the link uses the inherited text color */
-}
-
-.contacts-profile-card:hover {
-    text-decoration: none; /* Ensures underline doesn't appear on hover */
-}
 
 /***** END OF CONTACTS CSS ******/
 
@@ -547,7 +592,6 @@ select, textarea {
     min-width: 150px;
     flex-direction: row-reverse;
 }
-
 
 /* old people's styles */
 
@@ -574,33 +618,167 @@ select, textarea {
 }
 
 /* Logout button styles */
-.logout-button {
-    margin-right: 0; /* Pushes other items to the right */
-    font-family: var(--primary-font), sans-serif;
-    font-size: 20px;
-    color: var(--text_color);
-    cursor: pointer;
-    order: -1; /* Ensures it's the first item */
-    position: absolute; /* Add this */
-    left: 30px; /* Add this */
-    top: 35px; /* Add this */
-    z-index: 10;
-    
+.menu-bar-old {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 5px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 250px; /* Maximum width for the menu bar */
 }
 
-Copy.menu-bar > :not(.logout-button) {
+/* Styles for images within menu items */
+.menu-bar-old .menu-item img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Different image size for young menu */
+.menu-bar.young .menu-item img {
+    width: 30px;
+    height: 30px;
+}
+
+/* General logout button styles */
+.logout-button {
+    font-family: var(--primary-font), sans-serif;
+    color: var(--text_color);
+    cursor: pointer;
+    position: absolute;
+    left: 30px;
+    top: 15px;
+    z-index: 10;
+}
+
+/* Logout button styles specific to old menu */
+.logout-button-old {
+    font-size: 25px;
+}
+
+/* Logout button styles specific to young menu */
+.logout-button-young {
+    font-size: 16px;
+}
+
+/* Responsive adjustments for old menu */
+@media (max-width: 768px) {
+    .logout-button-old {
+        left: 20px;
+        top: 25px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logout-button-old {
+        left: 10px;
+        top: 20px;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logout-button-old {
+        left: 5px;
+        top: 15px;
+        font-size: 20px;
+    }
+}
+
+/* Responsive adjustments for young menu */
+@media (max-width: 768px) {
+    .logout-button-young {
+        left: 20px;
+        top: 25px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logout-button-young {
+        left: 10px;
+        top: 22px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logout-button-young {
+        left: 5px;
+        top: 15px;
+        font-size: 12px;
+    }
+}
+
+/* Menu bar styles */
+.menu-bar-old,
+.menu-bar-young {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 5px 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 250px;
+}
+
+/* Styles for images within menu items */
+.menu-bar-old .menu-item img {
+    width: 50px; /* Default larger size for old menu */
+    height: 50px;
+}
+
+.menu-bar-young .menu-item img {
+    width: 30px; /* Default smaller size for young menu */
+    height: 30px;
+}
+
+/* Ensure proper spacing for other menu items */
+.menu-bar-old > :not(.logout-button-old) {
     margin-left: 3px;
     margin-right: 0;
 }
 
-/* Add this if you want a larger font for the old menu */
-.menu-bar-old .logout-button {
-    font-size: 18px;
+.menu-bar-young > :not(.logout-button-young) {
+    margin-left: 3px;
+    margin-right: 0;
 }
 
-.menu-item:first-of-type {
-    margin-left: 15px; /* Pushes first icon to the right, after logout */
+/* Push first icon to the right, after logout button */
+.menu-bar-old .menu-item:first-of-type,
+.menu-bar-young .menu-item:first-of-type {
+    margin-left: 15px;
 }
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .menu-bar-old .menu-item img {
+        width: 40px; /* Adjust size for tablets and smaller screens */
+        height: 40px;
+    }
+
+    .menu-bar-young .menu-item img {
+        width: 25px; /* Adjust size for tablets and smaller screens */
+        height: 25px;
+    }
+}
+
+/* Responsive design for very small screens */
+@media (max-width: 480px) {
+    .menu-bar-old .menu-item img {
+        width: 30px; /* Further adjust size for very small screens */
+        height: 30px;
+    }
+
+    .menu-bar-young .menu-item img {
+        width: 20px; /* Further adjust size for very small screens */
+        height: 20px;
+    }
+}
+
 
 .skill-popup {
     position: fixed;
@@ -651,7 +829,6 @@ Copy.menu-bar > :not(.logout-button) {
 .close-popup:hover {
     background-color: var(--secondry_light);
 }
-
 
 .elder-warning-popup {
     position: fixed;
@@ -705,4 +882,23 @@ Copy.menu-bar > :not(.logout-button) {
 
 .elder-warning-popup .close-popup:hover {
     background-color: var(--secondry_light);
+}
+
+
+.back-arrow {
+    display: inline-block;  /* Makes the link inline with other content, if necessary */
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-decoration: none;  /* Removes any underline from the link */
+}
+
+.back-arrow img {
+    width: 24px;  /* Set appropriate size for the arrow icon */
+    height: auto;  /* Maintains the aspect ratio */
+    display: block;  /* Ensures the image takes up the full space of its line */
+}
+
+.back-arrow:hover img {
+    opacity: 0.8;  /* Provides visual feedback on hover */
 }

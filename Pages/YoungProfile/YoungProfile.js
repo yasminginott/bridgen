@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const storage = getStorage(app);
 
     const editIcon = document.getElementById("edit-button");
-    const editableElements = ["young_name", "young_location", "young_description"];
+    const editableElements = ["young_name", "young_age", "young_location", "young_description"];
     let isEditing = false;
     let currentUserData = null;
     let currentUserId = null;
@@ -41,6 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Update HTML elements with data from Firebase
                 document.getElementById('young_name').textContent = userData.fullName || "No Name";
+                const ageElement = document.getElementById('young_age');
+                const ageSeparator = document.querySelector('.age-separator');
+                
+                if (userData.age) {
+                    ageElement.textContent = userData.age;
+                    ageSeparator.style.display = 'inline'; // Show the comma
+                } else {
+                    ageElement.textContent = "";
+                    ageSeparator.style.display = 'none'; // Hide the comma
+                }
                 document.getElementById('young_location').textContent = userData.neighborhood || "No Location";
                 document.getElementById('young_description').textContent = userData.aboutMe || "No Description";
     
@@ -146,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const updatedData = {
             fullName: document.getElementById('young_name').textContent,
+            age: document.getElementById('young_age').textContent || null, // Use null if age is empty
             neighborhood: document.getElementById('young_location').textContent,
             aboutMe: document.getElementById('young_description').textContent
         };
@@ -153,6 +164,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const userRef = doc(db, "users", currentUserId);
         updateDoc(userRef, updatedData).then(() => {
             console.log("Document successfully updated!");
+            // Update the display of the age separator
+            const ageSeparator = document.querySelector('.age-separator');
+            ageSeparator.style.display = updatedData.age ? 'inline' : 'none';
+            
         }).catch((error) => {
             console.error("Error updating document: ", error);
         });

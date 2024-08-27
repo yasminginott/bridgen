@@ -16,15 +16,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const storage = getStorage(app);
-
+    
     const profilesContainer = document.querySelector('.profile-cards');
     const filters = document.querySelectorAll('.filter-button');
     const searchBar = document.querySelector('.search-bar');
 
-    // Clear all static profile cards
-    profilesContainer.innerHTML = '';
-
     // Fetch all documents from the 'users' collection
+    profilesContainer.innerHTML = ''; // Clear any static content before fetching
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach(doc => {
         const userData = doc.data();
@@ -34,7 +32,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // Add event listeners for filters and search bar
+    function updateDisplay() {
+        const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter').trim().toLowerCase();
+        const searchQuery = searchBar.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.profile-card');
+
+        cards.forEach(card => {
+            let isVisible = true; // Start with visible
+
+            if (activeFilter !== 'all') {
+                const cardText = card.textContent.toLowerCase();
+                isVisible = cardText.includes({
+                    'ספרדית': 'ספרדית',
+                    'סריגה': 'סריגה',
+                    'שמחט': 'שחמט',
+                    'אנגלית': 'אנגלית'
+                }[activeFilter]);
+            }
+
+            if (searchQuery) {
+                isVisible = isVisible && card.textContent.toLowerCase().includes(searchQuery);
+            }
+
+            card.style.display = isVisible ? '' : 'none';
+        });
+    }
+
     filters.forEach(filter => {
         filter.addEventListener('click', function() {
             filters.forEach(btn => btn.classList.remove('active'));
@@ -45,40 +68,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     searchBar.addEventListener('input', updateDisplay);
 
-    function updateDisplay() {
-        const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter').trim().toLowerCase();
-        const searchQuery = searchBar.value.trim().toLowerCase();
-    
-        const cards = document.querySelectorAll('.profile-card');
-        cards.forEach(card => {
-            const skills = card.querySelectorAll('.skill');
-            // Normalize text and compare categories
-            const categoryMatch = Array.from(skills).some(skill => {
-                const skillCategory = skill.getAttribute('data-category').trim().toLowerCase();
-                return skillCategory === activeFilter;
-            });
-    
-            let isVisible = (activeFilter === 'all' || categoryMatch) &&
-                            (card.textContent.toLowerCase().includes(searchQuery));
-            card.style.display = isVisible ? '' : 'none';
-        });
-    }
-    
-
     function createProfileCard(userData, container, storage) {
         const link = document.createElement('a');
         link.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${userData.uid}`;
         link.className = 'profile-link';
-        link.setAttribute('target', '_blank');
-
+    
         const card = document.createElement('div');
         card.className = 'profile-card';
-
+    
         const img = document.createElement('img');
         img.className = 'profile-img';
         img.alt = 'Profile Image';
-
-        // Fetch and set profile picture
+    
+        // Set the default image first
+        img.src = '/public/icons/default_profile_pic.jpg';
+    
+        // Fetch and set the real profile picture
         const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
         getDownloadURL(storageRef)
             .then((url) => {
@@ -86,13 +91,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
             .catch((error) => {
                 console.error("Error getting profile picture:", error);
-                img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
+                // img.src already has the default picture, no need to change it
             });
-
+    
         const skillsContent = userData.skills?.map(skill => {
             return `<span class="skill" data-category="${skill.category}">${skill.subCategory}</span>`;
         }).join(', ') || 'No skills listed.';
-
+    
         card.innerHTML = `
             <h2>${userData.fullName}, ${userData.age}</h2>
             <p>${userData.neighborhood}</p>
@@ -103,4 +108,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         link.appendChild(card);
         container.appendChild(link);
     }
+    
 });

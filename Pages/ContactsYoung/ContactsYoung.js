@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createProfileCard(contactData, userData, container) {
         const card = document.createElement('a');
-        card.className = 'contacts-profile-card';
+        card.className = 'contacts-profile-card no-underline';
         card.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${contactData.uid}`; // Correct link
 
         const img = document.createElement('img');
