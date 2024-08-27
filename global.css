@@ -554,29 +554,28 @@ select, textarea {
 
 /* Remove link behavior from profile cards */
 .contacts-profile-card a {
-    text-decoration: none; /* Remove underline from links */
-    color: inherit; /* Ensure the link text uses the inherited color */
+    text-decoration: none !important;
+    color: inherit !important; /* Forcefully inherit the color */
     cursor: default; /* Change cursor to default to avoid link cursor */
+    display: block;
 }
 
-/* Remove any underline on hover */
 .contacts-profile-card a:hover {
-    text-decoration: none; /* Ensure no underline on hover */
+    text-decoration: none !important; /* Ensure no underline on hover */
 }
 
-/* Ensure the profile link does not inherit link styles */
-.contacts-profile-link {
-    text-decoration: none;  
-    color: inherit; 
-    display: block; 
-    cursor: default; /* Change cursor to default */
-}
-
-/* Targeting specifically for h2 and p within links to ensure no link styles apply */
+/* Specifically target the text within the link to prevent any underline or color change */
 .contacts-profile-card a h2, 
 .contacts-profile-card a p {
     text-decoration: none !important;
     color: var(--text_color) !important; /* Ensure it matches the rest of the text */
+}
+
+/* Additionally, apply styles to all nested elements to remove underlines */
+.contacts-profile-card a *,
+.contacts-profile-card a *:hover {
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 
