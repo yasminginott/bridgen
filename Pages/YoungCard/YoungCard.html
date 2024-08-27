@@ -144,7 +144,7 @@
             popup.className = 'skill-popup';
 
             const popupContent = document.createElement('div');
-            popupContent.className = 'popup-content';
+            popupContent.className = 'popup-content-old';
 
             const skillTitle = document.createElement('h3');
             skillTitle.textContent = skill; // הצגת ה-subCategory בפופ-אפ
@@ -155,7 +155,7 @@
             popupContent.appendChild(skillDescription);
 
             const closeButton = document.createElement('button');
-            closeButton.className = 'close-popup';
+            closeButton.className = 'close-popup-old';
             closeButton.textContent = 'סגור';
             closeButton.onclick = function() {
                 document.body.removeChild(popup);
