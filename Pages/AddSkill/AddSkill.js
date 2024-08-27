@@ -1,41 +1,40 @@
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+// Import necessary Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getFirestore, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
+
+    // Firebase configuration (replace with your own Firebase config)
     const firebaseConfig = {
         apiKey: "AIzaSyCzNqsSP6qQjFVpv7N_2cxIAFLUOpSs_U8",
         authDomain: "bridgen-988cb.firebaseapp.com",
+        databaseURL: "https://bridgen-988cb-default-rtdb.firebaseio.com",
         projectId: "bridgen-988cb",
         storageBucket: "bridgen-988cb.appspot.com",
         messagingSenderId: "1092821735169",
         appId: "1:1092821735169:web:5ffcb2524743959f8a2d00"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-    document.addEventListener('DOMContentLoaded', () => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                const userData = userSnap.data();
-
-                const backArrow = document.getElementById('backArrow');
-                if (userData.experienced === "true") {
-                    backArrow.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${user.uid}`;
-                } else {
-                    backArrow.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${user.uid}`;
-                }
-
-                setupFormSubmission(user);
-            } else {
-                window.location.href = '/Pages/EnteryScreen/EnteryScreen.html';
-            }
-        });
+document.addEventListener('DOMContentLoaded', () => {
+    // Authenticate and set up the user session
+    onAuthStateChanged(auth, user => {
+        if (user) {
+            setupFormEventListeners(user.uid);
+        } else {
+            window.location.href = '/Pages/EnteryScreen/EnteryScreen.html'; // Redirect if not logged in
+        }
     });
 
-    // Rest of your JavaScript for handling form submissions and other interactions
-</script>
+    // Handle the back arrow functionality
+    const backArrow = document.getElementById('backArrow');
+    backArrow.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default anchor behavior
+        window.history.back(); // Go back to the previous page in history
+    });
+});
+
