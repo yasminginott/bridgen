@@ -537,7 +537,8 @@ select, textarea {
 .contacts-profile-card h2, .contacts-profile-card p {
     margin: 0; /* Ensure margins are consistent */
     text-align: right; /* Ensure text is aligned right */
-    color: inherit; /* Inherit color */
+    color: var(--text_color); /* Ensure text uses the correct color */
+    text-decoration: none; /* Remove any underline */
 }
 
 .contacts-profile-card h2 {
@@ -551,37 +552,31 @@ select, textarea {
     color: var(--text_color_secondry); /* Ensure the secondary text color */
 }
 
-.contacts-profile-card.no-underline {
-    text-decoration: none;
-    color: inherit; /* Ensure it inherits the color styles */
+/* Remove link behavior from profile cards */
+.contacts-profile-card a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Ensure the link text uses the inherited color */
+    cursor: default; /* Change cursor to default to avoid link cursor */
 }
 
-.contacts-profile-card:hover {
+/* Remove any underline on hover */
+.contacts-profile-card a:hover {
     text-decoration: none; /* Ensure no underline on hover */
 }
 
+/* Ensure the profile link does not inherit link styles */
 .contacts-profile-link {
     text-decoration: none;  
     color: inherit; 
     display: block; 
+    cursor: default; /* Change cursor to default */
 }
 
-.contacts-profile-card a {
-    text-decoration: none !important;
-    color: inherit !important; /* Forcefully inherit the color */
-}
-
-.contacts-profile-card h2, 
-.contacts-profile-card p {
-    color: var(--text_color) !important; /* Forcefully set the color */
-    text-decoration: none !important; /* Forcefully remove the underline */
-}
-
-/* Specifically target the anchor tags within the profile card to ensure no underline or color change */
+/* Targeting specifically for h2 and p within links to ensure no link styles apply */
 .contacts-profile-card a h2, 
 .contacts-profile-card a p {
     text-decoration: none !important;
-    color: var(--text_color) !important; /* Match the color to the rest of the text */
+    color: var(--text_color) !important; /* Ensure it matches the rest of the text */
 }
 
 
