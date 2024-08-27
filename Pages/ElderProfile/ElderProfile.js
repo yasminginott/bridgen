@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     saveButton.id = "save-button";
     editIcon.parentNode.insertBefore(saveButton, editIcon.nextSibling);
 
+    // Add inline styles to make the button larger
+    saveButton.style.padding = "15px 20px";
+    saveButton.style.fontSize = "25px"; // Increase the font size
+
     function fetchAndDisplayUserData(userId) {
         console.log("Fetching data for user ID:", userId);
         const docRef = doc(db, "users", userId);
