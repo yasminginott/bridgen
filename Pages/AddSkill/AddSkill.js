@@ -21,15 +21,6 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Authenticate and set up the user session
-    onAuthStateChanged(auth, user => {
-        if (user) {
-            setupFormEventListeners(user.uid);
-        } else {
-            window.location.href = '/Pages/EnteryScreen/EnteryScreen.html'; // Redirect if not logged in
-        }
-    });
-
     // Handle the back arrow functionality
     const backArrow = document.getElementById('backArrow');
     backArrow.addEventListener('click', (event) => {

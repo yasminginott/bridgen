@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    
+    var backArrow = document.getElementById('backArrow'); // Ensure there is an element with id 'backArrow'
+    if (backArrow) {
+        backArrow.addEventListener('click', function() {
+            window.history.back(); // Go back to the previous page in history
+        });
+    }
+
+
     var firstSelect = document.getElementById('firstSelect');
     var secondSelect = document.getElementById('secondSelect');
     if (firstSelect && secondSelect) {
