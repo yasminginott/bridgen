@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             getDoc(userRef).then((docSnap) => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
-                    console.log("User Data:", userData); // Debug user data
+                    //console.log("User Data:", userData); // Debug user data
 
                     // Ensure FriendRequests and Friends are arrays before using them
                     const friendRequests = Array.isArray(userData.FriendRequests) ? userData.FriendRequests : [];
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ...friends
                     ].filter(id => id !== user.uid); // Exclude user's own profile
 
-                    console.log("Combined Contacts IDs:", contactsIds); // Debug combined IDs
+                    //console.log("Combined Contacts IDs:", contactsIds); // Debug combined IDs
 
                     contactsIds.forEach(contactId => {
                         const contactRef = doc(db, "users", contactId);
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (contactSnap.exists()) {
                                 const contactData = contactSnap.data();
                                 contactData.uid = contactSnap.id; // Ensure UID is set correctly
-                                console.log("Contact Data:", contactData); // Debug contact data
+                                //console.log("Contact Data:", contactData); // Debug contact data
                                 createProfileCard(contactData, friends, friendRequests, profilesContainer);
                             }
                         }).catch(error => {
