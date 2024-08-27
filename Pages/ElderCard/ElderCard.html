@@ -42,8 +42,9 @@
                     const userData = docSnap.data();
 
                     document.querySelector("h1.right-aligned").textContent = `${userData.fullName}, ${userData.age}`;
-                    document.querySelector(".inline p").textContent = userData.neighborhood;
-                    document.querySelector("p").textContent = userData.aboutMe;
+                    document.querySelector("#neighborhood").textContent = userData.neighborhood; // מציג את השכונה
+                    document.querySelector("#aboutMe").textContent = userData.aboutMe; // מציג את ה-aboutMe
+
 
                     const addButton = document.getElementById('addButton');
 
@@ -196,9 +197,9 @@
         <h1 class="right-aligned"></h1> 
         <div class="inline">
             <img style="margin-left: 5px;" src="/public/icons/location_icon.svg" alt="Location Icon"> 
-            <p></p>
+            <p id="neighborhood"></p> <!-- הוספתי id ייחודי לשכונה -->
         </div>
-        <p></p>
+        <p id="aboutMe"></p> <!-- הוספתי id ייחודי ל-aboutMe -->
         <h2>אשמח ללמד אתכם</h2>
         <br>
         <div class="button-container">
@@ -211,7 +212,8 @@
                 הצע חברות
             </button>
         </div>
-
+    </div>
+    
         <!-- פופ-אפ אזהרה לפני מעבר ל-WhatsApp -->
         <div id="standardPopup" class="skill-popup" style="display: none;">
             <div class="popup-content">
