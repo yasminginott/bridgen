@@ -72,15 +72,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const link = document.createElement('a');
         link.href = `https://bridgen.vercel.app/Pages/ElderCard/ElderCard.html?uid=${userData.uid}`;
         link.className = 'profile-link';
-        //link.setAttribute('target', '_blank'); does not open profile card in new tab.
-
+    
         const card = document.createElement('div');
         card.className = 'profile-card';
-
+    
         const img = document.createElement('img');
         img.className = 'profile-img';
         img.alt = 'Profile Image';
-
+    
+        // Set the default image first
+        img.src = '/public/icons/default_profile_pic.jpg';
+    
+        // Fetch and set the real profile picture
         const storageRef = ref(storage, `profile_pictures/${userData.uid}`);
         getDownloadURL(storageRef)
             .then((url) => {
@@ -88,13 +91,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
             .catch((error) => {
                 console.error("Error getting profile picture:", error);
-                img.src = '/public/icons/default_profile_pic.jpg'; // Default image if error
+                // img.src already has the default picture, no need to change it
             });
-
+    
         const skillsContent = userData.skills?.map(skill => {
             return `<span class="skill" data-category="${skill.category}">${skill.subCategory}</span>`;
         }).join(', ') || 'No skills listed.';
-
+    
         card.innerHTML = `
             <h2>${userData.fullName}, ${userData.age}</h2>
             <p>${userData.neighborhood}</p>
@@ -105,4 +108,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         link.appendChild(card);
         container.appendChild(link);
     }
+    
 });
