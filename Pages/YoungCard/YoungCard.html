@@ -46,8 +46,12 @@
                     const currentUserData = currentUserSnap.data();
 
                     document.querySelector("h1.right-aligned").textContent = `${youngData.fullName}, ${youngData.age}`;
+                    document.querySelector("h1.right-aligned").style.fontSize = "40px";
                     document.querySelector(".inline p").textContent = youngData.neighborhood;
+                    document.querySelector(".inline p").style.fontSize = "25px";
                     document.querySelector(".description").textContent = youngData.aboutMe;
+                    document.querySelector(".description").style.fontSize = "25px";
+                    
 
 
                     const addButton = document.getElementById('addButton');
@@ -58,7 +62,7 @@
                             approveFriendRequest(youngUID, currentUserUID);
                         };
                     } else if (currentUserData.Friends && currentUserData.Friends.includes(youngUID)) {
-                        addButton.textContent = 'שלח חודעה ב-WhatsApp';
+                        addButton.textContent = 'שלח הודעה ב-WhatsApp';
                         addButton.onclick = function() {
                             var message = 'היי! הגעתי מהאפליקציה BridGen, אשמח שנקבע להיפגש!';
                             var whatsappUrl = 'https://api.whatsapp.com/send?phone=972' + youngData.phoneNumber + '&text=' + encodeURIComponent(message);
