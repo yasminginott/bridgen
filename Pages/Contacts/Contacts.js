@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const contactData = contactSnap.data();
                                 contactData.uid = contactSnap.id; // Ensure UID is set correctly
                                 console.log("Contact Data:", contactData); // Debug contact data
-                                createProfileCard(contactData, userData, profilesContainer);
+                                createProfileCard(contactData, friends, friendRequests, profilesContainer);
                             }
                         }).catch(error => {
                             console.error("Error fetching contact data:", error);
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function createProfileCard(contactData, userData, container) {
+    function createProfileCard(contactData, friends, friendRequests, container) {
         const card = document.createElement('a');
         card.className = 'contacts-profile-card';
         card.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${contactData.uid}`;
@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         location.textContent = contactData.neighborhood;
 
         const status = document.createElement('p');
-        if (friends.includes(contactData.uid)) { // Use friends array checked earlier
+        if (friends.includes(contactData.uid)) { // Use friends array passed earlier
             status.textContent = 'חבר/ה';
-        } else if (friendRequests.includes(contactData.uid)) { // Use friendRequests array checked earlier
+        } else if (friendRequests.includes(contactData.uid)) { // Use friendRequests array passed earlier
             status.textContent = 'ממתין לאישור';
         }
         status.className = 'contacts-profile-status';
