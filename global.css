@@ -567,15 +567,23 @@ select, textarea {
 }
 
 .contacts-profile-card a {
-    text-decoration: none;
-    color: inherit; /* This ensures the text inside the link inherits the parent color */
+    text-decoration: none !important;
+    color: inherit !important; /* Forcefully inherit the color */
 }
 
 .contacts-profile-card h2, 
 .contacts-profile-card p {
-    color: var(--text_color); /* or specify the color directly */
-    text-decoration: none; /* Ensure no underline */
+    color: var(--text_color) !important; /* Forcefully set the color */
+    text-decoration: none !important; /* Forcefully remove the underline */
 }
+
+/* Specifically target the anchor tags within the profile card to ensure no underline or color change */
+.contacts-profile-card a h2, 
+.contacts-profile-card a p {
+    text-decoration: none !important;
+    color: var(--text_color) !important; /* Match the color to the rest of the text */
+}
+
 
 
 /***** END OF CONTACTS CSS ******/
