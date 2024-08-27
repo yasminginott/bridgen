@@ -18,9 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const userData = docSnap.data();
                     console.log("User Data:", userData); // Debug user data
 
+                    // Ensure FriendRequests and Friends are arrays before using them
+                    const friendRequests = Array.isArray(userData.FriendRequests) ? userData.FriendRequests : [];
+                    const friends = Array.isArray(userData.Friends) ? userData.Friends : [];
+
                     const contactsIds = [
-                        ...(Array.isArray(userData.FriendRequests) ? userData.FriendRequests : []),
-                        ...(Array.isArray(userData.Friends) ? userData.Friends : [])
+                        ...friendRequests,
+                        ...friends
                     ].filter(id => id !== user.uid); // Exclude user's own profile
 
                     console.log("Combined Contacts IDs:", contactsIds); // Debug combined IDs
@@ -34,10 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
                                 console.log("Contact Data:", contactData); // Debug contact data
                                 createProfileCard(contactData, userData, profilesContainer);
                             }
+                        }).catch(error => {
+                            console.error("Error fetching contact data:", error);
                         });
                     });
+                } else {
+                    console.log("No user data available.");
                 }
+            }).catch(error => {
+                console.error("Error fetching user data:", error);
             });
+        } else {
+            console.log("No user is signed in.");
         }
     });
 
@@ -72,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         location.textContent = contactData.neighborhood;
 
         const status = document.createElement('p');
-        if (userData.Friends.includes(contactData.uid)) {
+        if (friends.includes(contactData.uid)) { // Use friends array checked earlier
             status.textContent = 'חבר/ה';
-        } else if (userData.FriendRequests.includes(contactData.uid)) {
+        } else if (friendRequests.includes(contactData.uid)) { // Use friendRequests array checked earlier
             status.textContent = 'ממתין לאישור';
         }
         status.className = 'contacts-profile-status';
