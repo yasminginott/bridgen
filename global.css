@@ -883,3 +883,22 @@ select, textarea {
 .elder-warning-popup .close-popup:hover {
     background-color: var(--secondry_light);
 }
+
+
+.back-arrow {
+    display: inline-block;  /* Makes the link inline with other content, if necessary */
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-decoration: none;  /* Removes any underline from the link */
+}
+
+.back-arrow img {
+    width: 24px;  /* Set appropriate size for the arrow icon */
+    height: auto;  /* Maintains the aspect ratio */
+    display: block;  /* Ensures the image takes up the full space of its line */
+}
+
+.back-arrow:hover img {
+    opacity: 0.8;  /* Provides visual feedback on hover */
+}
