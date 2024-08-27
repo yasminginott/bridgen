@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createProfileCard(contactData, friends, friendRequests, container) {
         const card = document.createElement('a');
-        card.className = 'contacts-profile-card';
+        card.className = 'contacts-profile-card no-underline';
         card.href = `https://bridgen.vercel.app/Pages/YoungCard/YoungCard.html?uid=${contactData.uid}`;
 
         const img = document.createElement('img');
