@@ -566,6 +566,18 @@ select, textarea {
     display: block; 
 }
 
+.contacts-profile-card a {
+    text-decoration: none;
+    color: inherit; /* This ensures the text inside the link inherits the parent color */
+}
+
+.contacts-profile-card h2, 
+.contacts-profile-card p {
+    color: var(--text_color); /* or specify the color directly */
+    text-decoration: none; /* Ensure no underline */
+}
+
+
 /***** END OF CONTACTS CSS ******/
 
 .add-skill-page .card {
