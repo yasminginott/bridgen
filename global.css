@@ -508,43 +508,62 @@ select, textarea {
 }
 
 .contacts-profile-cards {
-    display: flex;
-    justify-content: flex-start; /* Align the single profile card to the left */
-    margin-top: 20px; /* Space above the profile cards section */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Ensures two columns */
+    gap: 20px; /* Adjust gap if needed */
+    padding: 0 10px; /* Padding inside the grid */
 }
 
 .contacts-profile-card {
-    background-color: white; /* Card background color */
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
-    width: 200px; /* Smaller width for the profile card */
+    text-align: right;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* This will make the card fill the column */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures no overflow */
 }
 
-.contacts-profile-img {
-    width: 150px; /* Smaller width for the image */
-    height: auto;
-    border-radius: 5px;
+.contacts-profile-card img {
+    width: 100%; /* Full width of the card */
+    height: auto; /* Height adjusts to maintain aspect ratio */
+    max-height: 200px; /* Maximum height for consistency */
+    object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
+    border-radius: 5px; /* Matches the card border radius */
+}
+
+.contacts-profile-card h2, .contacts-profile-card p {
+    margin: 0; /* Ensure margins are consistent */
+    text-align: right; /* Ensure text is aligned right */
+    color: inherit; /* Inherit color */
 }
 
 .contacts-profile-card h2 {
-    margin: 10px 0;
+    margin-top: 10px;
     font-size: 18px;
 }
 
 .contacts-profile-card p {
+    margin-top: 5px;
     font-size: 14px;
-    color: var(--text_color_secondry);
+    color: var(--text_color_secondry); /* Ensure the secondary text color */
 }
 
-.contacts-profile-card {
-    text-decoration: none; /* Removes underline from link */
-    color: inherit; /* Ensures the link uses the inherited text color */
+.contacts-profile-card.no-underline {
+    text-decoration: none;
+    color: inherit; /* Ensure it inherits the color styles */
 }
 
 .contacts-profile-card:hover {
-    text-decoration: none; /* Ensures underline doesn't appear on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+.contacts-profile-link {
+    text-decoration: none;  
+    color: inherit; 
+    display: block; 
 }
 
 /***** END OF CONTACTS CSS ******/
