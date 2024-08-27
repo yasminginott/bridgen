@@ -56,7 +56,13 @@ html, body {
 
 }
 .right-aligned {
-    text-align: right;  }
+    text-align: right;  
+}
+
+.right-aligned-old {
+    text-align: right;
+    font-size: 40px;
+}
 
 .profile-img {
     width: 388px;
