@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (skills && skills.length > 0) {
             skills.forEach(skill => {
                 const button = document.createElement('button');
-                button.className = 'skill_button';
+                button.className = 'skill_button_old';
                 button.textContent = skill.subCategory;
                 button.setAttribute('data-category', skill.category);
                 button.setAttribute('data-description', skill.description);
@@ -105,10 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const popup = document.createElement('div');
         popup.className = 'skill-popup';
         popup.innerHTML = `
-            <div class="popup-content">
+            <div class="popup-content-old">
                 <h3>${subCategory}</h3>
                 <p>${description}</p>
-                <button class="close-popup">סגור</button>
+                <button class="close-popup-old">סגור</button>
             </div>
         `;
     
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(popup);
     
         // Add event listener to close button
-        popup.querySelector('.close-popup').addEventListener('click', () => {
+        popup.querySelector('.close-popup-old').addEventListener('click', () => {
             document.body.removeChild(popup);
         });
     

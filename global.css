@@ -88,6 +88,13 @@ h2{
     color: var(--text_color);
     text-align:right
 }
+h2-old{
+    font-family: var(--primary-font),sans-serif;
+    color: var(--text_color);
+    text-align:right;
+    font-size: 30px;
+    font-weight: bold;
+}
 h3{
     font-family: var(--primary-font),sans-serif;
     color: var(--text_color);
@@ -109,14 +116,21 @@ p{
     text-align:right
 }
 
+p-old{
+    font-family: var(--primary-font);
+    color: var(--text_color_secondry);
+    font-size: 25px;
+    text-align:right
+}
+
 .card {
     display: flex;
     flex-direction: column;
     text-align: right; /* Keep text aligned to the right */
     padding-right: 1rem;
     padding-left: 1rem;
-    border: 0.0625rem solid #ddd;
-    border-radius: 1.05rem;
+    /* border: 0.0625rem solid #ddd; */
+    /* border-radius: 1.05rem; */
     background-color: var(--background_color);
     width: calc(100% - 2rem);
      /* Adjust width to account for padding */
@@ -179,9 +193,64 @@ p{
     color: #fff;
 
 }
+
+.skill_button_old{
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 100px;
+    border-style: none;
+    border-color: var(--secondry_dark);
+    box-sizing: border-box;
+    color: var(--secondry_dark);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: 'Rubik', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    height: 60px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+    border: 2px solid var(--secondry_dark); 
+}
+.skill_button_old:hover{
+    background-color: var(--secondry_dark);
+    color: #fff;
+
+}
 .plus-button {
     width: 26px;
     height: 26px;
+    background-color: white; /* Button background color */
+    border: 2px solid black; /* Black border */
+    border-radius: 50%; /* Make it a circle */
+    color: black; /* Plus sign color */
+    font-size: 20px; /* Plus sign size */
+    text-align: center; /* Center the text */
+    line-height: 22px; /* Center the plus sign vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+    vertical-align: middle; /* Align vertically with h2 text */
+    margin-right: 15px; /* Optional: Add some space between h2 and button */    
+}
+
+.plus-button-old {
+    width: 40px;
+    height: 40px;
     background-color: white; /* Button background color */
     border: 2px solid black; /* Black border */
     border-radius: 50%; /* Make it a circle */
@@ -198,6 +267,12 @@ p{
     background-color: #3C2F2F; /* Slightly darker on hover */
     color: white;
 }
+
+.plus-button-old:hover {
+    background-color: #3C2F2F; /* Slightly darker on hover */
+    color: white;
+}
+
 
 .inline {
     display: inline-flex; 
@@ -216,6 +291,35 @@ p{
     vertical-align: top; 
 }
 
+.inline-old {
+    display: inline-flex; 
+    align-items: center; /* Align vertically with button */
+}
+
+.inline-old-icon {
+    display: inline-flex;
+    align-items: center; /* Align vertically with text */
+}
+
+.inline-old-icon img {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Adjust the size as needed */
+    margin-right: 10px; /* Add space between the text and the icon */
+    vertical-align: top; 
+}
+
+.inline-icon-old {
+    display: inline-flex;
+    align-items: center; /* Align vertically with text */
+}
+
+.inline-icon-old img {
+    width: 45px; /* Adjust the size as needed */
+    height: 45px; /* Adjust the size as needed */
+    margin-right: 10px; /* Add space between the text and the icon */
+    vertical-align: top; 
+}
+
 .menu-bar {
     display: flex;
     justify-content: flex-start; /* Aligns items to the start (left) */
@@ -228,6 +332,7 @@ p{
     max-width: 250px; /* For old menu */
     position: static;
     align-self: flex-start;
+    width: 100%;
 }
 
 .menu-item {
@@ -255,6 +360,13 @@ p{
     cursor: pointer;
     width: 24px;
     height: 24px;
+    transition: opacity 0.3s ease;
+  }
+
+  .edit-icon-old {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
     transition: opacity 0.3s ease;
   }
   
@@ -488,7 +600,8 @@ select, textarea {
 .contacts-title-container {
     text-align: left; /* Align text to the left */
     margin-bottom: 20px; /* Add some space below the title */
-    padding-left: 10px; /* Added padding to align title properly */
+    /* padding-left: 10px;  */
+    /* Added padding to align title properly */
     display: flex;
     flex-direction: column;
     align-items: center; /* Center align the content horizontally */
@@ -654,7 +767,7 @@ select, textarea {
 
 /* Logout button styles specific to old menu */
 .logout-button-old {
-    font-size: 25px;
+    font-size: 40px;
 }
 
 /* Logout button styles specific to young menu */
@@ -667,7 +780,7 @@ select, textarea {
     .logout-button-old {
         left: 20px;
         top: 25px;
-        font-size: 30px;
+        font-size: 40px;
     }
 }
 
@@ -675,7 +788,7 @@ select, textarea {
     .logout-button-old {
         left: 10px;
         top: 20px;
-        font-size: 25px;
+        font-size: 35px;
     }
 }
 
@@ -683,7 +796,7 @@ select, textarea {
     .logout-button-old {
         left: 5px;
         top: 15px;
-        font-size: 20px;
+        font-size: 30px;
     }
 }
 
@@ -804,6 +917,7 @@ select, textarea {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 .popup-content h3 {
     text-align: center;
     margin-top: 0;
@@ -814,6 +928,31 @@ select, textarea {
     text-align: center;
     margin-bottom: 20px;
     color: #666;
+}
+
+.popup-content-old {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content-old h3 {
+    text-align: center;
+    margin-top: 0;
+    color: #333;
+    font-size: 40px;
+}
+
+.popup-content-old p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 30px;
 }
 
 .close-popup {
@@ -827,6 +966,21 @@ select, textarea {
 }
 
 .close-popup:hover {
+    background-color: var(--secondry_light);
+}
+
+.close-popup-old {
+    background-color: var(--secondry_dark);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.close-popup-old:hover {
     background-color: var(--secondry_light);
 }
 
@@ -901,4 +1055,19 @@ select, textarea {
 
 .back-arrow:hover img {
     opacity: 0.8;  /* Provides visual feedback on hover */
+}
+
+
+/* trying to fix padding on contacts */
+.contacts-title-container,
+.contacts-page-title,
+.contacts-profile-cards {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 388px; /* Match the width of the profile image in page 2 */
+    margin: 0 auto;
 }

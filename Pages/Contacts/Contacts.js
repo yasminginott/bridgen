@@ -77,13 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("UID is undefined, cannot fetch profile picture");
         }
 
-        const name = document.createElement('h2');
+        const name = document.createElement('h2-old');
         name.textContent = contactData.fullName;
 
         const location = document.createElement('p');
         location.textContent = contactData.neighborhood;
+        location.style.fontSize = '25px';
 
         const status = document.createElement('p');
+        status.style.fontSize = '25px';
         if (friends.includes(contactData.uid)) { // Use friends array passed earlier
             status.textContent = 'חבר/ה';
         } else if (friendRequests.includes(contactData.uid)) { // Use friendRequests array passed earlier
