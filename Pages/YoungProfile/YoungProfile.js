@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
     editIcon.parentNode.insertBefore(saveButton, editIcon.nextSibling);
 
     function fetchAndDisplayUserData(userId) {
-        console.log("Fetching data for user ID:", userId);
+        //console.log("Fetching data for user ID:", userId);
         const docRef = doc(db, "users", userId);
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
                 const userData = docSnap.data();
-                console.log("Fetched user data:", userData);
+                //console.log("Fetched user data:", userData);
                 
                 // Update HTML elements with data from Firebase
                 document.getElementById('young_name').textContent = userData.fullName || "No Name";
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 getDownloadURL(storageRef)
                     .then((url) => {
                         document.querySelector('.profile-img').src = url;
-                        console.log("Profile picture URL:", url);
+                        //console.log("Profile picture URL:", url);
                     })
                     .catch((error) => {
                         console.error("Error getting profile picture:", error);
@@ -128,9 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log("User is signed in:", user.uid);
+            //console.log("User is signed in:", user.uid);
             currentUserId = user.uid;
-            // currentUserId = 'Qn7eTxuHvZeD5a165jvTvqWwTnp2';
             fetchAndDisplayUserData(currentUserId);
         } else {
             console.log("No user is signed in.");
